@@ -1,0 +1,3262 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Western Times - starboard-studios</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/878486443595542568/f1fd7ba5d4d724ce3af4a60002d9e9d7.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Western Times</div>
+        <div class="preamble__entry">Important / starboard-studios</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Enchanted#0001" data-user-id="725110841606799382" style="">Enchanted</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-21 10:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="918939188328554496" id="message-918939188328554496" title="Message sent: 10-Dec-21 10:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Starboard Studios #game-news</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Enchanted#0001" data-user-id="725110841606799382" style="">Enchanted</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-21 10:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="918939217046929418" id="message-918939217046929418" title="Message sent: 10-Dec-21 10:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Starboard Studios #server-news</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Enchanted#0001" data-user-id="725110841606799382" style="">Enchanted</span>
+
+
+        <span class="chatlog__timestamp">10-Dec-21 10:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="918939306482090004" id="message-918939306482090004" title="Message sent: 10-Dec-21 10:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Starboard Studios #sneak-peeks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Dec-21 10:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="919118198840889347" id="message-919118198840889347" title="Message sent: 10-Dec-21 10:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">New stuff:
+• <img loading="lazy" class="emoji " alt="🍉" title="watermelon" src="https://twemoji.maxcdn.com/2/svg/1f349.svg"> <strong>Cool new Animated Server banner!</strong>
+<em>hover over it to check it out!</em>
+
+• <img loading="lazy" class="emoji " alt="🎄" title="christmas_tree" src="https://twemoji.maxcdn.com/2/svg/1f384.svg"> Christmas Countdown Added! <em>(<strong>not</strong> update countdown you silly turkeys)</em>
+
+• <img loading="lazy" class="emoji " alt="🎅" title="santa" src="https://twemoji.maxcdn.com/2/svg/1f385.svg"> Christmas server icon!
+
+•  <img loading="lazy" class="emoji " alt="MEE6" title="MEE6" src="https://cdn.discordapp.com/emojis/404380247891378186.png"> <strong>Mee6 music</strong> commands have been fully enabled for @Level 20+ (see <span class="mention">#deleted-channel</span>)
+• @Level 50+ now has the !clear-queue command
+
+• Updated <span class="mention">#deleted-channel</span>, <span class="mention">#deleted-channel</span> and the faq document
+
+• Updated <span class="mention">#deleted-channel</span> pinned rules, updated <span class="mention">#deleted-channel</span> 
+
+• Lots of permissions fixed and updated, Server pings no longer has access to Event channels 
+<em>(this is how its suppose to be, get Event Pings instead)</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="11-Dec-21 10:18 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-21 02:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="919168833347018754" id="message-919168833347018754" title="Message sent: 11-Dec-21 02:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Rumor has it a mysterious company has been importing some exotic goods from across the seas...</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/478996456766963723/919167611399446538/A_fancy_looking_knife_hmm.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/478996456766963723/919167611399446538/A_fancy_looking_knife_hmm.png" alt="Image attachment" title="Image: A_fancy_looking_knife_hmm.png (1.11 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-21 08:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="919448817408049193" id="message-919448817408049193" title="Message sent: 11-Dec-21 08:41 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/478996456766963723/919447922742030427/unknown.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/478996456766963723/919447922742030427/unknown.png" alt="Image attachment" title="Image: unknown.png (69.78 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Deleted User#0000" data-user-id="456226577798135808" style="">Deleted User</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-21 08:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="919449482448498730" id="message-919449482448498730" title="Message sent: 11-Dec-21 08:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TRADE FEE</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/859384214776053780/8043259ead692863e561ca49ac17433d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rien#9836" data-user-id="859384214776053780" style="color: rgb(155,89,182)">Rien</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-21 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="919449724199763968" id="message-919449724199763968" title="Message sent: 11-Dec-21 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">holy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="919449726565376051" id="message-919449726565376051" title="Message sent: 11-Dec-21 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="919449731988590612" id="message-919449731988590612" title="Message sent: 11-Dec-21 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thjats good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Dec-21 10:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="919479782331256863" id="message-919479782331256863" title="Message sent: 11-Dec-21 10:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Due to popular demand, we&#39;ve changed it to 6 slots ✨</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/478996456766963723/919478779796127764/unknown.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/478996456766963723/919478779796127764/unknown.png" alt="Image attachment" title="Image: unknown.png (81.45 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Dec-21 05:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="919764823187787778" id="message-919764823187787778" title="Message sent: 12-Dec-21 05:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hey everyone, trading is more or less in its final stages of completion but I wanted to post this to get community feedback and to also explain about the fee paid during trading.
+
+The fee paid is calculated based on the difference in value, as shown in the video. We do this to prevent abuse and for the difference in value to be paid.
+If you are trading items of approximately equal value, it won&#39;t be nearly as harsh as if you are trading very valuable items for very low value items and vice versa.
+
+Furthermore, all trades will be tracked and are stored under their trade ID (the text on the bottom of your trade screen). 
+If you believe a trade was illegitimate, this can be reported to a moderator as long as you provide them that trade ID. 
+
+We hope this explains a bit more about why the fee exists and the intentions behind it :)</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <video class="chatlog__attachment-media" controls>
+                                <source src="https://cdn.discordapp.com/attachments/478996456766963723/919763785684758528/TradeSurchargeExampleBeta.mp4" alt="Video attachment" title="Video: TradeSurchargeExampleBeta.mp4 (353.01 KB)">
+                            </video>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Dec-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="920088601788813386" id="message-920088601788813386" title="Message sent: 13-Dec-21 03:03 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">A new bow and some improvements to the existing bows is being worked on!</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/478996456766963723/920087774252662784/unknown.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/478996456766963723/920087774252662784/unknown.png" alt="Image attachment" title="Image: unknown.png (483.46 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Dec-21 01:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="922959545351942236" id="message-922959545351942236" title="Message sent: 21-Dec-21 01:11 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">❄️ snowballs</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <video class="chatlog__attachment-media" controls>
+                                <source src="https://cdn.discordapp.com/attachments/478996456766963723/922958353699831879/SnowballsBeta.mp4" alt="Video attachment" title="Video: SnowballsBeta.mp4 (5.58 MB)">
+                            </video>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">21-Dec-21 01:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="922960151135268874" id="message-922960151135268874" title="Message sent: 21-Dec-21 01:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Omfg just post it building update</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="922960153928683611" id="message-922960153928683611" title="Message sent: 21-Dec-21 01:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Smh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Dec-21 05:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="924104874336088105" id="message-924104874336088105" title="Message sent: 24-Dec-21 05:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Happy Holidays! Enjoy the festivities, you&#39;ll be getting gifts soon <img loading="lazy" class="emoji " alt="👀" title="eyes" src="https://twemoji.maxcdn.com/2/svg/1f440.svg"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/478996456766963723/924103638736068648/unknown.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/478996456766963723/924103638736068648/unknown.png" alt="Image attachment" title="Image: unknown.png (1.53 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">24-Dec-21 06:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="924134299765207061" id="message-924134299765207061" title="Message sent: 24-Dec-21 06:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">CALLED IT</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Deleted User#0000" data-user-id="456226577798135808" style="">Deleted User</span>
+
+
+        <span class="chatlog__timestamp">24-Dec-21 07:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="924138400305520640" id="message-924138400305520640" title="Message sent: 24-Dec-21 07:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">That’s cool</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">24-Dec-21 07:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="924138642774040577" id="message-924138642774040577" title="Message sent: 24-Dec-21 07:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I called it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="924138662566981664" id="message-924138662566981664" title="Message sent: 24-Dec-21 07:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Smh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="924138773091070003" id="message-924138773091070003" title="Message sent: 24-Dec-21 07:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I said it was gonna be some sort of volcanic/Winchester rifle</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="924138870977728613" id="message-924138870977728613" title="Message sent: 24-Dec-21 07:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Actually it looks like the Hartford</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Dec-21 07:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="924145642513793064" id="message-924145642513793064" title="Message sent: 24-Dec-21 07:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Some highlights of this update include:</em>
+<img loading="lazy" class="emoji " alt="🔸" title="small_orange_diamond" src="https://twemoji.maxcdn.com/2/svg/1f538.svg"> Holiday Event: Frozen Days!
+<img loading="lazy" class="emoji " alt="🔸" title="small_orange_diamond" src="https://twemoji.maxcdn.com/2/svg/1f538.svg"> Holiday Items and Cosmetics
+<img loading="lazy" class="emoji " alt="🔸" title="small_orange_diamond" src="https://twemoji.maxcdn.com/2/svg/1f538.svg"> Trading (in the Black Market)
+<img loading="lazy" class="emoji " alt="🔸" title="small_orange_diamond" src="https://twemoji.maxcdn.com/2/svg/1f538.svg"> 2021 New Years Gamepass
+<img loading="lazy" class="emoji " alt="🔸" title="small_orange_diamond" src="https://twemoji.maxcdn.com/2/svg/1f538.svg"> New Auction House item: the Kukri
+<img loading="lazy" class="emoji " alt="🔸" title="small_orange_diamond" src="https://twemoji.maxcdn.com/2/svg/1f538.svg"> A snowy map full of cheer!
+
+You can read the in-game Changelog for a more detailed breakdown of the update.
+
+Thank you everyone for your support, we hope you have a happy holidays and a wonderful new year! See you in 2022!
+
+<strong>PLAY HERE:</strong>
+
+<a href="https://www.roblox.com/games/2317712696/The-Wild-West">https://www.roblox.com/games/2317712696/The-Wild-West</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Dec-21 08:12 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://www.roblox.com/games/2317712696/The-Wild-West">
+                                                        <div class="markdown preserve-whitespace">The Wild West ❄</div>
+                                                    </a>
+                                            </div>
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace">Check out The Wild West ❄. It’s one of the millions of unique, user-generated 3D experiences created on Roblox. <img loading="lazy" class="emoji " alt="🔧" title="wrench" src="https://twemoji.maxcdn.com/2/svg/1f527.svg"> EARLY ACCESS | SHUTDOWN = UPDATE
+NEWS: The game is free forever! Data has not been wiped.
+
+<img loading="lazy" class="emoji " alt="🤠" title="cowboy" src="https://twemoji.maxcdn.com/2/svg/1f920.svg"> Welcome to The Wild West! Become a seasoned explorer, hit gold in the Mountains, or take for yourself and steal as an Outlaw. Stalk rare pre...</div>
+                                            </div>
+
+                                    </div>
+
+                                        <div class="chatlog__embed-thumbnail-container">
+                                            <a class="chatlog__embed-thumbnail-link" href="https://images-ext-2.discordapp.net/external/J3rX0EFjA9y1IJpu0RvJ58hGJp2o49qVFyB-cuSd_lw/https/t3.rbxcdn.com/c0b84c271e13aaafd4eb97951e5320ab">
+                                                <img class="chatlog__embed-thumbnail" src="https://images-ext-2.discordapp.net/external/J3rX0EFjA9y1IJpu0RvJ58hGJp2o49qVFyB-cuSd_lw/https/t3.rbxcdn.com/c0b84c271e13aaafd4eb97951e5320ab" alt="Thumbnail" loading="lazy">
+                                            </a>
+                                        </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Dec-21 07:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="924145645181354017" id="message-924145645181354017" title="Message sent: 24-Dec-21 07:44 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/634648482791292928/924144917222154251/iconp3.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/634648482791292928/924144917222154251/iconp3.png" alt="Image attachment" title="Image: iconp3.png (1.02 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Dec-21 07:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="924145774323970090" id="message-924145774323970090" title="Message sent: 24-Dec-21 07:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span> Ho-ho-ho! <s>Santa</s> Starboard is here to bring all you wonderful <s>children</s> cowboys and cowgirls a very festive event! <strong>Frozen Days</strong>!
+
+We&#39;ve been working very hard to bring you all something special this year, we hope you enjoy it! 
+
+<strong>Santa</strong> has returned to The Wild West bringing gifts and cheer, but the dastardly <strong>Krampus</strong> has made himself at home and stolen some of Santa&#39;s presents! Will you be naughty or will you be nice? The choice is yours. <strong>Frozen Days</strong> will end sometime early January, stay tuned for more information.
+
+Some other much needed features such as <strong>Trading</strong> have also been enabled, enjoy!
+
+<strong>UPDATE 3.6: Frozen Days</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Dec-21 08:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="924150455632797746" id="message-924150455632797746" title="Message sent: 24-Dec-21 08:03 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hey everyone, just a quick PSA regarding a bug: If you own the Cursed Lantern and join the game, certain old servers have a bug that cause you to lose your lantern. 
+
+We&#39;ve fixed the issue now and new servers shouldn&#39;t have this issue. We&#39;re terribly sorry for anyone who lost their Halloween reward D: we&#39;re looking into ways of returning the lantern.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Dec-21 09:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="924165061608607748" id="message-924165061608607748" title="Message sent: 24-Dec-21 09:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">If you have purchased the Devilish Horns from Krampus&#39; Contraband, you can equip them in the <strong>Mask</strong> slot. They&#39;re a bit hard to find in the Outfit menu.
+
+In other news, we are working on a few fixes and changes to the event, expect a game update sometime soon-ish! 
+
+Some of the fixes planned:
+- Reducing Krampus&#39; health
+- Reducing Evil Snowmen health
+- Adjustments to the boss fight mechanics</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Dec-21 04:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="924278674369433611" id="message-924278674369433611" title="Message sent: 25-Dec-21 04:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">@Server Pings INTRODUCING THE <span class="mention">#deleted-channel</span> channel!
+
+Use the channel to trade with other players, for users level 1+
+
+If the channel ends up with a bunch of bad trades we may remove it, but for now we want to direct all trade requests to this channel.
+
+Thanks everyone hope your enjoying the update <img loading="lazy" class="emoji " alt="😄" title="smile" src="https://twemoji.maxcdn.com/2/svg/1f604.svg"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Dec-21 05:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="924286826129285121" id="message-924286826129285121" title="Message sent: 25-Dec-21 05:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hi! We recently published some changes which we hope will improve the quality of the event. These changes only apply to <strong>new servers</strong> (created recently or VIP servers).
+
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> Santa noticed that this year there were far too many naughty children who sided with Krampus... In his wrath and anger, he destroyed the bridge Krampus had created for the outlaws.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> Reduced Krampus&#39; Health by <strong>30% </strong>.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> Reduced the Evil Snowmen&#39;s health and accuracy.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> It now takes much longer for Outlaws to respawn at Outlaw&#39;s Perch, this should make things more fair.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> <strong>Frozen Axe</strong> is now a Santa reward rather than a Krampus reward and vice versa with the <strong>Frozen Holster</strong>.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> Fixed various bugs and adjusted the Changelog.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> We&#39;ve tried to fix the <em>&quot;Session Invalid&quot;</em> error preventing some users from playing. If you are still getting this, please try joining a different game server.
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> Trading should be working now, but if it doesn&#39;t please be patient with us as this is a new feature!
+<img loading="lazy" class="emoji " alt="FrozenDays" title="FrozenDays" src="https://cdn.discordapp.com/emojis/924273176991653889.png"> <strong>Lost Lanterns:</strong> We are very sorry for those who lost their Cursed Lanterns. If you participated in the 2021 Halloween event and defeated the boss we will grant you a Cursed Lantern when you join a new server.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Dec-21 11:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="924566301047934987" id="message-924566301047934987" title="Message sent: 25-Dec-21 11:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">[Original Message Deleted]</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Jan-22 09:24 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Dec-21 06:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="924852028168081432" id="message-924852028168081432" title="Message sent: 26-Dec-21 06:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hey @Server Pings so it would appear people are impersonating developers for malicious purposes.
+
+developers and moderators will <strong>never</strong> send you any files or ask for any private information such as your name, passwords, emails, etc. we do <strong>not</strong> need this information, ever.
+
+<strong>always</strong> verify the socials of someones discord account to verify their authenticity!
+most developers have their twitter linked to discord and are in this discord server to verify their role.
+
+<strong>developer socials (if they have them):</strong>
+<a href="https://twitter.com/ScobayDu_">https://twitter.com/ScobayDu_</a> / <a href="https://skylar.gg">https://skylar.gg</a>
+<a href="https://twitter.com/RedTrainRBLX">https://twitter.com/RedTrainRBLX</a>
+<a href="https://twitter.com/AntiBoomz">https://twitter.com/AntiBoomz</a>
+<a href="https://twitter.com/rblx_tyridge77">https://twitter.com/rblx_tyridge77</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Dec-21 05:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="925012934306963498" id="message-925012934306963498" title="Message sent: 27-Dec-21 05:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hey everyone, we&#39;re re implementing Bloxlink so if you <strong>do not</strong> have the Member role you will need to verify in <span class="mention">#deleted-channel</span> to talk in the channels, thanks <img loading="lazy" class="emoji " alt="🙂" title="slight_smile" src="https://twemoji.maxcdn.com/2/svg/1f642.svg">
+
+If you have the Level 20+ role or up you may be unable to verify, please ping a moderator for assistance</span>
+
+                                <span class="chatlog__edited-timestamp" title="27-Dec-21 05:13 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 02:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="926418041837879331" id="message-926418041837879331" title="Message sent: 31-Dec-21 02:14 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><s>From now if you&#39;d like to use <span class="mention">#deleted-channel</span> you must create a thread to start a trade. From there people can easily reply to you without flooding your DMs.</s>
+
+We&#39;ve also reduced the cooldown to 5 minutes.
+
+Keep in mind you must be Level 1 or above to use the channel.</span>
+
+                                <span class="chatlog__edited-timestamp" title="31-Dec-21 09:03 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 05:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="926831356242194432" id="message-926831356242194432" title="Message sent: 01-Jan-22 05:36 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Server Update:</strong>
+
+<div class="quote">• <img loading="lazy" class="emoji " alt="🛠" title="🛠" src="https://twemoji.maxcdn.com/2/svg/1f6e0.svg">️ We&#39;ve added an offical Support channel! You can find it under the Voice Channels category.
+We are now accepting tickets for Server questions, Game questions, and Server suggestions!
+</div>&gt; 
+<div class="quote"><strong>This is currently limited to Level 10+ and above, we plan on reducing this to Level 5+ depending on how it goes.</strong>
+</div>&gt; 
+<div class="quote"><img loading="lazy" class="emoji " alt="🍏" title="green_apple" src="https://twemoji.maxcdn.com/2/svg/1f34f.svg"> <strong>We are testing and experimenting with this feature. We may make changes and will decide to remove it or keep it depending on how efficient it is for moderators.</strong> 
+</div>&gt; 
+<div class="quote">We will be extremely strict on users, any improper tickets that do not follow the guidelines will be instantly removed. <img loading="lazy" class="emoji " alt="z_qm60" title="z_qm60" src="https://cdn.discordapp.com/emojis/452813334429827072.png"> 
+</div>
+<div class="quote">• <img loading="lazy" class="emoji " alt="😍" title="heart_eyes" src="https://twemoji.maxcdn.com/2/svg/1f60d.svg"> We also changed the &#39;Reports&#39; category to &#39;Suggestions &amp; Reports&#39; and moved all the suggestions channels into there, less clutter, easier on the eyes.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jan-22 12:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="928560553478213666" id="message-928560553478213666" title="Message sent: 06-Jan-22 12:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Fixed:</strong> You now get xp again in <span class="mention">#deleted-channel</span>!
+
+If any issues like this ever arise please report it in the Server Suggestions category in support! Thanks <img loading="lazy" class="emoji " alt="🙂" title="slight_smile" src="https://twemoji.maxcdn.com/2/svg/1f642.svg"></span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Jan-22 12:08 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jan-22 05:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="929191850856841269" id="message-929191850856841269" title="Message sent: 07-Jan-22 05:56 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hi everyone! We hope you&#39;ve enjoyed the <strong>Frozen Days</strong> 2021 Christmas event, as sadly, it is over. The Wild West will be returning to normal <strong>today</strong> at 12am EST (or 9pm PST).
+
+Stay tuned for more info!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">07-Jan-22 08:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="929224642839867433" id="message-929224642839867433" title="Message sent: 07-Jan-22 08:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Aaaaa</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 04:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="929531839058685976" id="message-929531839058685976" title="Message sent: 08-Jan-22 04:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hi friends! <img loading="lazy" class="emoji " alt="🤠" title="cowboy" src="https://twemoji.maxcdn.com/2/svg/1f920.svg"> 
+The Wild West Guidelines have been updated - you can check them out below! <img loading="lazy" class="emoji " alt="💫" title="dizzy" src="https://twemoji.maxcdn.com/2/svg/1f4ab.svg"> 
+<a href="https://docs.starboard.games/The-Wild-West/">https://docs.starboard.games/The-Wild-West/</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://docs.starboard.games/The-Wild-West/">
+                                                        <div class="markdown preserve-whitespace">The Wild West • General Guidelines</div>
+                                                    </a>
+                                            </div>
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace">Starboard Studios documentation, policies and guidelines</div>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 02:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="931860392546811928" id="message-931860392546811928" title="Message sent: 15-Jan-22 02:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><img loading="lazy" class="emoji " alt="😱" title="scream" src="https://twemoji.maxcdn.com/2/svg/1f631.svg"> <strong>!revivechat has over 30+ new responses</strong>
+</div>&gt; 
+<div class="quote">These new responses consist of conversation starters so the command can actually help with reviving chat now!
+</div>
+<div class="quote">Changed from !revive-chat <strong>to !revivechat</strong>
+</div>&gt; 
+<div class="quote">Server cooldown reduced from 5 minutes to 2 minutes</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Jan-22 02:43 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 03:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="932057030036951064" id="message-932057030036951064" title="Message sent: 15-Jan-22 03:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">✨ <strong>LEVEL REWARD CHANGES</strong>
+</div>&gt; 
+<div class="quote">We have changed the names of all the level names to make them more western-themed!
+</div>&gt; 
+<div class="quote">Western Legend &gt;  Western Legend
+Level 75+ &gt;  Desperado
+Level 50+ &gt;  Bounty Hunter
+Level 30+ &gt;  Vigilante
+Level 15+ &gt;  Gunslinger
+Level 5+ &gt;  Rancher
+Beginner &gt;  Beginner
+</div>
+<div class="quote">You may have also noticed that Level 10 has been changed to Level 15, and level 20 has been changed to Level 30.
+The color of some of the roles have changed too <img loading="lazy" class="emoji " alt="😄" title="smile" src="https://twemoji.maxcdn.com/2/svg/1f604.svg">
+</div>
+<div class="quote"><img loading="lazy" class="emoji " alt="🥳" title="partying_face" src="https://twemoji.maxcdn.com/2/svg/1f973.svg"> <strong>Embed and image perms in <span class="mention">#deleted-channel</span>, <span class="mention">#deleted-channel</span>, and <span class="mention">#deleted-channel</span>  have finally been moved from Level 10 to Level 30</strong> after popular demand</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Jan-22 05:00 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 03:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="932057039021150219" id="message-932057039021150219" title="Message sent: 15-Jan-22 03:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">@Server Pings ^</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 03:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="932058732760813681" id="message-932058732760813681" title="Message sent: 15-Jan-22 03:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">[Original Message Deleted]</span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Jan-22 03:51 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 03:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="932059566668148798" id="message-932059566668148798" title="Message sent: 15-Jan-22 03:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Mee6 may take longer then expected to update your level role, there is nothing we can do about this. It will automatically update in due time or once you level up.
+
+<span class="mention">#deleted-channel</span> has been updated accordingly</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 07:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="932121144553795636" id="message-932121144553795636" title="Message sent: 15-Jan-22 07:56 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">We are slowing rolling out an experimental system that may limit accounts that we believe have been compromised.
+Always check the websites you visit and check for misspellings within those websites as recently there have been various fake Roblox domains that will steal your session cookies.
+
+If you believe your account has been compromised, always sign out of all sessions and change your passwords.
+
+<img loading="lazy" class="emoji " alt="🔒" title="lock" src="https://twemoji.maxcdn.com/2/svg/1f512.svg"> <strong>Friendly reminder to always keep your Roblox account secure:</strong>
+<a href="https://en.help.roblox.com/hc/en-us/articles/203313380-Keep-Your-Account-Safe">https://en.help.roblox.com/hc/en-us/articles/203313380-Keep-Your-Account-Safe</a></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/634648482791292928/932120215301529600/unknown.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/634648482791292928/932120215301529600/unknown.png" alt="Image attachment" title="Image: unknown.png (64.48 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939305936830565/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #sneak-peeks#0000" data-user-id="918939305936830565" style="">Starboard Studios #sneak-peeks</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 05:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="932440719078084651" id="message-932440719078084651" title="Message sent: 16-Jan-22 05:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img loading="lazy" class="emoji emoji--large" alt="🍃" title="leaves" src="https://twemoji.maxcdn.com/2/svg/1f343.svg"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <video class="chatlog__attachment-media" controls>
+                                <source src="https://cdn.discordapp.com/attachments/478996456766963723/932439573328437278/WindTrailsBeta.mp4" alt="Video attachment" title="Video: WindTrailsBeta.mp4 (21.22 MB)">
+                            </video>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 05:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="932450841737183283" id="message-932450841737183283" title="Message sent: 16-Jan-22 05:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">BRO NOBODY CARES THAT YOU CAN SEE THE WIND</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932450872510775386" id="message-932450872510775386" title="Message sent: 16-Jan-22 05:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">IN FACT IT CAUSES MORE LAG</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932450984142188634" id="message-932450984142188634" title="Message sent: 16-Jan-22 05:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">JUST UPDATE THE GAME!!!!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939187787472896/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #game-news#0000" data-user-id="918939187787472896" style="">Starboard Studios #game-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 03:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="932781805705252887" id="message-932781805705252887" title="Message sent: 17-Jan-22 03:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">In addition to our previous announcement, we are slowly rolling out changes to our internal trust metrics.
+A white shield will be displayed next to players who have verified government ID on their Roblox account. This indicates that they have verified their age and are likely not an alternate account or the likes.
+
+<img loading="lazy" class="emoji " alt="🔒" title="lock" src="https://twemoji.maxcdn.com/2/svg/1f512.svg"> <strong>This shield isn&#39;t an indication of player trustworthiness; only that their account has been verified via Roblox or Veriff.</strong></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/634648482791292928/932781172906409994/Player-Verified-Government-ID.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/634648482791292928/932781172906409994/Player-Verified-Government-ID.png" alt="Image attachment" title="Image: Player-Verified-Government-ID.png (56.43 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 10:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="932879458501799997" id="message-932879458501799997" title="Message sent: 17-Jan-22 10:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><img loading="lazy" class="emoji " alt="StormBeatz" title="StormBeatz" src="https://cdn.discordapp.com/emojis/930319273275039754.png">  <strong>INTRODUCING: STORMBEATZ!</strong> <img loading="lazy" class="emoji " alt="storm_play" title="storm_play" src="https://cdn.discordapp.com/emojis/932064572179873873.png"> 
+</div><a href="https://stormbeatz.org/">https://stormbeatz.org/</a>
+Our new music bot! It will be in Music 24/7 but you can make it <span class="pre pre--inline">&gt;join</span> any voice channel you&#39;d like!
+
+<div class="quote"><img loading="lazy" class="emoji " alt="stormzQuestion" title="stormzQuestion" src="https://cdn.discordapp.com/emojis/772919438986969108.png"> Simply type <span class="pre pre--inline">&gt;play [Song name]</span> or try searching for your song with <span class="pre pre--inline">&gt;search [Song name]</span>
+</div>
+<div class="quote"><img loading="lazy" class="emoji " alt="pogger" title="pogger" src="https://cdn.discordapp.com/emojis/809893280431079446.png"> <strong>Try out all the fun sound effects!!</strong>  <span class="pre pre--inline">&gt;help</span>
+My favourites: <span class="pre pre--inline">&gt;bassboost on</span>, <span class="pre pre--inline">&gt;helium on</span>, <span class="pre pre--inline">&gt;underwater on</span>, <span class="pre pre--inline">&gt;electronic on</span> 
+</div>
+<div class="quote">Type <span class="pre pre--inline">&gt;lyrics</span> for lyrics to music! 
+</div>
+<em>Nitro Boosters &amp; Level 50+ (Bounty Hunter) and up are able to use sound effects</em>
+
+<em>Level 5+ (Rancher) and up are able to use the commands in</em> <span class="mention">#deleted-channel</span>
+
+@Server Pings</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Jan-22 10:15 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(69,61,255,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://stormbeatz.org/">
+                                                        <div class="markdown preserve-whitespace">StormBeatz - Liven Up Your Discord Music</div>
+                                                    </a>
+                                            </div>
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace">StormBeatz is an advanced and highly customizable Discord music bot that fits every server&#39;s needs!</div>
+                                            </div>
+
+                                    </div>
+
+                                        <div class="chatlog__embed-thumbnail-container">
+                                            <a class="chatlog__embed-thumbnail-link" href="https://images-ext-1.discordapp.net/external/ckmgRx2KMqKmDxRr1cF9c_Wi8p2njuRSLtiinZpbuvg/https/stormbeatz.org/images/bot-icon-bg.png">
+                                                <img class="chatlog__embed-thumbnail" src="https://images-ext-1.discordapp.net/external/ckmgRx2KMqKmDxRr1cF9c_Wi8p2njuRSLtiinZpbuvg/https/stormbeatz.org/images/bot-icon-bg.png" alt="Thumbnail" loading="lazy">
+                                            </a>
+                                        </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Cody#2218" style="color: rgb(0,255,225)">Cody</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;932450841737183283&#39;)">
+BRO NOBODY CARES THAT YOU CAN SEE THE WIND                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/869781859951853580/668f73327966132a94229cd5d2de7d30.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Mandalorian#8094" data-user-id="869781859951853580" style="color: rgb(9,0,54)">A Mandalorian</span>
+
+
+        <span class="chatlog__timestamp">18-Jan-22 02:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="933128147275218995" id="message-933128147275218995" title="Message sent: 18-Jan-22 02:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">IKR</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Jan-22 02:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="934035978149044238" id="message-934035978149044238" title="Message sent: 21-Jan-22 02:45 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><img loading="lazy" class="emoji " alt="0_qm60" title="0_qm60" src="https://cdn.discordapp.com/emojis/452813334429827072.png"> <strong>REMOVING <span class="mention">#deleted-channel</span></strong> 
+</div>
+<strong>We&#39;re banning any form of faction/discord recruitment in this server, <span class="mention">#deleted-channel</span> has been removed.</strong>
+
+Instead we&#39;re going to convert to a <strong>&quot;partnered servers&quot;</strong> system.
+This will be a curated list of servers who endorse and follow good behavior.
+
+<img loading="lazy" class="emoji " alt="info" title="info" src="https://cdn.discordapp.com/emojis/452813376788234250.png"> This will be <strong>invite only</strong> and more then likely a static message in a future #partner-factions channel where the faction owner can post their recruitment link into the channel one time.
+
+There will be public official requirements released soon.
+We will be releasing more information about this in the future.
+
+If you have any questions you&#39;re welcome to open a Server Questions ticket. <img loading="lazy" class="emoji " alt="🙂" title="slight_smile" src="https://twemoji.maxcdn.com/2/svg/1f642.svg"></span>
+
+                                <span class="chatlog__edited-timestamp" title="21-Jan-22 04:11 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">21-Jan-22 04:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="934069642832535552" id="message-934069642832535552" title="Message sent: 21-Jan-22 04:59 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">F</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Jan-22 07:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="934287836373471246" id="message-934287836373471246" title="Message sent: 21-Jan-22 07:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The <span class="mention">#deleted-channel</span> channel will be replacing the recruitment channel, we will not be adding back recruitment.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="934472395903881310" id="message-934472395903881310" title="Message sent: 22-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">@Server Pings Read the above ^
+
+<div class="quote"><img loading="lazy" class="emoji " alt="😱" title="scream" src="https://twemoji.maxcdn.com/2/svg/1f631.svg"> We did it, <span class="mention">#deleted-channel</span> is now Level 30+ and up.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jan-22 02:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="936204463771897891" id="message-936204463771897891" title="Message sent: 27-Jan-22 02:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hey @Server Pings a statement:
+
+Currently our server is marked falsely as NSFW on ios, we are more then aware and have received a lot of messages about it, thank you!
+
+The server owner has appealed the NSFW Server Designation to discord, we have also contacted discord ourselves multiple times and have received no response.
+<a href="https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation#:~:text=Owners%2520of%2520communities%2520designated%2520NSFW,required%2520details%2520of%2520the%2520server">https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation#:~:text=Owners%20of%20communities%20designated%20NSFW,required%20details%20of%20the%20server</a>
+
+We are very sorry about the inconvenience and will update you if we receive any response.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">27-Jan-22 03:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="936223530385805343" id="message-936223530385805343" title="Message sent: 27-Jan-22 03:38 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img loading="lazy" class="emoji emoji--large" alt="dog" title="dog" src="https://cdn.discordapp.com/emojis/932963168760770560.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Feb-22 01:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="938184488029143060" id="message-938184488029143060" title="Message sent: 01-Feb-22 01:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">@Server Pings <em>Hiya everybody!</em> <img loading="lazy" class="emoji " alt="🤠" title="cowboy" src="https://twemoji.maxcdn.com/2/svg/1f920.svg">
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+It&#39;s that time again... that&#39;s right, time for our incredibly long-awaited <u><strong>Staff Team Applications</strong></u>!
+We are looking to expand both our event team and moderation team. 
+As such, both our event team apps and moderator apps will be open for a limited time! ✨ 
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+<img loading="lazy" class="emoji " alt="🌵" title="cactus" src="https://twemoji.maxcdn.com/2/svg/1f335.svg"> Keep in mind that there are a few eligibility requirements:
+<div class="quote">➤ You must be <strong><u>13 years</u> of age or older to apply</strong>.
+➤ You must be <strong>at least <u>Level 15+</u> to apply for Event Team</strong>.
+➤ You must be <strong>at least <u>Level 30+</u> to apply for Moderator</strong>.
+</div>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+Applications will close at <strong>11:59 PM PST on February 6th</strong>, good luck! <img loading="lazy" class="emoji " alt="💫" title="dizzy" src="https://twemoji.maxcdn.com/2/svg/1f4ab.svg">
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+<img loading="lazy" class="emoji " alt="🎉" title="tada" src="https://twemoji.maxcdn.com/2/svg/1f389.svg"> <em><strong><u>APPLY FOR EVENT TEAM HERE</u>:</strong></em> <strong> <a href="https://forms.gle/JeHU2VcexLt3hB6Y7">https://forms.gle/JeHU2VcexLt3hB6Y7</a> </strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://forms.gle/JeHU2VcexLt3hB6Y7">
+                                                        <div class="markdown preserve-whitespace">Starboard Studios: Event Team Application</div>
+                                                    </a>
+                                            </div>
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace">Welcome, we&#39;re searching for dedicated members to become new event team staff and host unique, fun, and engaging tournaments and more!
+
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+REQUIREMENTS: 
+
+➤ You must be Level 15+ or over in our discord
+➤ You must be over the age of 13 (Discord ToS). 
+
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+NOTE:
+➤ This...</div>
+                                            </div>
+
+                                    </div>
+
+                                        <div class="chatlog__embed-thumbnail-container">
+                                            <a class="chatlog__embed-thumbnail-link" href="https://images-ext-1.discordapp.net/external/Z5gNTPk12sjUmM4lZmwCMZ-i2TTyOhC0LbO2AlE5pmc/https/lh6.googleusercontent.com/ATb2BN19DjbMnua0N18T_6xugwKV8SugxxTtp2HHSuS3bJOCkHinNTiBK-QpneEgrgQfq8M0tpY%3Dw1200-h630-p">
+                                                <img class="chatlog__embed-thumbnail" src="https://images-ext-1.discordapp.net/external/Z5gNTPk12sjUmM4lZmwCMZ-i2TTyOhC0LbO2AlE5pmc/https/lh6.googleusercontent.com/ATb2BN19DjbMnua0N18T_6xugwKV8SugxxTtp2HHSuS3bJOCkHinNTiBK-QpneEgrgQfq8M0tpY%3Dw1200-h630-p" alt="Thumbnail" loading="lazy">
+                                            </a>
+                                        </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Feb-22 01:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="938184489941737523" id="message-938184489941737523" title="Message sent: 01-Feb-22 01:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+<img loading="lazy" class="emoji " alt="🔨" title="hammer" src="https://twemoji.maxcdn.com/2/svg/1f528.svg"> <em><strong><u>APPLY FOR MODERATOR HERE</u>:</strong></em> <strong> <a href="https://forms.gle/8rLq5fj4GQRH2YhE6">https://forms.gle/8rLq5fj4GQRH2YhE6</a> </strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="01-Feb-22 01:31 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://forms.gle/8rLq5fj4GQRH2YhE6">
+                                                        <div class="markdown preserve-whitespace">Starboard Studios Moderator Applications</div>
+                                                    </a>
+                                            </div>
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace">Welcome, you&#39;ve been given a chance to join the Starboard Studios Moderation team!
+
+Write as much detail and description as possible, we do take into account grammar, punctuation and relevant info you write about.
+
+Please be honest with your answers, as we value trust in our staff team.
+
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+REQUIREMENTS: 
+...</div>
+                                            </div>
+
+                                    </div>
+
+                                        <div class="chatlog__embed-thumbnail-container">
+                                            <a class="chatlog__embed-thumbnail-link" href="https://images-ext-2.discordapp.net/external/AgBpNMNIM45qirSAcQXe8IwFa0_TUJiG4oFJuga9xjk/https/lh5.googleusercontent.com/A630HnJufE91_aHASbDrtVOBenY8Xle7euIpGT5B8-VOn68xBiERvZvH527HzjOONjyFTvU4qsw%3Dw1200-h630-p">
+                                                <img class="chatlog__embed-thumbnail" src="https://images-ext-2.discordapp.net/external/AgBpNMNIM45qirSAcQXe8IwFa0_TUJiG4oFJuga9xjk/https/lh5.googleusercontent.com/A630HnJufE91_aHASbDrtVOBenY8Xle7euIpGT5B8-VOn68xBiERvZvH527HzjOONjyFTvU4qsw%3Dw1200-h630-p" alt="Thumbnail" loading="lazy">
+                                            </a>
+                                        </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Feb-22 02:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="938192404471754852" id="message-938192404471754852" title="Message sent: 01-Feb-22 02:01 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+@Gunslinger @Vigilante @Bounty Hunter 
+<strong>NOTE:</strong> Be sure to keep your DMs open in case we would like to advance your application! <img loading="lazy" class="emoji " alt="StarboardEmoji" title="StarboardEmoji" src="https://cdn.discordapp.com/emojis/712558621958995999.png"> 
+(All the known application errors should be fixed, reload the form if they are not &amp; ping me if any errors are persisting.)
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Feb-22 07:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="938458807447728208" id="message-938458807447728208" title="Message sent: 02-Feb-22 07:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Security PSA:
+Hackers are pretending to be official discord accounts and sending phishing links which can compromise your Discord account, which they can then use to get your billing information. Please always check the domain name of a website.
+<a href="https://cdn.discordapp.com/attachments/890335200469463090/938453345453097070/unknown.png">https://cdn.discordapp.com/attachments/890335200469463090/938453345453097070/unknown.png</a> 
+@Server Pings</span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/890335200469463090/938453345453097070/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/890335200469463090/938453345453097070/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Feb-22 11:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="938697495880560650" id="message-938697495880560650" title="Message sent: 02-Feb-22 11:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;d also like to mention, starboard staff would <strong>strictly</strong> never make you download anything, if somebody sends you a download, its a scam and not us. Be weary and cautious of links anybody sends you.
+
+<strong>Thoroughly check</strong> the ID of any staff member you&#39;re talking to and make sure the ID is the same as the one in this discord.</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Feb-22 03:02 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Feb-22 11:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="939421743527911427" id="message-939421743527911427" title="Message sent: 04-Feb-22 11:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Mod and Event Team applications are closing <span class="timestamp" title="Sunday, February 6, 2022 11:59 PM">06-Feb-22 11:59 PM</span>! At exactly 11:59 PM, February 6th PST (Roughly converted to your timezone: <span class="timestamp" title="Sunday, February 6, 2022 11:59 PM">06-Feb-22 11:59 PM</span> <span class="timestamp" title="Sunday, February 6, 2022 11:59 PM">06-Feb-22 11:59 PM</span>)
+
+<img loading="lazy" class="emoji " alt="🤩" title="star_struck" src="https://twemoji.maxcdn.com/2/svg/1f929.svg"> <strong>You&#39;re more then welcome to continue editing your application as the more detailed information, the better!</strong>
+
+<img loading="lazy" class="emoji " alt="0_approve" title="0_approve" src="https://cdn.discordapp.com/emojis/762388343253106688.png"> If we&#39;d like to advance your application you will receive a DM from a Community Manager here at Starboard. 
+Make sure to confirm they are the REAL DEAL! We would never ask you to click any links or download anything.</span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Feb-22 02:07 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/869781859951853580/668f73327966132a94229cd5d2de7d30.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Mandalorian#8094" data-user-id="869781859951853580" style="color: rgb(9,0,54)">A Mandalorian</span>
+
+
+        <span class="chatlog__timestamp">05-Feb-22 06:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="939709943265779774" id="message-939709943265779774" title="Message sent: 05-Feb-22 06:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/897319839251693618/899057208233426975/image0-8.gif">https://media.discordapp.net/attachments/897319839251693618/899057208233426975/image0-8.gif</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/897319839251693618/899057208233426975/image0-8.gif">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/897319839251693618/899057208233426975/image0-8.gif" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="939710023670579201" id="message-939710023670579201" title="Message sent: 05-Feb-22 06:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">#BringBackRecruitment</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Feb-22 07:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="939729746953109534" id="message-939729746953109534" title="Message sent: 05-Feb-22 07:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Again, I would like to emphasize the importance of <strong>checking tags</strong> when you are DMed.
+
+There are impersonators out there who may send you malicious links - <strong>do <em>not</em> click them</strong>.
+
+<strong>The only staff who may DM you to advance your application will be me (<u>sophie#4444</u>) and @Eddie (<u>William Afton#7038</u>).</strong>
+
+Please block anyone else claiming to be Starboard staff.
+
+We will not be sending any DMs until <em>at least</em> the 7th, so if you&#39;d feel more secure closing your DMs until then, please do so.
+
+<a href="https://cdn.discordapp.com/attachments/439967672713740299/939729022403895316/unknown-1.png">https://cdn.discordapp.com/attachments/439967672713740299/939729022403895316/unknown-1.png</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Feb-22 03:07 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/439967672713740299/939729022403895316/unknown-1.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/439967672713740299/939729022403895316/unknown-1.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/918939215964827668/becbec5eae3b377a0b44b203cb4473a5.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Starboard Studios #server-news#0000" data-user-id="918939215964827668" style="">Starboard Studios #server-news</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Feb-22 04:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="940221101965987855" id="message-940221101965987855" title="Message sent: 07-Feb-22 04:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;ll just repeat what solarian said; Community Managers <strong>are currently</strong> in the process of reviewing the over 260+ applications that we received in total! 
+
+Please be patient, we have no specific date. Managers will start DMing people as soon as we are all happy with the selections, this may take a few days.</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Feb-22 04:23 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 68 message(s)</div>
+</div>
+
+</body>
+
+</html>

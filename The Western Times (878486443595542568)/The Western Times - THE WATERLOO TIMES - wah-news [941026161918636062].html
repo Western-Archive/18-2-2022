@@ -1,0 +1,1717 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Western Times - wah-news</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/878486443595542568/f1fd7ba5d4d724ce3af4a60002d9e9d7.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Western Times</div>
+        <div class="preamble__entry">THE WATERLOO TIMES / wah-news</div>
+
+            <div class="preamble__entry preamble__entry--small">News about Waterloo at Home is published here.</div>
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">09-Feb-22 09:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="941030492336173137" id="message-941030492336173137" title="Message sent: 09-Feb-22 09:59 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Waterloo at home Daily news | The Western Times</strong>
+<em>02/09/2022</em>
+
+
+<strong>Chaos; Great Britain</strong>
+
+The account of the leader of Great Britain got disabled because of false accusation claims the GB leader, it got disabled because he spammed links in people dms even though the leader him self claims they we&#39;re his own members.
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941018836231143434/unknown.png">https://media.discordapp.net/attachments/918912353410625568/941018836231143434/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918912353410625568/941018836231143434/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918912353410625568/941018836231143434/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="941030590860390431" id="message-941030590860390431" title="Message sent: 09-Feb-22 09:59 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>In Other News</strong>
+
+- The United States Army are fighting the coalition together with France.
+
+<a href="https://media.discordapp.net/attachments/918909027545657364/941017558813909022/unknown.png">https://media.discordapp.net/attachments/918909027545657364/941017558813909022/unknown.png</a>
+
+- Esercito d&#39;Italia hits 200 members and is close to 250!
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941022608588157008/news4.PNG">https://media.discordapp.net/attachments/918912353410625568/941022608588157008/news4.PNG</a>
+
+- Joseon declared war to The United States Army
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941023723790663680/unknown.png?width=640&height=473">https://media.discordapp.net/attachments/918912353410625568/941023723790663680/unknown.png?width=640&amp;height=473</a>
+
+- Wolves Legion declared war to the coalition containing more then 10 nations
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941025825673867334/unknown.png">https://media.discordapp.net/attachments/918912353410625568/941025825673867334/unknown.png</a>
+
+- Wolves Legion is having a robux reward event
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941026535262027806/unknown.png">https://media.discordapp.net/attachments/918912353410625568/941026535262027806/unknown.png</a>
+
+- Prussia left WaH and joined BeP 
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941026908722827264/unknown.png">https://media.discordapp.net/attachments/918912353410625568/941026908722827264/unknown.png</a>
+
+-  Herzogtum Braunschweig had a ceremony to celebrate their opening.
+
+<a href="https://media.discordapp.net/attachments/918912353410625568/941020958104371200/news3.PNG">https://media.discordapp.net/attachments/918912353410625568/941020958104371200/news3.PNG</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918909027545657364/941017558813909022/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918909027545657364/941017558813909022/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918912353410625568/941022608588157008/news4.PNG">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918912353410625568/941022608588157008/news4.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918912353410625568/941023723790663680/unknown.png?width=640&amp;height=473">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918912353410625568/941023723790663680/unknown.png?width=640&amp;height=473" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918912353410625568/941025825673867334/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918912353410625568/941025825673867334/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918912353410625568/941026535262027806/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918912353410625568/941026535262027806/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="941030658745176124" id="message-941030658745176124" title="Message sent: 09-Feb-22 09:59 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Thanks for reading and always remember to follow our news channel and join our discord server!</strong>
+
+<a href="https://discord.gg/Sf4uugbj7c">https://discord.gg/Sf4uugbj7c</a>
+
+Written By: John
+Edited By: John
+Approved By: The Waterloo Times</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="941030776961646672" id="message-941030776961646672" title="Message sent: 09-Feb-22 10:00 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(0, 0, 1); background-color: rgba(0, 0, 1, 0.1);">@News Ping TWW</span> (<strong>our Waterloo news, enjoy and also follow this news channel if you like Napoleonic news!</strong>)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">11-Feb-22 12:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="941797987707932762" id="message-941797987707932762" title="Message sent: 11-Feb-22 12:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Daily News | The Waterloo Times</strong>
+<em>02/11/2022</em>
+
+- Great Britain got raided and is now rebuilding
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941610080359567410/news9.PNG">https://media.discordapp.net/attachments/918910191871885342/941610080359567410/news9.PNG</a>
+
+- Herzogtum Braunschweig is holding their Asian Ceremony on Sunday
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941610080074366997/news10.PNG">https://media.discordapp.net/attachments/918910191871885342/941610080074366997/news10.PNG</a>
+
+- Westphalia is doing a member purge
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941632956919844884/unknown.png">https://media.discordapp.net/attachments/918910191871885342/941632956919844884/unknown.png</a>
+
+- United States Army is fighting the coalition together with Joseon and Portugal
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941641911888937000/unknown.png">https://media.discordapp.net/attachments/918910191871885342/941641911888937000/unknown.png</a>
+
+- K&#246;nigreich Preu&#223;en fought Nassau
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941794282493345842/unknown.png">https://media.discordapp.net/attachments/918910191871885342/941794282493345842/unknown.png</a>
+
+- The Austrian Empire hits 150 members!
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941796208626765995/unknown.png">https://media.discordapp.net/attachments/918910191871885342/941796208626765995/unknown.png</a>
+
+- K&#246;nigreich Preu&#223;en hits 200 members!
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941796430916493402/unknown.png">https://media.discordapp.net/attachments/918910191871885342/941796430916493402/unknown.png</a>
+
+- Wolves Legion is fighting the Coalition on Saturday
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/941797230707372082/unknown.png">https://media.discordapp.net/attachments/918910191871885342/941797230707372082/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/941610080359567410/news9.PNG">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/941610080359567410/news9.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/941632956919844884/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/941632956919844884/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/941641911888937000/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/941641911888937000/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/941794282493345842/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/941794282493345842/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="941798073850531920" id="message-941798073850531920" title="Message sent: 11-Feb-22 12:49 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Thanks for reading and always remember to follow our news channel and join our discord server!</strong>
+
+<a href="https://discord.gg/Sf4uugbj7c">https://discord.gg/Sf4uugbj7c</a>
+
+Written By: John
+Edited By: John
+Approved By: The Waterloo Times</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="941798253991719022" id="message-941798253991719022" title="Message sent: 11-Feb-22 12:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(0, 0, 1); background-color: rgba(0, 0, 1, 0.1);">@News Ping TWW</span> <strong>(Enjoy your daily news! if you do have any information that you want on the news go to <span class="mention">#deposit-info</span>, enjoy reading!)</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">12-Feb-22 09:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="942105606867783730" id="message-942105606867783730" title="Message sent: 12-Feb-22 09:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Daily News | The Waterloo Times</strong>
+<em>02/12/2022</em>
+
+<strong>Preparation for war;</strong>
+
+The Austrians are preparing for war. They just completed their mobilization and intense training will be coming for the next few days for the Prussian-Austrian war. This war will bloody. The Austrians have shown force in their training as MrLazer500 and RandomGuy and Austria rallied 15 today. They are ready for war and eager to go into Battle and Slain whom they proclaim as the &quot;Tyrant&quot; King of the Prussians. The battles coming will be hot-blooded, many will lose lives and many will fall into despondency to lose their loved ones.
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/942066187574050836/Screenshot_482.png?width=1025&height=362">https://media.discordapp.net/attachments/918910191871885342/942066187574050836/Screenshot_482.png?width=1025&amp;height=362</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Feb-22 10:55 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/942066187574050836/Screenshot_482.png?width=1025&amp;height=362">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/942066187574050836/Screenshot_482.png?width=1025&amp;height=362" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942105672999383090" id="message-942105672999383090" title="Message sent: 12-Feb-22 09:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>A Russian Wedding;</strong>
+
+On a late night on a Friday, 11th February 2022, a Marriage has been officialised. The former king of the Dano-Norwegian realm, Talon_Grim made a bet and had won the bet. The outcome of the bet was the Marriage of outstanding Tsarina CavePixcles and the young Tsar MrFluffyLion. The Marriage happened on a cold wet early morning at 04:00 CET on the morning of the 12th of February. This has opened eyes onto the Monarchs of Europe as this may be the start of a New Dynasty. May God bless them both and may the marriage be everlasting.
+
+<a href="https://media.discordapp.net/attachments/941313423780769842/941917078217183263/unknown.png?width=782&height=473">https://media.discordapp.net/attachments/941313423780769842/941917078217183263/unknown.png?width=782&amp;height=473</a>
+
+<a href="https://media.discordapp.net/attachments/941313423780769842/941916606508965928/RobloxScreenShot20220212_111525942.png?width=842&height=473">https://media.discordapp.net/attachments/941313423780769842/941916606508965928/RobloxScreenShot20220212_111525942.png?width=842&amp;height=473</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/941313423780769842/941917078217183263/unknown.png?width=782&amp;height=473">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/941313423780769842/941917078217183263/unknown.png?width=782&amp;height=473" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/941313423780769842/941916606508965928/RobloxScreenShot20220212_111525942.png?width=842&amp;height=473">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/941313423780769842/941916606508965928/RobloxScreenShot20220212_111525942.png?width=842&amp;height=473" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942105739915304993" id="message-942105739915304993" title="Message sent: 12-Feb-22 09:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>A Impossible Fight; </strong>
+
+On the evening of Sunday 9th January 2020, Gascony had a PR with the infamous poopxd group of the British Imperial Army. Led by the Courageous king Max13Gamer1. The battle was on the Old poopxd map of Bige where Gascony over a year ago used to have PR&#39;s on. Vyrefy (the General of Gascony) commanded and clutched the win in an 8 Gascogians vs 30 British. The score was very close and it was 70-69. The last kill was a pop shot from EbenezerAso an officer in Gascony. A hard-earned victory for Gascony and something to be in the history books as a cooldeath group defeated a poopxd group in an outnumbered match. This is evidence that anything is possible.
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/942031584066945104/unknown.png?width=429&height=473">https://media.discordapp.net/attachments/918910191871885342/942031584066945104/unknown.png?width=429&amp;height=473</a>
+
+Abandoned fields of Biege after the defeat of the British.
+<a href="https://images-ext-2.discordapp.net/external/SenLnCD52QLha4___rtx5Ol-iCbd2rJSUNHua3Rj1KA/https/media.discordapp.net/attachments/918910191871885342/942031077638295592/artillery.png?width=1025&height=393">https://images-ext-2.discordapp.net/external/SenLnCD52QLha4___rtx5Ol-iCbd2rJSUNHua3Rj1KA/https/media.discordapp.net/attachments/918910191871885342/942031077638295592/artillery.png?width=1025&amp;height=393</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/942031584066945104/unknown.png?width=429&amp;height=473">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/942031584066945104/unknown.png?width=429&amp;height=473" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/942031077638295592/artillery.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/942031077638295592/artillery.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942105797276602458" id="message-942105797276602458" title="Message sent: 12-Feb-22 09:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>In Other News</strong>
+
+
+- K&#246;nigreich Preu&#223;en is today once again fighting Austria.
+
+<a href="https://media.discordapp.net/attachments/918910191871885342/942029066851221524/unknown.png">https://media.discordapp.net/attachments/918910191871885342/942029066851221524/unknown.png</a>
+
+- Westphalia is holding a invite competition 
+
+<a href="https://media.discordapp.net/attachments/918918396458962975/942032528179605514/unknown.png">https://media.discordapp.net/attachments/918918396458962975/942032528179605514/unknown.png</a>
+
+- Great Britain fought France&#39;s 84e and Garde Imperiale regiment at 7pm EST.
+
+<a href="https://media.discordapp.net/attachments/918918396458962975/942058779346890792/news20.PNG">https://media.discordapp.net/attachments/918918396458962975/942058779346890792/news20.PNG</a>
+
+- Reale Esercito Luchesse is having a battle today at 2PM EST
+
+<a href="https://media.discordapp.net/attachments/918918396458962975/942060232903905360/unknown.png">https://media.discordapp.net/attachments/918918396458962975/942060232903905360/unknown.png</a>
+
+- K&#246;nigreich Mittelberg had a battle on Thursday and won.
+
+<a href="https://media.discordapp.net/attachments/918918396458962975/942065963048775730/news22.PNG">https://media.discordapp.net/attachments/918918396458962975/942065963048775730/news22.PNG</a>
+
+- Austria had a battle against Prussia and won
+
+<a href="https://media.discordapp.net/attachments/932655006644043836/942103916877856868/unknown.png?width=903&height=473">https://media.discordapp.net/attachments/932655006644043836/942103916877856868/unknown.png?width=903&amp;height=473</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918910191871885342/942029066851221524/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918910191871885342/942029066851221524/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918918396458962975/942032528179605514/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918918396458962975/942032528179605514/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918918396458962975/942058779346890792/news20.PNG">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918918396458962975/942058779346890792/news20.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918918396458962975/942060232903905360/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918918396458962975/942060232903905360/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/918918396458962975/942065963048775730/news22.PNG">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/918918396458962975/942065963048775730/news22.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942105853597728868" id="message-942105853597728868" title="Message sent: 12-Feb-22 09:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Thanks for reading and always remember to follow our news channel and join our discord server!</strong>
+
+<a href="https://discord.gg/Sf4uugbj7c">https://discord.gg/Sf4uugbj7c</a>
+
+Written By: EbenezerAso &amp; John
+Edited By: EbenezerAso
+Approved By: The Waterloo Times</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="942105977853980672" id="message-942105977853980672" title="Message sent: 12-Feb-22 09:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(0, 0, 1); background-color: rgba(0, 0, 1, 0.1);">@News Ping TWW</span> <strong>Make sure to follow our news channel &amp; react with <span class="mention">#reaction-roles</span> enjoy reading!!</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/707490595240804452/56885a7dda03ca4037694435c922dba9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EbenezerAso#6898" data-user-id="707490595240804452" style="color: rgb(231,76,60)">EbenezerAso</span>
+
+
+        <span class="chatlog__timestamp">13-Feb-22 09:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="942476678721069077" id="message-942476678721069077" title="Message sent: 13-Feb-22 09:45 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Daily News | The Waterloo Times</strong>
+<em>13/02/2022</em>
+
+<strong>Austria captures Regensburg;</strong>
+
+Yesterday, On the rainy night of Saturday 12th February 2022, A battle in the plains of Regensburg for the future of Bavaria happened. The Prussians were highly outnumbered and organised a defence in the small town of Ratisbon, The Austrians who were sure of victory, stormed in and killed every living creature. Most sources tell us that the Austrians were indeed helped by villagers. At the end of the day, A Prussian army wiped out and great loss of a courageous General e9or10028. King MrLazor500, due to the lack of cavalry did not Pursue.
+
+<a href="https://media.discordapp.net/attachments/929321599675539486/942105486524817418/unknown.png?width=1266&height=663">https://media.discordapp.net/attachments/929321599675539486/942105486524817418/unknown.png?width=1266&amp;height=663</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/929321599675539486/942105486524817418/unknown.png?width=1266&amp;height=663">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/929321599675539486/942105486524817418/unknown.png?width=1266&amp;height=663" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942476794043445258" id="message-942476794043445258" title="Message sent: 13-Feb-22 09:46 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Gascony destroys the Coalition;</strong>
+
+On this day, the war of Europe, in Conquetes had happened, with nations flooding the battlefield with their rankers and commanders, the Gascogians coalition, consisting of Warsaw, Galacia, Nassau and Gascony as the mastermind, emerged victorious against the Coalition of the 5 nations, consisting of Switzerland, Wurzburg, The Celts, Greece and Mittelburg, with the field being filled with dead bodies from both sides, the sun has set and the Gascogians lion had once again devoured the enemy with his jaws, at the cost of a 210 Gascogians dead.
+
+The Gasconian line commanded by BellatorNoble penetrating the left flank: 
+<a href="https://cdn.discordapp.com/attachments/806749037444726804/930781397206069248/mf.png">https://cdn.discordapp.com/attachments/806749037444726804/930781397206069248/mf.png</a>
+
+<a href="https://media.discordapp.net/attachments/790122375751663686/942435508917776434/250-210.png">https://media.discordapp.net/attachments/790122375751663686/942435508917776434/250-210.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/806749037444726804/930781397206069248/mf.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/806749037444726804/930781397206069248/mf.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/790122375751663686/942435508917776434/250-210.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/790122375751663686/942435508917776434/250-210.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942476859738845214" id="message-942476859738845214" title="Message sent: 13-Feb-22 09:46 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Polish war for Independence; </strong>
+
+Poland has risen as a rebellion to reclaim their lost lands of Polish–the Lithuanian Commonwealth. Polish commander: Q_74 has rallied the polish people and they are off to war against the Russians. The Russians have rallied and taken this as a serious threat since other annexed nations might take up arms too. The Russians hope that this will be a short conflict and not many lives will be lost. The Polish have taken a good approach on this and they raided a nearby town which forced the Russians to come to them. This battle will turn the tide of Russian lands forever.
+
+<a href="https://media.discordapp.net/attachments/942072289950851162/942373707987423282/unknown.png">https://media.discordapp.net/attachments/942072289950851162/942373707987423282/unknown.png</a>
+
+<a href="https://media.discordapp.net/attachments/942072289950851162/942373661938176050/unknown.png">https://media.discordapp.net/attachments/942072289950851162/942373661938176050/unknown.png</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="13-Feb-22 09:49 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/942072289950851162/942373707987423282/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/942072289950851162/942373707987423282/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/942072289950851162/942373661938176050/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/942072289950851162/942373661938176050/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942476966873944094" id="message-942476966873944094" title="Message sent: 13-Feb-22 09:46 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Extra news:
+
+
+- AronCalovetral Nassau has started Mobilisation against MrLazer500 Austria.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942452222246154290/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942452222246154290/unknown.png</a>
+
+- USA&#39;s Desperation on getting men, They decide to pay Men to come.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942452705622896660/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942452705622896660/unknown.png</a>
+
+- Polish defeated but the rebels are not done yet.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942455456222281758/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942455456222281758/unknown.png</a>
+
+-  waksegan123c Mecklenburg defeats LunaPhyrrics Swiss at Schleitheim, 1-0 Mechlenburg.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942457205926551572/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942457205926551572/unknown.png</a>
+
+- AronCalovetral Nassau closing Officer Applications for the late loss of BellatorNoble.
+
+
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942459745598599228/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942459745598599228/unknown.png</a>
+
+- CoolGofBoy Wolf Legion charging down the British Line Infantry.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942475963701288980/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942475963701288980/unknown.png</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="13-Feb-22 09:47 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942452222246154290/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942452222246154290/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942452705622896660/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942452705622896660/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942455456222281758/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942455456222281758/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942457205926551572/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942457205926551572/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942459745598599228/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942459745598599228/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942477037954822184" id="message-942477037954822184" title="Message sent: 13-Feb-22 09:47 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(2, 10, 15); background-color: rgba(2, 10, 15, 0.1);">@News Ping WAH</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">13-Feb-22 09:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="942478613117304982" id="message-942478613117304982" title="Message sent: 13-Feb-22 09:53 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Thanks for reading and always remember to subscribe to our news and join our discord server!
+
+<a href="https://discord.gg/Sf4uugbj7c">https://discord.gg/Sf4uugbj7c</a>
+
+Written By: <span class="mention" title="EbenezerAso#6898">@EbenezerAso</span> 
+Edited By: <span class="mention" title="EbenezerAso#6898">@EbenezerAso</span> 
+Approved By: The Western Times</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/763861692286894133/66447dbccbe3bb5b54bcc1a9a8021cef.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cody#2218" data-user-id="763861692286894133" style="color: rgb(0,255,225)">Cody</span>
+
+
+        <span class="chatlog__timestamp">13-Feb-22 06:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="942605988761067580" id="message-942605988761067580" title="Message sent: 13-Feb-22 06:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Sorry for the ghost ping!!!!</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/707490595240804452/56885a7dda03ca4037694435c922dba9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EbenezerAso#6898" data-user-id="707490595240804452" style="color: rgb(231,76,60)">EbenezerAso</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-22 02:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="942910341837377606" id="message-942910341837377606" title="Message sent: 14-Feb-22 02:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Fierce Battle;</strong>
+
+Yesterday, On the cold night of the 13th February 2022. A battle ensued, where the forces of the polish and British-French alliance clashed. King SPARTANDORDOR2 led his forces and broke the lines of the combined power of the British-French forces. King Joselphstalinmilk2 and Emperor TheFrenchBagguette1 were present on the battlefields seeing their men die in front of them. Photos were taken of the quick and rapid battle. Overall, a Polish victory won the battle in a 28v36.
+
+Here is King SPARTANDORDOR2 leading his men in a retreat back to the fort: <a href="https://media.discordapp.net/attachments/942072289950851162/942559677890322432/unknown.png?width=1248&height=664">https://media.discordapp.net/attachments/942072289950851162/942559677890322432/unknown.png?width=1248&amp;height=664</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/942072289950851162/942559677890322432/unknown.png?width=1248&amp;height=664">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/942072289950851162/942559677890322432/unknown.png?width=1248&amp;height=664" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942910394920489021" id="message-942910394920489021" title="Message sent: 14-Feb-22 02:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Prussian HR Meeting;</strong>
+
+King mladende and Field Marshal AnDriuGames calls for an immediate high-rank meeting, discussions for war, assassination and arrest has been rumoured around the Nation. People also believe that the meeting was against the Prince of Prussia as he wasn&#39;t seen in the meeting. People also suspect that this was the first meeting into the Invasion of other the infamous Napoleonic Wars community. As the new arrivals of CBPilots Saxony will be coming into the community, meaning a lot of eyes will be on the German states as they make moves to secure other states for a possible upcoming war.
+
+<a href="https://media.discordapp.net/attachments/846547122542739487/942547883478093895/RobloxScreenShot20211002_172846834.png">https://media.discordapp.net/attachments/846547122542739487/942547883478093895/RobloxScreenShot20211002_172846834.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/846547122542739487/942547883478093895/RobloxScreenShot20211002_172846834.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/846547122542739487/942547883478093895/RobloxScreenShot20211002_172846834.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942910486486339595" id="message-942910486486339595" title="Message sent: 14-Feb-22 02:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>British-Coalition war;</strong>
+
+CoolGofBoy&#39;s Wolf Legion has started mobilisation against Joselphstalinmilk2 UK, with the help of MrLazer500 Austria and SPARTANDORDOR2 Warsaw. The Joint force will declare war on Joselphstalinmilk2 UK tonight and see a response from the Counter-part in the morning. This war is going to be a good, hot-blooded war. We believe that the battle will be an estimated 40v20-30. A battle you cannot miss for sure. This battle will also include the world-renowned commander of Jazzyfartypant2. With the support of CoolGofBoy, Jazzyfartypant2 will be commanding the battles and seeing his first command in a war.
+
+The picture shows the Mobilisation of Wolf Legion: <a href="https://cdn.discordapp.com/attachments/747548055120904404/942842901862445066/Screenshot_2021-10-24_at_16.png">https://cdn.discordapp.com/attachments/747548055120904404/942842901862445066/Screenshot_2021-10-24_at_16.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/747548055120904404/942842901862445066/Screenshot_2021-10-24_at_16.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/747548055120904404/942842901862445066/Screenshot_2021-10-24_at_16.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942910589716553818" id="message-942910589716553818" title="Message sent: 14-Feb-22 02:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Extra news:</strong>
+
+- Prussian Wedding 
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942860513287766016/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942860513287766016/unknown.png</a>
+
+- UK gets more hate from nations for there underaged officers.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942893163545235527/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942893163545235527/unknown.png</a> 
+
+- MrLazer500 Austria being called out for skipping a planned and highly anticipated event.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942893502503714936/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942893502503714936/unknown.png</a>
+
+- Joselphstalinmilk2 UK Elections have started.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/942893981157691432/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/942893981157691432/unknown.png</a>
+
+- CBPilot Saxony executes the field marshal for 2 AA Charges and Treason.
+
+<a href="https://cdn.discordapp.com/attachments/907479949085118484/942909038818131978/unknown_51.png">https://cdn.discordapp.com/attachments/907479949085118484/942909038818131978/unknown_51.png</a>
+
+- mladende Prussian field Marshal: AnDriuGames has secured fort Mutzig from a rebel attack.
+
+<a href="https://media.discordapp.net/attachments/829671915084972042/942870149860589618/unknown.png">https://media.discordapp.net/attachments/829671915084972042/942870149860589618/unknown.png</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Feb-22 07:24 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942860513287766016/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942860513287766016/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942893163545235527/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942893163545235527/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942893502503714936/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942893502503714936/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/942893981157691432/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/942893981157691432/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/907479949085118484/942909038818131978/unknown_51.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/907479949085118484/942909038818131978/unknown_51.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="942910808239800360" id="message-942910808239800360" title="Message sent: 14-Feb-22 02:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(2, 10, 15); background-color: rgba(2, 10, 15, 0.1);">@News Ping WAH</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="942910814959046716" id="message-942910814959046716" title="Message sent: 14-Feb-22 02:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Thanks for reading and always remember to subscribe to our news and join our discord server!
+
+<a href="https://discord.gg/Sf4uugbj7c">https://discord.gg/Sf4uugbj7c</a>
+
+Written By: <span class="mention" title="EbenezerAso#6898">@EbenezerAso</span> 
+Edited By: <span class="mention" title="EbenezerAso#6898">@EbenezerAso</span> 
+Approved By: The Western Times</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/707490595240804452/56885a7dda03ca4037694435c922dba9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EbenezerAso#6898" data-user-id="707490595240804452" style="color: rgb(231,76,60)">EbenezerAso</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-22 03:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="943292277961424956" id="message-943292277961424956" title="Message sent: 15-Feb-22 03:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Generalmmay Court case;</strong>
+
+CBPilot&#39;s Saxony will be hosting the &quot;Leipzig Trails&quot; on Generalmmay. Generalmmay is being accused of high treason. Generalmmay will be appearing in court on the 16th February 2022, at 8 AM GMT. The Judge will be the infamous uniform artist Schwichh. The Courtroom will be attended by some infamous characters such as the famous Victorian Developer Akizlez and the Westphalian Leader Captain_Dough9525. The Court case will be held in the name of Saxony and will be hosted by Gascogian Officer EbenezerAso.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943279934758076426/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943279934758076426/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943279934758076426/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943279934758076426/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="943292346580238426" id="message-943292346580238426" title="Message sent: 15-Feb-22 03:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Nation change up;</strong>
+
+The King of Prussia: prosniper123sniper has made it clear that his heart and mind wishes to join Campaigns. He made a poll with his group to change nations to make it easier to join the infamous community &quot; Campaigns &quot;. Lately, many nations are trying new nations never heard of in the Napoleonic era and trying to achieve the goals of getting into &quot; Campaigns &quot;. The Community &quot; Campaigns &quot; is infamous for its big battles 100v100 and  3k player battles, many nation leaders believe it is the key to becoming famous. 
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943283301886603334/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943283301886603334/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943283301886603334/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943283301886603334/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="943292416381837363" id="message-943292416381837363" title="Message sent: 15-Feb-22 03:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Noob Army takeover;</strong>
+
+The Noob Army led by the commander: KingPredator117 is preparing his army to take over Waterloo at Home servers. KingPredator117 hopes to rally more people and recruit more people to the noob cause as his skilled and high trained army takes over server by server. The 84e Regiment of the French empire tried to stop the Noob army but failed miserably losing a lot of men and a lot of morale. The infamous undefeatable 84e Regiment reputation was banished. Can Gascony save the world by defeating the Noob Army?
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943287576880640010/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943287576880640010/unknown.png</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943287576880640010/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943287576880640010/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="943292509449248828" id="message-943292509449248828" title="Message sent: 15-Feb-22 03:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Extra News:</strong>
+
+- Gascony joins Josephstalinmilk2 UK side against CoolGofBoy&#39;s Wolf Legion.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943288699142156288/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943288699142156288/unknown.png</a>
+
+- CoolGofBoy&#39;s Wolf Legion join MrFluffyLion Russia against Q_74 Warsaw
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943289061316112424/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943289061316112424/unknown.png</a>
+
+- MrFluffyLion Russia caught up with the rest of Q_74 Warsaw Army and a Battle will take place.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943290406362316850/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943290406362316850/unknown.png</a>
+
+- A whole community joins Josephstalinmilk2 UK side against CoolGofBoy&#39;s Wolf Legion.
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943290642874892369/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943290642874892369/unknown.png</a>
+
+- AronCalovetral Nassau still looking for a replacement of there previous officers who deserted. 
+
+<a href="https://media.discordapp.net/attachments/942072289950851162/943290970059989062/unknown.png">https://media.discordapp.net/attachments/942072289950851162/943290970059989062/unknown.png</a>
+
+- Tensions rise between yo7ak UK and captnutlass Ireland
+
+<a href="https://cdn.discordapp.com/attachments/942072289950851162/943291807431807016/unknown.png">https://cdn.discordapp.com/attachments/942072289950851162/943291807431807016/unknown.png</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Feb-22 04:19 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943288699142156288/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943288699142156288/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943289061316112424/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943289061316112424/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943290406362316850/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943290406362316850/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://cdn.discordapp.com/attachments/942072289950851162/943290642874892369/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://cdn.discordapp.com/attachments/942072289950851162/943290642874892369/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="chatlog__embed">
+                            <a href="https://media.discordapp.net/attachments/942072289950851162/943290970059989062/unknown.png">
+                                <img class="chatlog__embed-plainimage" src="https://media.discordapp.net/attachments/942072289950851162/943290970059989062/unknown.png" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="943292621084852274" id="message-943292621084852274" title="Message sent: 15-Feb-22 03:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(2, 10, 15); background-color: rgba(2, 10, 15, 0.1);">@News Ping WAH</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943292629855121418" id="message-943292629855121418" title="Message sent: 15-Feb-22 03:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Thanks for reading and always remember to subscribe to our news and join our discord server!
+
+<a href="https://discord.gg/Sf4uugbj7c">https://discord.gg/Sf4uugbj7c</a>
+
+Written By: <span class="mention" title="EbenezerAso#6898">@EbenezerAso</span> 
+Edited By: <span class="mention" title="EbenezerAso#6898">@EbenezerAso</span> 
+Approved By: The Western Times</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943292719365783604" id="message-943292719365783604" title="Message sent: 15-Feb-22 03:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Sorry if it was late^^</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 33 message(s)</div>
+</div>
+
+</body>
+
+</html>
