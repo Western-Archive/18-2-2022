@@ -1,0 +1,4828 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Western Basement - &#127916;tww-clips</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/814b6281179f9cf3b24972bb61e4a0c6-7D132.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Western Basement</div>
+        <div class="preamble__entry">Other ♾ / &#127916;tww-clips</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/963c11a43a9324db548f2b9bea35a16a-0B9CF.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AlexL#7703" data-user-id="654353697643429928" style="color: rgb(134,0,255)">AlexL</span>
+
+
+        <span class="chatlog__timestamp">28-Nov-21 10:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="914584881735016448" id="message-914584881735016448" title="Message sent: 28-Nov-21 10:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">upload your best clips here. Eventually I&#39;ll make a community montage!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 08:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="926689013564313601" id="message-926689013564313601" title="Message sent: 31-Dec-21 08:11 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">can it be like just random clips</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 08:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="926690917333749781" id="message-926690917333749781" title="Message sent: 31-Dec-21 08:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nah I don’t wanna see no porn <span class="mention" title="miggyay#7543">@MiggYay</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 08:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="926690976737669151" id="message-926690976737669151" title="Message sent: 31-Dec-21 08:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">no like different games lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926690991514210314" id="message-926690991514210314" title="Message sent: 31-Dec-21 08:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">not just tww</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 08:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="926691198729605120" id="message-926691198729605120" title="Message sent: 31-Dec-21 08:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what games?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 08:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="926691243923218452" id="message-926691243923218452" title="Message sent: 31-Dec-21 08:20 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">uh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926691374189924413" id="message-926691374189924413" title="Message sent: 31-Dec-21 08:20 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">diff games in roblox, fortnite (even though i cant clip there) mc and others</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/963c11a43a9324db548f2b9bea35a16a-0B9CF.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AlexL#7703" data-user-id="654353697643429928" style="color: rgb(134,0,255)">AlexL</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 09:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="926702987848605737" id="message-926702987848605737" title="Message sent: 31-Dec-21 09:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">roblox wild west clips <span class="mention" title="royce#6367">@royce</span> <span class="mention" title="miggyay#7543">@MiggYay</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 09:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="926703026973081630" id="message-926703026973081630" title="Message sent: 31-Dec-21 09:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 09:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="926705604758736956" id="message-926705604758736956" title="Message sent: 31-Dec-21 09:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">can there be a separate clip channel tho</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="miggyay#7543" style="color: rgb(245,140,255)">MiggYay</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;926705604758736956&#39;)">
+can there be a separate clip channel tho                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/963c11a43a9324db548f2b9bea35a16a-0B9CF.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AlexL#7703" data-user-id="654353697643429928" style="color: rgb(134,0,255)">AlexL</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 09:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="926705910129242122" id="message-926705910129242122" title="Message sent: 31-Dec-21 09:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">31-Dec-21 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="926708670962757672" id="message-926708670962757672" title="Message sent: 31-Dec-21 09:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">alr</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="926708671973556224" id="message-926708671973556224" title="Message sent: 31-Dec-21 09:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="miggyay#7543">@MiggYay</span>, you just advanced to level 7!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="royce#6367" style="color: rgb(134,0,255)">royce</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;926691198729605120&#39;)">
+what games?                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MysticalMilk#7666" data-user-id="654476888756191232" style="color: rgb(6,43,23)">MysticalMilk</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896393963053186" id="message-926896393963053186" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">migg is minecraft nerd</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="MysticalMilk#7666" style="color: rgb(6,43,23)">MysticalMilk</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;926896393963053186&#39;)">
+migg is minecraft nerd                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896440146542673" id="message-926896440146542673" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lmfaooo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896446060523540" id="message-926896446060523540" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">he’s a fortnite nerd too</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MysticalMilk#7666" data-user-id="654476888756191232" style="color: rgb(6,43,23)">MysticalMilk</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896469359857666" id="message-926896469359857666" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">me????</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896481024241694" id="message-926896481024241694" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MysticalMilk#7666" data-user-id="654476888756191232" style="color: rgb(6,43,23)">MysticalMilk</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896530777079848" id="message-926896530777079848" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i try playing battle royal and i get shit on</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896545562001409" id="message-926896545562001409" title="Message sent: 01-Jan-22 09:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">also your other friend but we don’t talk about that</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="MysticalMilk#7666" style="color: rgb(6,43,23)">MysticalMilk</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;926896530777079848&#39;)">
+i try playing battle royal and i get shit on                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896573294723123" id="message-926896573294723123" title="Message sent: 01-Jan-22 09:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">creative player moment</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926896695801950208" id="message-926896695801950208" title="Message sent: 01-Jan-22 09:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="miggyay#7543" style="color: rgb(245,140,255)">MiggYay</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;926896573294723123&#39;)">
+creative player moment                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MysticalMilk#7666" data-user-id="654476888756191232" style="color: rgb(6,43,23)">MysticalMilk</span>
+
+
+        <span class="chatlog__timestamp">01-Jan-22 09:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="926896731168329738" id="message-926896731168329738" title="Message sent: 01-Jan-22 09:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yesh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/6d85f26ffeb63d7df709d3f59188b032-9D42F.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noto#6080" data-user-id="827995582290722866" style="">Noto</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 02:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="927686860245987439" id="message-927686860245987439" title="Message sent: 03-Jan-22 02:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://www.youtube.com/watch?v=IGcg_sYk7qI">https://www.youtube.com/watch?v=IGcg_sYk7qI</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+
+                                                    <span class="chatlog__embed-author-name">
+                                                            <a class="chatlog__embed-author-name-link" href="https://www.youtube.com/channel/UCWQ4ufHOIAgNm-paK0J7qAA">Notorious</a>
+                                                    </span>
+                                            </div>
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://www.youtube.com/watch?v=IGcg_sYk7qI">
+                                                        <div class="markdown preserve-whitespace">Kinda simple</div>
+                                                    </a>
+                                            </div>
+
+                                        <div class="chatlog__embed-youtube-container">
+                                            <iframe class="chatlog__embed-youtube" src="https://www.youtube.com/embed/IGcg_sYk7qI" width="400" height="225"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/6d85f26ffeb63d7df709d3f59188b032-9D42F.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Noto#6080" style="">Noto</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927686860245987439&#39;)">
+<a href="https://www.youtube.com/watch?v=IGcg_sYk7qI">https://www.youtube.com/watch?v=IGcg_sYk7qI</a>                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 02:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="927696642143055922" id="message-927696642143055922" title="Message sent: 03-Jan-22 02:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/a_0b76e41c38ca188028732c52244afac9-47635.gif" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Vix#6666" data-user-id="786428918751035452" style="">Vix</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="927766964066201690" id="message-927766964066201690" title="Message sent: 03-Jan-22 07:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">scem</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TipToes021#3969" data-user-id="747119728778281012" style="color: rgb(230,126,34)">TipToes021</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="927766983980765205" id="message-927766983980765205" title="Message sent: 03-Jan-22 07:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dont click this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/0e32d4e490bdf4bf3c914f6541f9504b-D65BD.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TaterTot08#9976" data-user-id="734962903899439156" style="color: rgb(31,139,76)">TaterTot08</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="927766999189311518" id="message-927766999189311518" title="Message sent: 03-Jan-22 07:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ayo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/5671093503df438264719a8e1aa6d650-A33E3.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Epitaph#9550" data-user-id="728146238716772353" style="color: rgb(230,126,34)">Epitaph</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767029015003236" id="message-927767029015003236" title="Message sent: 03-Jan-22 07:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">who smoking meth</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/0e32d4e490bdf4bf3c914f6541f9504b-D65BD.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TaterTot08#9976" data-user-id="734962903899439156" style="color: rgb(31,139,76)">TaterTot08</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767065039876126" id="message-927767065039876126" title="Message sent: 03-Jan-22 07:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">he had to havce been hacked</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767084287557672" id="message-927767084287557672" title="Message sent: 03-Jan-22 07:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">it’s a discord scam</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/0e32d4e490bdf4bf3c914f6541f9504b-D65BD.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TaterTot08#9976" data-user-id="734962903899439156" style="color: rgb(31,139,76)">TaterTot08</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767095071088700" id="message-927767095071088700" title="Message sent: 03-Jan-22 07:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/4426763683c6821330a6a2421fee54bc-30321.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Slither#8318" data-user-id="868168917506482197" style="color: rgb(230,126,34)">Slither</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767107754688552" id="message-927767107754688552" title="Message sent: 03-Jan-22 07:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">sweet home alabama</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/unknown-EC223.png">
+                                <img class="chatlog__attachment-media" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/unknown-EC223.png" alt="Image attachment" title="Image: unknown.png (14.08 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767126163488841" id="message-927767126163488841" title="Message sent: 03-Jan-22 07:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hijacked account prob</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767460076220498" id="message-927767460076220498" title="Message sent: 03-Jan-22 07:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">who ghost pinged?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767500823887902" id="message-927767500823887902" title="Message sent: 03-Jan-22 07:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">a scam</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927767504670044200" id="message-927767504670044200" title="Message sent: 03-Jan-22 07:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thing</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="TipToes021#3969" style="color: rgb(230,126,34)">TipToes021</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927766983980765205&#39;)">
+dont click this                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767510101676032" id="message-927767510101676032" title="Message sent: 03-Jan-22 07:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">who was it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767548378886266" id="message-927767548378886266" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hold on</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767561003745291" id="message-927767561003745291" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">someone got hacked and sent a scam link</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767571875397672" id="message-927767571875397672" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">gimme a sec ima ping him</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="royce#6367" style="color: rgb(134,0,255)">royce</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927767510101676032&#39;)">
+who was it                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TipToes021#3969" data-user-id="747119728778281012" style="color: rgb(230,126,34)">TipToes021</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767604028928010" id="message-927767604028928010" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">some guy sent a nitro scam link</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927767637763690506" id="message-927767637763690506" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i saw it happen to some poor guy i knew</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="TipToes021#3969" style="color: rgb(230,126,34)">TipToes021</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927767604028928010&#39;)">
+some guy sent a nitro scam link                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767639525322842" id="message-927767639525322842" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">o</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TipToes021#3969" data-user-id="747119728778281012" style="color: rgb(230,126,34)">TipToes021</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767648568221776" id="message-927767648568221776" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">in western weekly</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767723017109504" id="message-927767723017109504" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dang</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927767736124342272" id="message-927767736124342272" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">that’s tuff</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767754663161876" id="message-927767754663161876" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah he isn’t in this server anymore</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927767789081624650" id="message-927767789081624650" title="Message sent: 03-Jan-22 07:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">rip his account to the owner</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TipToes021#3969" data-user-id="747119728778281012" style="color: rgb(230,126,34)">TipToes021</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767809910530058" id="message-927767809910530058" title="Message sent: 03-Jan-22 07:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yeah he was a nice guy then i saw him post a fake nitro link, he got hacked <img loading="lazy" class="emoji " alt="😭" title="sob" src="https://twemoji.maxcdn.com/2/svg/1f62d.svg"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="TipToes021#3969" style="color: rgb(230,126,34)">TipToes021</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927767809910530058&#39;)">
+yeah he was a nice guy then i saw him post a fake nitro link, he got hacked <img loading="lazy" class="emoji " alt="😭" title="sob" src="https://twemoji.maxcdn.com/2/svg/1f62d.svg">                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767868253302914" id="message-927767868253302914" title="Message sent: 03-Jan-22 07:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oof</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927767899358232586" id="message-927767899358232586" title="Message sent: 03-Jan-22 07:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">that’s actually a rip</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="927767947089444914" id="message-927767947089444914" title="Message sent: 03-Jan-22 07:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">rip</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="927768118984593448" id="message-927768118984593448" title="Message sent: 03-Jan-22 07:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i think his username was bruv or something</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="927768143865200670" id="message-927768143865200670" title="Message sent: 03-Jan-22 07:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">yea</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/857082928cd1c0a0a6af9b96dbc55ab8-680C9.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smoxx#0522" data-user-id="605932970485743618" style="color: rgb(230,126,34)">Smoxx</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="927768235816910858" id="message-927768235816910858" title="Message sent: 03-Jan-22 07:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">WHO PING</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-22 07:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="927768236454469653" id="message-927768236454469653" title="Message sent: 03-Jan-22 07:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="Smoxx#0522">@Smoxx</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927768241789603870" id="message-927768241789603870" title="Message sent: 03-Jan-22 07:39 PM">
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(45,45,45,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+                                                    <img class="chatlog__embed-author-icon" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/67a18fe3e0b51cba6b687868b9572759-80C7E.png" alt="Author icon" loading="lazy" onerror="this.style.visibility='hidden'">
+
+                                                    <span class="chatlog__embed-author-name">
+Smoxx#0522 has been warned                                                    </span>
+                                            </div>
+
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace"><strong>Reason:</strong> Capital letters</div>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/857082928cd1c0a0a6af9b96dbc55ab8-680C9.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Smoxx#0522" style="color: rgb(230,126,34)">Smoxx</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927768235816910858&#39;)">
+WHO PING                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="927770059366088705" id="message-927770059366088705" title="Message sent: 03-Jan-22 07:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">someone got hacked</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927770086977204254" id="message-927770086977204254" title="Message sent: 03-Jan-22 07:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and scam nitro link</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/c4f59cc60e79f3d3a8a421a9f4d4b4f5-CB01A.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="TipToes021#3969" style="color: rgb(230,126,34)">TipToes021</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927767809910530058&#39;)">
+yeah he was a nice guy then i saw him post a fake nitro link, he got hacked <img loading="lazy" class="emoji " alt="😭" title="sob" src="https://twemoji.maxcdn.com/2/svg/1f62d.svg">                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/9bf86fa6501ad7c1463fedba70c94733-B0CEF.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Onyx#0278" data-user-id="738578118897434634" style="">Onyx</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 07:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="927770969907556353" id="message-927770969907556353" title="Message sent: 03-Jan-22 07:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i think i know the guy, he posted a fake nitro scam link in the marketplace</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/9bf86fa6501ad7c1463fedba70c94733-B0CEF.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Onyx#0278" style="">Onyx</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927770969907556353&#39;)">
+i think i know the guy, he posted a fake nitro scam link in the marketplace                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">03-Jan-22 08:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="927775010255413278" id="message-927775010255413278" title="Message sent: 03-Jan-22 08:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">who was it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="royce#6367" style="color: rgb(134,0,255)">royce</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;927770059366088705&#39;)">
+someone got hacked                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f4636de4ee2a5d1a352d203989b4cd55-7F49F.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Florida Man#0232" data-user-id="817012893642915851" style="">Florida Man</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-22 02:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="928049030162956349" id="message-928049030162956349" title="Message sent: 04-Jan-22 02:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">and I got nuked</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/IMG_1232-14704.png">
+                                <img class="chatlog__attachment-media" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/IMG_1232-14704.png" alt="Image attachment" title="Image: IMG_1232.png (640.18 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/IMG_1231-46FFE.png">
+                                <img class="chatlog__attachment-media" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/IMG_1231-46FFE.png" alt="Image attachment" title="Image: IMG_1231.png (1.36 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/IMG_1230-9580C.png">
+                                <img class="chatlog__attachment-media" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/IMG_1230-9580C.png" alt="Image attachment" title="Image: IMG_1230.png (746.05 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-22 02:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="928049687540432957" id="message-928049687540432957" title="Message sent: 04-Jan-22 02:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f4636de4ee2a5d1a352d203989b4cd55-7F49F.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Florida Man#0232" style="">Florida Man</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;928049030162956349&#39;)">
+and I got nuked                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f1d6813141c55c06a190a30dd75de06e-8580B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="royce#6367" data-user-id="798965857883521084" style="color: rgb(134,0,255)">royce</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-22 02:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="928051129399533598" id="message-928051129399533598" title="Message sent: 04-Jan-22 02:23 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dayum</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="928287499292397589" id="message-928287499292397589" title="Message sent: 05-Jan-22 06:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">luckiest headshot that i got on rec</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <video class="chatlog__attachment-media" controls>
+                                <source src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/pro_mode-A4DC6.mov" alt="Video attachment" title="Video: pro_mode.mov (6.03 MB)">
+                            </video>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928287514870038558" id="message-928287514870038558" title="Message sent: 05-Jan-22 06:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928287528165994557" id="message-928287528165994557" title="Message sent: 05-Jan-22 06:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">thats gay</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e99010f8805d6119d834e49d4fae4f36-D347E.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bacon#4446" data-user-id="867584248951996436" style="color: rgb(230,126,34)">bacon</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="928287575473520670" id="message-928287575473520670" title="Message sent: 05-Jan-22 06:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">don&#39;t u got schoool?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="928287606532362240" id="message-928287606532362240" title="Message sent: 05-Jan-22 06:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i do tomorrow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928287690091294741" id="message-928287690091294741" title="Message sent: 05-Jan-22 06:03 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <video class="chatlog__attachment-media" controls>
+                                <source src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/pro_mode-E116B.mov" alt="Video attachment" title="Video: pro_mode.mov (6.03 MB)">
+                            </video>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928287708500078592" id="message-928287708500078592" title="Message sent: 05-Jan-22 06:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928287753655943228" id="message-928287753655943228" title="Message sent: 05-Jan-22 06:04 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">ima just upload it on medal and send it here</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928289186543448114" id="message-928289186543448114" title="Message sent: 05-Jan-22 06:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">bruh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928289212690731038" id="message-928289212690731038" title="Message sent: 05-Jan-22 06:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">how do i convert it to mp4</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e99010f8805d6119d834e49d4fae4f36-D347E.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bacon#4446" data-user-id="867584248951996436" style="color: rgb(230,126,34)">bacon</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="928289706297401434" id="message-928289706297401434" title="Message sent: 05-Jan-22 06:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dude everybody got school</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="928289747737145394" id="message-928289747737145394" title="Message sent: 05-Jan-22 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">what day is it for u</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928289770432524318" id="message-928289770432524318" title="Message sent: 05-Jan-22 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">for me its the 5th</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e99010f8805d6119d834e49d4fae4f36-D347E.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bacon#4446" data-user-id="867584248951996436" style="color: rgb(230,126,34)">bacon</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="928289785825611906" id="message-928289785825611906" title="Message sent: 05-Jan-22 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">same</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="928289829706407966" id="message-928289829706407966" title="Message sent: 05-Jan-22 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i go back on the 6th</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e99010f8805d6119d834e49d4fae4f36-D347E.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bacon#4446" data-user-id="867584248951996436" style="color: rgb(230,126,34)">bacon</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="928289858705821696" id="message-928289858705821696" title="Message sent: 05-Jan-22 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928289867962675210" id="message-928289867962675210" title="Message sent: 05-Jan-22 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">cool</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">05-Jan-22 06:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="928292972997521419" id="message-928292972997521419" title="Message sent: 05-Jan-22 06:24 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i fixed it</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <video class="chatlog__attachment-media" controls>
+                                <source src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/pro_mode-E079D.mp4" alt="Video attachment" title="Video: pro_mode.mp4 (3.11 MB)">
+                            </video>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928292979179937862" id="message-928292979179937862" title="Message sent: 05-Jan-22 06:24 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">gaming</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="928293095387312158" id="message-928293095387312158" title="Message sent: 05-Jan-22 06:25 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i didnt even mean to get a headshot</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">06-Jan-22 05:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="928637641501605958" id="message-928637641501605958" title="Message sent: 06-Jan-22 05:14 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://youtu.be/cCcXQS-ZxzM">https://youtu.be/cCcXQS-ZxzM</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+
+                                                    <span class="chatlog__embed-author-name">
+                                                            <a class="chatlog__embed-author-name-link" href="https://www.youtube.com/channel/UCAihxXRVe27gInQ2N9pqngg">rudeus</a>
+                                                    </span>
+                                            </div>
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://www.youtube.com/watch?v=cCcXQS-ZxzM">
+                                                        <div class="markdown preserve-whitespace">quick montage</div>
+                                                    </a>
+                                            </div>
+
+                                        <div class="chatlog__embed-youtube-container">
+                                            <iframe class="chatlog__embed-youtube" src="https://www.youtube.com/embed/cCcXQS-ZxzM" width="400" height="225"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1bd5f588428627b8d1759530929e4a8e-BD97B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="rudy#9126" data-user-id="718744904460664862" style="color: rgb(91,27,96)">rudy</span>
+
+
+        <span class="chatlog__timestamp">06-Jan-22 04:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="928806280951390220" id="message-928806280951390220" title="Message sent: 06-Jan-22 04:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://youtu.be/OzTWv_vP7WE">https://youtu.be/OzTWv_vP7WE</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+
+                                                    <span class="chatlog__embed-author-name">
+                                                            <a class="chatlog__embed-author-name-link" href="https://www.youtube.com/channel/UCAihxXRVe27gInQ2N9pqngg">rudeus</a>
+                                                    </span>
+                                            </div>
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://www.youtube.com/watch?v=OzTWv_vP7WE">
+                                                        <div class="markdown preserve-whitespace">bully | short tww montage</div>
+                                                    </a>
+                                            </div>
+
+                                        <div class="chatlog__embed-youtube-container">
+                                            <iframe class="chatlog__embed-youtube" src="https://www.youtube.com/embed/OzTWv_vP7WE" width="400" height="225"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/dec4768e0b3737c32d635c34b651ab15-6DD44.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Fimu#2806" data-user-id="523276786692522007" style="color: rgb(255,0,0)">Fimu</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287349633740820" id="message-932287349633740820" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">dont click it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f8b799f3918881518381812ed93c340f-3F7D7.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Aura x#7745" data-user-id="451166183803322368" style="color: rgb(255,0,0)">Aura x</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287360933195856" id="message-932287360933195856" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Do not click on that</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/411d6cde8ce65388a139ead901916c1f-42EF1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="pqrl#8508" data-user-id="364418302933598208" style="">pqrl</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287386237411378" id="message-932287386237411378" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lolol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MysticalMilk#7666" data-user-id="654476888756191232" style="color: rgb(6,43,23)">MysticalMilk</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287395045453915" id="message-932287395045453915" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I deleted it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/a50f7c64a33909d40101a4622392715e-DE911.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bones#2955" data-user-id="808351625986048040" style="color: rgb(230,126,34)">Bones</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287397197119519" id="message-932287397197119519" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">don&#39;t click it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287399139098744" id="message-932287399139098744" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="Bones#2955">@Bones</span>, you just advanced to level 2!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/411d6cde8ce65388a139ead901916c1f-42EF1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="pqrl#8508" data-user-id="364418302933598208" style="">pqrl</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287405313126451" id="message-932287405313126451" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Cookie logger</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/f8b799f3918881518381812ed93c340f-3F7D7.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Aura x#7745" data-user-id="451166183803322368" style="color: rgb(255,0,0)">Aura x</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287422866284544" id="message-932287422866284544" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span> block <span class="mention" title="SHADOW_13111#9439">@SHADOW_13111</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b49abd3352fb647dbfe10135ba0d1c91-49C25.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shrek The Force Awakens#3473" data-user-id="924467142265552957" style="color: rgb(230,126,34)">Shrek The Force Awakens</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287462812831744" id="message-932287462812831744" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Give gofy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/794671fa1dae711cb7fea397267c75f7-B03CE.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AGH 45#3329" data-user-id="565218046088577024" style="color: rgb(230,126,34)">AGH 45</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287468055691314" id="message-932287468055691314" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">BRUH</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287472400998431" id="message-932287472400998431" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">you</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287485856337951" id="message-932287485856337951" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">eeee</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b49abd3352fb647dbfe10135ba0d1c91-49C25.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shrek The Force Awakens#3473" data-user-id="924467142265552957" style="color: rgb(230,126,34)">Shrek The Force Awakens</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287543049867264" id="message-932287543049867264" title="Message sent: 16-Jan-22 06:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The @ everon perms</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gub#8552" data-user-id="772893930617307147" style="">gub</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287720947064902" id="message-932287720947064902" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287727221768242" id="message-932287727221768242" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">\<span class="mention">@everyone</span> \</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287730799505460" id="message-932287730799505460" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287735614554132" id="message-932287735614554132" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287737967554561" id="message-932287737967554561" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/dec4768e0b3737c32d635c34b651ab15-6DD44.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Fimu#2806" data-user-id="523276786692522007" style="color: rgb(255,0,0)">Fimu</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287741792755722" id="message-932287741792755722" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">fuck off my guy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gub#8552" data-user-id="772893930617307147" style="">gub</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287745299210260" id="message-932287745299210260" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287748931469332" id="message-932287748931469332" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287754379857930" id="message-932287754379857930" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b49abd3352fb647dbfe10135ba0d1c91-49C25.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shrek The Force Awakens#3473" data-user-id="924467142265552957" style="color: rgb(230,126,34)">Shrek The Force Awakens</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287758548992020" id="message-932287758548992020" title="Message sent: 16-Jan-22 06:58 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/image0-1-1-1.png-6F159.jpg">
+                                <img class="chatlog__attachment-media" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/image0-1-1-1.png-6F159.jpg" alt="Image attachment" title="Image: image0-1-1-1.png.jpg (15.77 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gub#8552" data-user-id="772893930617307147" style="">gub</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287758876164147" id="message-932287758876164147" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287762575556638" id="message-932287762575556638" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287768070062120" id="message-932287768070062120" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/411d6cde8ce65388a139ead901916c1f-42EF1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="pqrl#8508" data-user-id="364418302933598208" style="">pqrl</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287768669868124" id="message-932287768669868124" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ima leave this server</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/dec4768e0b3737c32d635c34b651ab15-6DD44.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Fimu#2806" data-user-id="523276786692522007" style="color: rgb(255,0,0)">Fimu</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287769793945682" id="message-932287769793945682" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">block gub</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/794671fa1dae711cb7fea397267c75f7-B03CE.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AGH 45#3329" data-user-id="565218046088577024" style="color: rgb(230,126,34)">AGH 45</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287773128405013" id="message-932287773128405013" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gub#8552" data-user-id="772893930617307147" style="">gub</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287773338116166" id="message-932287773338116166" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/411d6cde8ce65388a139ead901916c1f-42EF1.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="pqrl#8508" data-user-id="364418302933598208" style="">pqrl</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287773338120233" id="message-932287773338120233" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gub#8552" data-user-id="772893930617307147" style="">gub</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287777549209650" id="message-932287777549209650" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287779185000479" id="message-932287779185000479" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287781319876608" id="message-932287781319876608" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/794671fa1dae711cb7fea397267c75f7-B03CE.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="AGH 45#3329" data-user-id="565218046088577024" style="color: rgb(230,126,34)">AGH 45</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287781688967188" id="message-932287781688967188" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287787397435493" id="message-932287787397435493" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">AAHAHA</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gub#8552" data-user-id="772893930617307147" style="">gub</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287789578485760" id="message-932287789578485760" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287791482695730" id="message-932287791482695730" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287806708006962" id="message-932287806708006962" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287809157492746" id="message-932287809157492746" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287810201845771" id="message-932287810201845771" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287813515374632" id="message-932287813515374632" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287815906103317" id="message-932287815906103317" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287817428664340" id="message-932287817428664340" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287821249675284" id="message-932287821249675284" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287825905336351" id="message-932287825905336351" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b49abd3352fb647dbfe10135ba0d1c91-49C25.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Shrek The Force Awakens#3473" data-user-id="924467142265552957" style="color: rgb(230,126,34)">Shrek The Force Awakens</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 06:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287843957637171" id="message-932287843957637171" title="Message sent: 16-Jan-22 06:59 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ban him nobo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/19cc76f1bf6bc1eaae33f54ca553c622-9C74A.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Chris?#6259" data-user-id="416055567308554252" style="color: rgb(230,126,34)">Chris?</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 07:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="932288288990064660" id="message-932288288990064660" title="Message sent: 16-Jan-22 07:00 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Que funny <img loading="lazy" class="emoji " alt="😐" title="neutral_face" src="https://twemoji.maxcdn.com/2/svg/1f610.svg"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/1db1e92db0971b9800a65943864803ca-DD361.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MysticalMilk#7666" data-user-id="654476888756191232" style="color: rgb(6,43,23)">MysticalMilk</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 07:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="932290098043695215" id="message-932290098043695215" title="Message sent: 16-Jan-22 07:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Left on his pwn</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932290110085537843" id="message-932290110085537843" title="Message sent: 16-Jan-22 07:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Own</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="932297933150384178" id="message-932297933150384178" title="Message sent: 16-Jan-22 07:39 AM">
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(45,45,45,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+                                                    <img class="chatlog__embed-author-icon" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/77b10529be7a1eb79865300fcd2cc87d-0DFF4.png" alt="Author icon" loading="lazy" onerror="this.style.visibility='hidden'">
+
+                                                    <span class="chatlog__embed-author-name">
+Smoxx#0522 has been warned                                                    </span>
+                                            </div>
+
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace"><strong>Reason:</strong> Capital letters</div>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/857082928cd1c0a0a6af9b96dbc55ab8-680C9.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smoxx#0522" data-user-id="605932970485743618" style="color: rgb(230,126,34)">Smoxx</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="932297954386137138" id="message-932297954386137138" title="Message sent: 16-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">@everyone</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/a50f7c64a33909d40101a4622392715e-DE911.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bones#2955" data-user-id="808351625986048040" style="color: rgb(230,126,34)">Bones</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="932297956047081492" id="message-932297956047081492" title="Message sent: 16-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">LOOL</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/857082928cd1c0a0a6af9b96dbc55ab8-680C9.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smoxx#0522" data-user-id="605932970485743618" style="color: rgb(230,126,34)">Smoxx</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="932297963231932436" id="message-932297963231932436" title="Message sent: 16-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fuck!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/857082928cd1c0a0a6af9b96dbc55ab8-680C9.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Smoxx#0522" style="color: rgb(230,126,34)">Smoxx</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;932297954386137138&#39;)">
+<span class="mention">@everyone</span>                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/a50f7c64a33909d40101a4622392715e-DE911.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bones#2955" data-user-id="808351625986048040" style="color: rgb(230,126,34)">Bones</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="932297970710351943" id="message-932297970710351943" title="Message sent: 16-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nomomo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932297974963376193" id="message-932297974963376193" title="Message sent: 16-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">!!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 10:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="932341521695518782" id="message-932341521695518782" title="Message sent: 16-Jan-22 10:32 AM">
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(45,45,45,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+                                                    <img class="chatlog__embed-author-icon" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/df803e3f718834eef175326c4b018926-D120A.png" alt="Author icon" loading="lazy" onerror="this.style.visibility='hidden'">
+
+                                                    <span class="chatlog__embed-author-name">
+Chad Union Soldier#9550 has been warned                                                    </span>
+                                            </div>
+
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace"><strong>Reason:</strong> Capital letters</div>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/e6e998fd578d80cceed2e43068d06b0c-F87ED.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="miggyay#7543" data-user-id="692155147274420224" style="color: rgb(245,140,255)">MiggYay</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 11:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="932351001132953660" id="message-932351001132953660" title="Message sent: 16-Jan-22 11:10 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">wh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 11:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="932351002374451220" id="message-932351002374451220" title="Message sent: 16-Jan-22 11:10 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="miggyay#7543">@MiggYay</span>, you just advanced to level 10!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/edf1b2768e7134810327b982d84a25c2-DA90D.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="gub#8552" style="">gub</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;932287791482695730&#39;)">
+<span class="mention">@everyone</span>                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/0e32d4e490bdf4bf3c914f6541f9504b-D65BD.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TaterTot08#9976" data-user-id="734962903899439156" style="color: rgb(31,139,76)">TaterTot08</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 02:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="932401982977753109" id="message-932401982977753109" title="Message sent: 16-Jan-22 02:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Does anyone know who tf this guy is? He raided other servers too</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/bac003aa83e0308bf61b4f545d7055ce-A6091.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MrBeast#1165" data-user-id="891429451471126528" style="">MrBeast</span>
+
+
+        <span class="chatlog__timestamp">16-Jan-22 02:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="932402037549846578" id="message-932402037549846578" title="Message sent: 16-Jan-22 02:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">hi</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/0e32d4e490bdf4bf3c914f6541f9504b-D65BD.png" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="TaterTot08#9976" style="color: rgb(31,139,76)">TaterTot08</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;932401982977753109&#39;)">
+Does anyone know who tf this guy is? He raided other servers too                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/2ed4e660770481af35fcb9a9a4119754-AF0D2.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bobbyz#4087" data-user-id="700073524462878811" style="color: rgb(230,126,34)">Bobbyz</span>
+
+
+        <span class="chatlog__timestamp">20-Jan-22 08:37 AM</span>
+
+            <div class="chatlog__message " data-message-id="933762096406093884" id="message-933762096406093884" title="Message sent: 20-Jan-22 08:37 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">he&#39;s in vs</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="933762102336823427" id="message-933762102336823427" title="Message sent: 20-Jan-22 08:37 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i think</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/811c4646853a26605181d4f89f555ae3-CA59B.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="SHADOW_13111#9439" data-user-id="784945258101211146" style="color: rgb(230,126,34)">SHADOW_13111</span>
+
+
+        <span class="chatlog__timestamp">26-Jan-22 11:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="935980745736990800" id="message-935980745736990800" title="Message sent: 26-Jan-22 11:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">e</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/b50adff099924dd5e6b72d13f77eb9d7-3D8A8.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="MEE6#4876" data-user-id="159985870458322944" style="color: rgb(52,152,219)">MEE6</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jan-22 02:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386257607606293" id="message-936386257607606293" title="Message sent: 27-Jan-22 02:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">GG <span class="mention" title="MrBeast#1165">@MrBeast</span>, you just advanced to level 1!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/ae6c0d0c0104738a6561919ec0364964-D2CF7.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mud#1754" data-user-id="729404958658527303" style="color: rgb(230,126,34)">Mud</span>
+
+
+        <span class="chatlog__timestamp">27-Jan-22 02:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386306223775815" id="message-936386306223775815" title="Message sent: 27-Jan-22 02:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="apasta6#5733">@apasta6</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/3d8425f3d02bd3d803bf78e6a95d1de9-8B16D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="apasta6#5733" data-user-id="678673064271151104" style="color: rgb(31,139,76)">apasta6</span>
+
+
+        <span class="chatlog__timestamp">27-Jan-22 02:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386390063726652" id="message-936386390063726652" title="Message sent: 27-Jan-22 02:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">?mute 891429451471126528</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/19a5ee4114b47195fcecc6646f2380b1-DEDE7.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dyno#3861" data-user-id="155149108183695360" style="color: rgb(52,152,219)">Dyno</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jan-22 02:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386390223101964" id="message-936386390223101964" title="Message sent: 27-Jan-22 02:25 PM">
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+
+                                            <div class="chatlog__embed-title">
+                                                    <div class="markdown preserve-whitespace"><strong>Command:</strong> ?mute</div>
+                                            </div>
+
+                                            <div class="chatlog__embed-description">
+                                                <div class="markdown preserve-whitespace"><strong>Description:</strong> Mute a member so they cannot type or speak.
+<strong>Cooldown:</strong> 3 seconds
+<strong>Usage:</strong> ?mute [user] [limit] [reason]
+<strong>Example:</strong>
+	?mute @NoobLance 10 Shitposting
+	?mute User 10m spamming
+	?mute NoobLance 1d Too Cool
+	?mute NoobLance 5h He asked for it</div>
+                                            </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/cececd50fdc87b29929e65c768f24ad6-80BC3.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Carl-bot#1536" data-user-id="235148962103951360" style="color: rgb(52,152,219)">Carl-bot</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jan-22 02:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386390806130688" id="message-936386390806130688" title="Message sent: 27-Jan-22 02:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">This server does not have a mute role, use <span class="pre pre--inline">!muterole &lt;role&gt;</span> to set one or <span class="pre pre--inline">!muterole create [name]</span> to create one.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/3d8425f3d02bd3d803bf78e6a95d1de9-8B16D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="apasta6#5733" data-user-id="678673064271151104" style="color: rgb(31,139,76)">apasta6</span>
+
+
+        <span class="chatlog__timestamp">27-Jan-22 02:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386404278239272" id="message-936386404278239272" title="Message sent: 27-Jan-22 02:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">gr</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/ae6c0d0c0104738a6561919ec0364964-D2CF7.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mud#1754" data-user-id="729404958658527303" style="color: rgb(230,126,34)">Mud</span>
+
+
+        <span class="chatlog__timestamp">27-Jan-22 02:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="936386438440820759" id="message-936386438440820759" title="Message sent: 27-Jan-22 02:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Just ban them</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20%F0%9F%8E%ACtww-clips%20%5B867831702634364939%5D.html_Files/3d8425f3d02bd3d803bf78e6a95d1de9-8B16D.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="apasta6#5733" data-user-id="678673064271151104" style="color: rgb(31,139,76)">apasta6</span>
+
+
+        <span class="chatlog__timestamp">27-Jan-22 02:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="936387178433490964" id="message-936387178433490964" title="Message sent: 27-Jan-22 02:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i would</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="936387196083134585" id="message-936387196083134585" title="Message sent: 27-Jan-22 02:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">but they dming me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="936387233529864192" id="message-936387233529864192" title="Message sent: 27-Jan-22 02:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">not to</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 162 message(s)</div>
+</div>
+
+</body>
+
+</html>

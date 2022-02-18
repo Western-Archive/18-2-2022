@@ -1,0 +1,4554 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Western Basement - level-up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/814b6281179f9cf3b24972bb61e4a0c6-7D132.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Western Basement</div>
+        <div class="preamble__entry">Other ♾ / level-up</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Nov-21 09:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="914571589406830612" id="message-914571589406830612" title="Message sent: 28-Nov-21 09:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Nov-21 10:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="914578804645695568" id="message-914578804645695568" title="Message sent: 28-Nov-21 10:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Dec-21 09:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="922716954786168892" id="message-922716954786168892" title="Message sent: 20-Dec-21 09:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Dec-21 12:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="926211095394390066" id="message-926211095394390066" title="Message sent: 30-Dec-21 12:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="kyu#1372">@kyu</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Dec-21 01:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="926220364302929921" id="message-926220364302929921" title="Message sent: 30-Dec-21 01:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Dec-21 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="926230102298210325" id="message-926230102298210325" title="Message sent: 30-Dec-21 01:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Zeleix#0650">@Zeleix</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Dec-21 11:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="926372321638359070" id="message-926372321638359070" title="Message sent: 30-Dec-21 11:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926372933000130610" id="message-926372933000130610" title="Message sent: 30-Dec-21 11:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TaterTot08#9976">@TaterTot08</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Dec-21 11:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="926377098728317030" id="message-926377098728317030" title="Message sent: 30-Dec-21 11:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="SHADOW_13111#9439">@SHADOW_13111</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926377467902566460" id="message-926377467902566460" title="Message sent: 30-Dec-21 11:33 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 12:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="926385540947922994" id="message-926385540947922994" title="Message sent: 31-Dec-21 12:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 12:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="926398699565903874" id="message-926398699565903874" title="Message sent: 31-Dec-21 12:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TaterTot08#9976">@TaterTot08</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 11:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="926562388730327111" id="message-926562388730327111" title="Message sent: 31-Dec-21 11:48 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926563714520457216" id="message-926563714520457216" title="Message sent: 31-Dec-21 11:53 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Noto#6080">@Noto</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 02:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="926601248835272734" id="message-926601248835272734" title="Message sent: 31-Dec-21 02:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="kyu#1372">@kyu</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 04:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="926628839457685574" id="message-926628839457685574" title="Message sent: 31-Dec-21 04:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="926633139902750740" id="message-926633139902750740" title="Message sent: 31-Dec-21 04:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="926635294701256724" id="message-926635294701256724" title="Message sent: 31-Dec-21 04:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926636490136641588" id="message-926636490136641588" title="Message sent: 31-Dec-21 04:42 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Western#6221">@Western</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926636920921010256" id="message-926636920921010256" title="Message sent: 31-Dec-21 04:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 05:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="926649027116802078" id="message-926649027116802078" title="Message sent: 31-Dec-21 05:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bobwyd#1287">@Test Account</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926650261357854790" id="message-926650261357854790" title="Message sent: 31-Dec-21 05:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Enopeo#2605">@Eno</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 06:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="926658737391956062" id="message-926658737391956062" title="Message sent: 31-Dec-21 06:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926659791554752554" id="message-926659791554752554" title="Message sent: 31-Dec-21 06:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title=".̶͆̌.̴͛̋.̴̈́͑#5154">@.̶͆̌.̴͛̋.̴̈́͑</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 07:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="926683011292999731" id="message-926683011292999731" title="Message sent: 31-Dec-21 07:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="apasta6#5733">@apasta6</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 08:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="926689250408288276" id="message-926689250408288276" title="Message sent: 31-Dec-21 08:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926689325024948265" id="message-926689325024948265" title="Message sent: 31-Dec-21 08:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 08:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="926699479585947658" id="message-926699479585947658" title="Message sent: 31-Dec-21 08:52 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="apasta6#5733">@apasta6</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 09:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="926703027480563753" id="message-926703027480563753" title="Message sent: 31-Dec-21 09:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">31-Dec-21 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="926705404132593664" id="message-926705404132593664" title="Message sent: 31-Dec-21 09:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 08:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="926870800538153000" id="message-926870800538153000" title="Message sent: 01-Jan-22 08:13 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="FinnL#7855">@FinnL</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 09:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="926894964460367953" id="message-926894964460367953" title="Message sent: 01-Jan-22 09:49 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="juice#6272">@juice</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 10:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="926900312613199882" id="message-926900312613199882" title="Message sent: 01-Jan-22 10:10 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 12:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="926929925137637436" id="message-926929925137637436" title="Message sent: 01-Jan-22 12:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 01:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="926956652496814080" id="message-926956652496814080" title="Message sent: 01-Jan-22 01:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="FinnL#7855">@FinnL</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 02:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="926966378735468604" id="message-926966378735468604" title="Message sent: 01-Jan-22 02:33 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TaterTot08#9976">@TaterTot08</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 02:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="926969970737426443" id="message-926969970737426443" title="Message sent: 01-Jan-22 02:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="u21x#4668">@u21x</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 03:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="926980625515282512" id="message-926980625515282512" title="Message sent: 01-Jan-22 03:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926982077939855360" id="message-926982077939855360" title="Message sent: 01-Jan-22 03:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Slither#8318">@Slither</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926982377287327824" id="message-926982377287327824" title="Message sent: 01-Jan-22 03:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926982483512266772" id="message-926982483512266772" title="Message sent: 01-Jan-22 03:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Enopeo#2605">@Eno</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 03:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="926987149641924698" id="message-926987149641924698" title="Message sent: 01-Jan-22 03:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926987390982185022" id="message-926987390982185022" title="Message sent: 01-Jan-22 03:56 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Andew#7053">@Andew</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926987949176946730" id="message-926987949176946730" title="Message sent: 01-Jan-22 03:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Enopeo#2605">@Eno</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="926988955403051039" id="message-926988955403051039" title="Message sent: 01-Jan-22 04:03 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="DragonKnight#7089">@DragonKnight</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 04:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="926991510384283688" id="message-926991510384283688" title="Message sent: 01-Jan-22 04:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="dat boi#4344">@dat boi</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 04:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="926997151282786315" id="message-926997151282786315" title="Message sent: 01-Jan-22 04:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="patrick &#128525;&#128526;#0001">@patrick &#128525;&#128526;</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 04:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="926999544250646578" id="message-926999544250646578" title="Message sent: 01-Jan-22 04:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="pqrl#8508">@pqrl</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="927002870396624907" id="message-927002870396624907" title="Message sent: 01-Jan-22 04:58 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="pqrl#8508">@pqrl</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927003722163294218" id="message-927003722163294218" title="Message sent: 01-Jan-22 05:01 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 05:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="927005630886203412" id="message-927005630886203412" title="Message sent: 01-Jan-22 05:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 05:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="927007566326820895" id="message-927007566326820895" title="Message sent: 01-Jan-22 05:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927008720808972298" id="message-927008720808972298" title="Message sent: 01-Jan-22 05:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Enopeo#2605">@Eno</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927009202340253706" id="message-927009202340253706" title="Message sent: 01-Jan-22 05:23 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="apasta6#5733">@apasta6</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927009745838166076" id="message-927009745838166076" title="Message sent: 01-Jan-22 05:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Crimflare#3882">@Crimflare</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927011015084871731" id="message-927011015084871731" title="Message sent: 01-Jan-22 05:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 06:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="927025936598183996" id="message-927025936598183996" title="Message sent: 01-Jan-22 06:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="strawberrypussy_69#3138">@strawberrypussy_69</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 07:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="927040723478511657" id="message-927040723478511657" title="Message sent: 01-Jan-22 07:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 08:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="927055443644276797" id="message-927055443644276797" title="Message sent: 01-Jan-22 08:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Esk#9479">@Esk</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jan-22 09:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="927065745337221191" id="message-927065745337221191" title="Message sent: 01-Jan-22 09:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927066962570399744" id="message-927066962570399744" title="Message sent: 01-Jan-22 09:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 12:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="927109225577062441" id="message-927109225577062441" title="Message sent: 02-Jan-22 12:01 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 10:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="927262068330074173" id="message-927262068330074173" title="Message sent: 02-Jan-22 10:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Fimu#2806">@Fimu</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 11:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="927287188767510539" id="message-927287188767510539" title="Message sent: 02-Jan-22 11:48 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927287443382743091" id="message-927287443382743091" title="Message sent: 02-Jan-22 11:49 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="beanie#8779">@beanie</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927287565223079968" id="message-927287565223079968" title="Message sent: 02-Jan-22 11:49 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927288844926201896" id="message-927288844926201896" title="Message sent: 02-Jan-22 11:54 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927289038539477012" id="message-927289038539477012" title="Message sent: 02-Jan-22 11:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="pqrl#8508">@pqrl</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927289384674426890" id="message-927289384674426890" title="Message sent: 02-Jan-22 11:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="beanie#8779">@beanie</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 12:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="927292806471507998" id="message-927292806471507998" title="Message sent: 02-Jan-22 12:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="beanie#8779">@beanie</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927293011904327710" id="message-927293011904327710" title="Message sent: 02-Jan-22 12:11 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927293851016785920" id="message-927293851016785920" title="Message sent: 02-Jan-22 12:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 12:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="927301512877707314" id="message-927301512877707314" title="Message sent: 02-Jan-22 12:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927301721565323276" id="message-927301721565323276" title="Message sent: 02-Jan-22 12:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="927304752465854484" id="message-927304752465854484" title="Message sent: 02-Jan-22 12:58 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="dat boi#4344">@dat boi</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 01:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="927315636865105941" id="message-927315636865105941" title="Message sent: 02-Jan-22 01:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>9</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 02:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="927327300326924368" id="message-927327300326924368" title="Message sent: 02-Jan-22 02:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="pqrl#8508">@pqrl</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">02-Jan-22 04:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="927359304644849774" id="message-927359304644849774" title="Message sent: 02-Jan-22 04:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>9</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-22 01:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="927491561246318592" id="message-927491561246318592" title="Message sent: 03-Jan-22 01:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="soundclout#9403">@soundclout</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-22 05:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="927732754395840543" id="message-927732754395840543" title="Message sent: 03-Jan-22 05:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927732831290007662" id="message-927732831290007662" title="Message sent: 03-Jan-22 05:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Smoxx#0522">@Smoxx</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-22 07:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="927766357343363143" id="message-927766357343363143" title="Message sent: 03-Jan-22 07:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927766464159690813" id="message-927766464159690813" title="Message sent: 03-Jan-22 07:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="927766505221939220" id="message-927766505221939220" title="Message sent: 03-Jan-22 07:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>10</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jan-22 08:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="927774369688739901" id="message-927774369688739901" title="Message sent: 03-Jan-22 08:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Fe1x#2748">@Fe1x</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jan-22 02:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="928059228411809792" id="message-928059228411809792" title="Message sent: 04-Jan-22 02:56 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Shrek The Force Awakens#3473">@Shrek The Force Awakens</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jan-22 03:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="928067405845004288" id="message-928067405845004288" title="Message sent: 04-Jan-22 03:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jan-22 04:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="928077188908085248" id="message-928077188908085248" title="Message sent: 04-Jan-22 04:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Epitaph#9550">@Epitaph</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jan-22 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="928106896290885663" id="message-928106896290885663" title="Message sent: 04-Jan-22 06:05 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>10</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jan-22 11:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="928185424806051860" id="message-928185424806051860" title="Message sent: 04-Jan-22 11:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="beanie#8779">@beanie</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Jan-22 05:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="928272999273074768" id="message-928272999273074768" title="Message sent: 05-Jan-22 05:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Jan-22 05:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="928285348176490588" id="message-928285348176490588" title="Message sent: 05-Jan-22 05:54 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="ιηgℓαη∂#8415">@ιηgℓαη∂</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Jan-22 07:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="928488828279353384" id="message-928488828279353384" title="Message sent: 05-Jan-22 07:23 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>11</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Jan-22 08:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="928500815197528124" id="message-928500815197528124" title="Message sent: 05-Jan-22 08:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Esk#9479">@Esk</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jan-22 04:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="928807945930682388" id="message-928807945930682388" title="Message sent: 06-Jan-22 04:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="dat boi#4344">@dat boi</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jan-22 06:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="929197600027078716" id="message-929197600027078716" title="Message sent: 07-Jan-22 06:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Max_#3201">@Max_</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929197674396270622" id="message-929197674396270622" title="Message sent: 07-Jan-22 06:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Chad Union Soldier#9550">@Chad Union Soldier</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929197822614593556" id="message-929197822614593556" title="Message sent: 07-Jan-22 06:20 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929198031155392512" id="message-929198031155392512" title="Message sent: 07-Jan-22 06:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="neoconkiwi#2471">@neoconkiwi</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929199431985815552" id="message-929199431985815552" title="Message sent: 07-Jan-22 06:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Max_#3201">@Max_</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929199721837379614" id="message-929199721837379614" title="Message sent: 07-Jan-22 06:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929200494021320735" id="message-929200494021320735" title="Message sent: 07-Jan-22 06:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="gub#8552">@gub</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929200558454235237" id="message-929200558454235237" title="Message sent: 07-Jan-22 06:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Brodie &#128126;#8210">@Brodie &#128126;</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jan-22 06:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="929202893389692990" id="message-929202893389692990" title="Message sent: 07-Jan-22 06:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929203064584425472" id="message-929203064584425472" title="Message sent: 07-Jan-22 06:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Brodie &#128126;#8210">@Brodie &#128126;</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929203444198285312" id="message-929203444198285312" title="Message sent: 07-Jan-22 06:42 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Cere#2172">@Cere</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jan-22 06:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="929205210352611468" id="message-929205210352611468" title="Message sent: 07-Jan-22 06:49 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Cere#2172">@Cere</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929205539177639978" id="message-929205539177639978" title="Message sent: 07-Jan-22 06:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Daniel~#0397">@Daniel~</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jan-22 10:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="929257263493967883" id="message-929257263493967883" title="Message sent: 07-Jan-22 10:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Chad Union Soldier#9550">@Chad Union Soldier</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jan-22 10:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="929264661524779110" id="message-929264661524779110" title="Message sent: 07-Jan-22 10:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Brodie &#128126;#8210">@Brodie &#128126;</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 06:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="929381265319268362" id="message-929381265319268362" title="Message sent: 08-Jan-22 06:29 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="gub#8552">@gub</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 08:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="929413807904800768" id="message-929413807904800768" title="Message sent: 08-Jan-22 08:38 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Esk#9479">@Esk</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 02:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="929501128960380938" id="message-929501128960380938" title="Message sent: 08-Jan-22 02:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>9</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 08:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="929586944910962721" id="message-929586944910962721" title="Message sent: 08-Jan-22 08:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="SHADOW_13111#9439">@SHADOW_13111</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 08:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="929591394211872809" id="message-929591394211872809" title="Message sent: 08-Jan-22 08:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929592590561599488" id="message-929592590561599488" title="Message sent: 08-Jan-22 08:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>9</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jan-22 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="929596371785351228" id="message-929596371785351228" title="Message sent: 08-Jan-22 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>12</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jan-22 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="929876893224828963" id="message-929876893224828963" title="Message sent: 09-Jan-22 03:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Enopeo#2605">@Eno</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jan-22 03:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="929878922148081745" id="message-929878922148081745" title="Message sent: 09-Jan-22 03:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="929879017119678494" id="message-929879017119678494" title="Message sent: 09-Jan-22 03:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="apasta6#5733">@apasta6</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jan-22 05:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="929907806679744552" id="message-929907806679744552" title="Message sent: 09-Jan-22 05:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Chad Union Soldier#9550">@Chad Union Soldier</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jan-22 08:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="929949922231468065" id="message-929949922231468065" title="Message sent: 09-Jan-22 08:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>10</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jan-22 01:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="930217805117288540" id="message-930217805117288540" title="Message sent: 10-Jan-22 01:53 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="rudy#9126">@rudy</span> has reached level <strong>10</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jan-22 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="930293877531893790" id="message-930293877531893790" title="Message sent: 10-Jan-22 06:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Bobbyz#4087">@Bobbyz</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jan-22 08:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="930323948472774667" id="message-930323948472774667" title="Message sent: 10-Jan-22 08:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="miggyay#7543">@MiggYay</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jan-22 05:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="930631001691029584" id="message-930631001691029584" title="Message sent: 11-Jan-22 05:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="SHADOW_13111#9439">@SHADOW_13111</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jan-22 08:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="930676154678005850" id="message-930676154678005850" title="Message sent: 11-Jan-22 08:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jan-22 08:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="930864566970228808" id="message-930864566970228808" title="Message sent: 12-Jan-22 08:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="neoconkiwi#2471">@neoconkiwi</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Jan-22 06:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="931191311380410448" id="message-931191311380410448" title="Message sent: 13-Jan-22 06:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>13</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Jan-22 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="931325610448519188" id="message-931325610448519188" title="Message sent: 13-Jan-22 03:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Jan-22 05:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="931356863176507442" id="message-931356863176507442" title="Message sent: 13-Jan-22 05:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="DragonKnight#7089">@DragonKnight</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-22 10:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="931618703286632510" id="message-931618703286632510" title="Message sent: 14-Jan-22 10:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Bones#2955">@Bones</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-22 10:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="931620622260396123" id="message-931620622260396123" title="Message sent: 14-Jan-22 10:47 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-22 12:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="931641693298647120" id="message-931641693298647120" title="Message sent: 14-Jan-22 12:11 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AGH 45#3329">@AGH 45</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-22 12:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="931644925399941152" id="message-931644925399941152" title="Message sent: 14-Jan-22 12:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Bones#2955">@Bones</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Jan-22 06:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="931739893837754379" id="message-931739893837754379" title="Message sent: 14-Jan-22 06:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MysticalMilk#7666">@MysticalMilk</span> has reached level <strong>11</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 08:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="931951775307694100" id="message-931951775307694100" title="Message sent: 15-Jan-22 08:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Xela#3878">@Xela</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jan-22 09:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="931956409283776565" id="message-931956409283776565" title="Message sent: 15-Jan-22 09:02 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="royce#6367">@royce</span> has reached level <strong>14</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 06:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="932287742820364300" id="message-932287742820364300" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Fimu#2806">@Fimu</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="932287773606543401" id="message-932287773606543401" title="Message sent: 16-Jan-22 06:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AGH 45#3329">@AGH 45</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 10:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="932340712375222354" id="message-932340712375222354" title="Message sent: 16-Jan-22 10:29 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Chad Union Soldier#9550">@Chad Union Soldier</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 02:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="932402038522933328" id="message-932402038522933328" title="Message sent: 16-Jan-22 02:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="MrBeast#1165">@MrBeast</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jan-22 03:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="932421930567499806" id="message-932421930567499806" title="Message sent: 16-Jan-22 03:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>6</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 07:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="932660528545923183" id="message-932660528545923183" title="Message sent: 17-Jan-22 07:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="bacon#4446">@bacon</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 10:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="932701940037595207" id="message-932701940037595207" title="Message sent: 17-Jan-22 10:24 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="leadCarl#3736">@leadCarl</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 04:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="932790000964227112" id="message-932790000964227112" title="Message sent: 17-Jan-22 04:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Brodie &#128126;#8210">@Brodie &#128126;</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 04:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="932796541851299901" id="message-932796541851299901" title="Message sent: 17-Jan-22 04:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jan-22 05:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="932810094624780381" id="message-932810094624780381" title="Message sent: 17-Jan-22 05:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Daniel~#0397">@Daniel~</span> has reached level <strong>2</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Jan-22 10:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="933068413771841536" id="message-933068413771841536" title="Message sent: 18-Jan-22 10:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Equinox#1525">@Equinox</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jan-22 04:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="933511191668617236" id="message-933511191668617236" title="Message sent: 19-Jan-22 04:00 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="DragonKnight#7089">@DragonKnight</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jan-22 04:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="933517569833435196" id="message-933517569833435196" title="Message sent: 19-Jan-22 04:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="briggs#0001">@briggs</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jan-22 05:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="933537363269943357" id="message-933537363269943357" title="Message sent: 19-Jan-22 05:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Cere#2172">@Cere</span> has reached level <strong>3</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jan-22 06:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="933542049100206080" id="message-933542049100206080" title="Message sent: 19-Jan-22 06:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Mud#1754">@Mud</span> has reached level <strong>8</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="933542074031157303" id="message-933542074031157303" title="Message sent: 19-Jan-22 06:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="DragonKnight#7089">@DragonKnight</span> has reached level <strong>4</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Jan-22 02:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="934219926279975012" id="message-934219926279975012" title="Message sent: 21-Jan-22 02:56 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="CaptAlpha#0422">@CaptAlpha</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Jan-22 12:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="934365177669898301" id="message-934365177669898301" title="Message sent: 22-Jan-22 12:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="!ZennmH#5517">@!ZennmH</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="934365564229537792" id="message-934365564229537792" title="Message sent: 22-Jan-22 12:35 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Enopeo#2605">@Eno</span> has reached level <strong>7</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Jan-22 06:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="934637290884575242" id="message-934637290884575242" title="Message sent: 22-Jan-22 06:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TipToes021#3969">@TipToes021</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Jan-22 10:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="935597779781300244" id="message-935597779781300244" title="Message sent: 25-Jan-22 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="*~~That Monkey Musician~~*#1460">@*~~That Monkey Musician~~*</span> has reached level <strong>1</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">25-Jan-22 08:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="935752703257219072" id="message-935752703257219072" title="Message sent: 25-Jan-22 08:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="AlexL#7703">@AlexL</span> has reached level <strong>11</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="The%20Western%20Basement%20-%20Other%20%E2%99%BE%20-%20level-up%20%5B868268735666999366%5D.html_Files/771f3ccb67befe8c5a4a11072dbb63d5-8E274.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Arcane#7800" data-user-id="437808476106784770" style="color: rgb(52,152,219)">Arcane</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jan-22 05:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="936427516225286174" id="message-936427516225286174" title="Message sent: 27-Jan-22 05:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="apasta6#5733">@apasta6</span> has reached level <strong>5</strong>. GG EZ NO RE!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 161 message(s)</div>
+</div>
+
+</body>
+
+</html>

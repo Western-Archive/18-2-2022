@@ -1,0 +1,999 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>The Western Weekly - about</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/939865696375046184/a_7d68e9fe3ec94f9844eb12200317942a.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">The Western Weekly</div>
+        <div class="preamble__entry">Information / about</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(255,178,82)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">06-Feb-22 05:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="939869824736178247" id="message-939869824736178247" title="Message sent: 06-Feb-22 05:07 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Welcome to the Western Weekly! We are currently the biggest server that surrounds providing news and information to the Wild West community!
+
+In this channel, you will find all of the necessary information that you will need, incase you find yourself lost and confused on how things work around here.
+
+
+<strong><u>Our history</u></strong>
+
+The Western Weekly was founded on November 29th, 2020 by Smusher, and Twisted, who are now both retired from the community. After Smusher and Twisted retired, Smusher appointed a new owner on May 3rd, 2021 known as Lewiss. Later on, Lewiss was terminated from his owner position as he was not doing a great job. So, later the staff decided that there should be no owner for Western Weekly, and came to the conclusion of appointing two server managers, known as Darth, and Just an Otter. Otter retired after a while, and Darth continued his duties. Later on, Smusher appointed another new Server Manager known as Doc, who then retired a month later. Darth retired a long time later, and gave the server back to Smusher.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939869829626728468" id="message-939869829626728468" title="Message sent: 06-Feb-22 05:07 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+<strong><u>Channels</u></strong>
+
+If you&#39;re a new user that does not know where to go, then this category will surely help you.
+
+<span class="mention">#announcements</span> - A channel where important information is distributed to the public.
+
+<span class="mention">#rules</span> - This channel provides all the rules and guidelines for the server. This can come in handy to prevent any future warns, kicks or maybe even bans.
+
+<span class="mention">#roles</span> - A channel in which you can gain roles yourself without asking for them. It is recommended to check out this channel.
+
+<span class="mention">#polls</span> - A channel which lets users vote for features which may be added to Western Weekly, or removed from Western Weekly.
+
+<span class="mention">#faction-recruitment</span> - A channel which allows users (specifically faction high ranks) to post recruitment messages for their factions.
+
+<span class="mention">#business-partners</span> - A channel which lists all of our current business partners and invites to their servers.
+
+<span class="mention">#faction-partners</span> - Where faction partners are listed along with their server invites.
+
+<span class="mention">#qotd</span> - A channel which users can give out fun, and wholesome questions for users to answer or provide their opinions on.
+
+<span class="mention">#youtube-uploads</span> - A channel where Wild West content creators can post their new content.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939869861146947624" id="message-939869861146947624" title="Message sent: 06-Feb-22 05:07 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+<strong><u>News</u></strong>
+
+News is one of the sole reasons on why Western Weekly exists, and is what made it popular until the day you are reading this.
+
+<span class="mention">#articles</span> - A channel in which our writer write and publish articles about the faction community.
+
+<span class="mention">#starboard-announcements</span> - A channel that shows all the important announcements, sneak peeks and updates and Starboard Studios release.
+
+<span class="mention">#wlc-map</span> - A channel that shows updates to Western Land Co&#39;s map.
+
+<span class="mention">#faction-updates</span> - A channel which shows updates that factions publish to the community.
+
+<span class="mention">#other-updates</span> - A channel where you can find updates from servers that aren&#39;t factions.
+
+<span class="mention">#breaking-news</span> - A channel where important information is published as soon as it happens.
+
+<span class="mention">#coffee-news</span> - A channel which publishes news on smaller factions every morning.
+
+<span class="mention">#flash-news</span> - A channel that provides all the important headlines and articles for users to read.</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Feb-22 07:31 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939869992067932220" id="message-939869992067932220" title="Message sent: 06-Feb-22 05:07 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+<strong><u>Public Category</u></strong>
+
+These are the channels that you can interact with other members in.
+
+<span class="mention">#general</span> - General chat.
+
+<span class="mention">#discussion</span> - A channel where you can go to discuss anything other than the Wild West (or argue about anything related to it).
+
+<span class="mention">#deposit-info</span>  - Where you can send information to our writers and reporters who may decide to put it in <span class="mention">#coffee-news</span> or <span class="mention">#flash-news</span>.
+
+<span class="mention">#feedback</span>  - Where you open a ticket to ask questions or just address public issues that revolve around the community.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939870099291140159" id="message-939870099291140159" title="Message sent: 06-Feb-22 05:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+⠀
+<u><strong>Server Roles</strong></u>
+
+These are all the current staff and member roles of the server. Starting from the very top, to the bottom.
+
+<strong>Management</strong>
+
+<span class="mention" style="color: rgb(255, 178, 82); background-color: rgba(255, 178, 82, 0.1);">@Server Manager</span> - The overseer of all operations which go on out throughout The Western Weekly. 
+
+<span class="mention" style="color: rgb(255, 77, 0); background-color: rgba(255, 77, 0, 0.1);">@Administrator</span> - Second in command right under Editor in Chief. They also oversee all operations that run throughout the server, and make changes which benefit the community.
+
+<span class="mention" style="color: rgb(22, 0, 42); background-color: rgba(22, 0, 42, 0.1);">@Head of Moderation</span> - Third in command right under Administrators, they oversee all actions which moderators do throughout the server.
+
+<span class="mention" style="color: rgb(231, 200, 1); background-color: rgba(231, 200, 1, 0.1);">@Head of the Faction Program</span> - The person who occupies this role is in-charge of our faction partners.
+
+<span class="mention" style="color: rgb(114, 8, 102); background-color: rgba(114, 8, 102, 0.1);">@Head of Reporters</span> - The person who occupies this role is in-charge of giving tasks, or monitoring how reporters work.
+
+<span class="mention" style="color: rgb(5, 126, 0); background-color: rgba(5, 126, 0, 0.1);">@Head of Writers</span> - The person who occupies this role is in-charge of either reviewing the work which writers have done, or acting as a trainer towards the writers.
+
+<strong>Moderation</strong>
+
+<span class="mention" style="color: rgb(143, 0, 255); background-color: rgba(143, 0, 255, 0.1);">@Senior Moderator</span> - People who occupy this role are trusted by our admins, and has become a very good asset to our moderation team. 
+
+<span class="mention" style="color: rgb(0, 111, 145); background-color: rgba(0, 111, 145, 0.1);">@Server Moderator</span> - These people help moderate our server everyday. To get this role, you can apply when our applications come out.
+
+<span class="mention" style="color: rgb(255, 79, 79); background-color: rgba(255, 79, 79, 0.1);">@Trainee Moderator</span> - These people are our newest addition to our moderation team, they have passed our applications and have been approved by our admins.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939870148892975186" id="message-939870148892975186" title="Message sent: 06-Feb-22 05:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+<strong>Staff</strong>
+
+<span class="mention" style="color: rgb(204, 0, 183); background-color: rgba(204, 0, 183, 0.1);">@Reporter</span> - These people report news to post in flash news and coffee news.
+
+<span class="mention" style="color: rgb(9, 197, 187); background-color: rgba(9, 197, 187, 0.1);">@Editorial Writer</span> - These people mainly write opinionated pieces based on current news in the Wild West community.
+
+<span class="mention" style="color: rgb(9, 255, 0); background-color: rgba(9, 255, 0, 0.1);">@Writer</span> - These people supply us with news articles for members to read, and enjoy throughout the server.
+
+<span class="mention" style="">@deleted-role</span> - These people write articles for <span class="mention">#flash-news</span>. They are respected by all staff and admins.
+
+<span class="mention" style="color: rgb(26, 188, 156); background-color: rgba(26, 188, 156, 0.1);">@Newspaper Editor</span> - <em>Currently not in use.</em> These people write and publish our weekly newspaper.
+
+<span class="mention" style="color: rgb(46, 204, 113); background-color: rgba(46, 204, 113, 0.1);">@Trainee Newspaper Editor</span> - These people are new newspaper editors, and do the same as them.
+
+<span class="mention" style="color: rgb(46, 204, 113); background-color: rgba(46, 204, 113, 0.1);">@Trainee Writer</span> - People who have recently been accepted onto our writer team.
+
+<span class="mention" style="color: rgb(46, 204, 113); background-color: rgba(46, 204, 113, 0.1);">@Trainee Reporter</span> - People who have recently been accepted onto our reporter team.</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Feb-22 07:30 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939870194568921138" id="message-939870194568921138" title="Message sent: 06-Feb-22 05:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+<strong>Member Roles</strong>
+
+<span class="mention" style="color: rgb(0, 173, 154); background-color: rgba(0, 173, 154, 0.1);">@Business Partner</span> - People who have decided to partner with our server.
+
+<span class="mention" style="color: rgb(106, 153, 184); background-color: rgba(106, 153, 184, 0.1);">@Faction Partner</span> - People who have been accepted, and listed as a faction owner or representative. 
+
+<span class="mention" style="color: rgb(244, 127, 255); background-color: rgba(244, 127, 255, 0.1);">@Weekly Contributor</span> - The people who has taken out their wallets, and supplied us with amazing server benefits.
+
+<span class="mention" style="color: rgb(96, 134, 226); background-color: rgba(96, 134, 226, 0.1);">@Honored Guest</span> - These people are well known, and by far one of the most trusted users of the Western Weekly. If you see a person with this role, just know that they didn&#39;t get it for free.
+
+<span class="mention" style="">@Former Owner</span> - These are the people who has reigned ownership of the Western Weekly.
+
+<span class="mention" style="color: rgb(173, 20, 87); background-color: rgba(173, 20, 87, 0.1);">@Starboard Staff</span> - The staff team of Starboard Studios. These are the people who actually made The Wild West, or just moderates on it.
+
+<span class="mention" style="color: rgb(203, 1, 1); background-color: rgba(203, 1, 1, 0.1);">@Content Creator</span> - These are the people who make content about The Wild West, and gain views and commentary about it.
+
+<span class="mention" style="color: rgb(52, 152, 219); background-color: rgba(52, 152, 219, 0.1);">@Reader</span> - The main reasons to why Western Weekly exists. The people who has given us commentary, ideas, and mainly just supported our work. 
+
+<strong>Other</strong>
+
+<span class="mention" style="color: rgb(96, 125, 139); background-color: rgba(96, 125, 139, 0.1);">@Muted</span> - Someone who has been muted for breaking our rules.
+
+<span class="mention" style="color: rgb(153, 45, 34); background-color: rgba(153, 45, 34, 0.1);">@House Arrest</span> - These people have broken our rules, or have harmed the Wild West community. Don&#39;t expect to talk to them in our server soon.</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Feb-22 07:30 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939870298302468096" id="message-939870298302468096" title="Message sent: 06-Feb-22 05:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+⠀
+<strong>FAQ</strong>
+
+Q: How do I become a staff member?
+
+A: You may apply when applications come out in <span class="mention">#announcements</span>.
+
+
+Q: How do I get the &quot;Honored Guest&quot; role?
+
+A: You either have to be an important person to the community or be liked and well respected by others.
+
+
+Q: How do I report a member or a staff member?
+
+A: Message an admin or higher.
+
+
+Q: How can I access <span class="mention">#faction-recruitment</span> and <span class="mention">#youtube-uploads</span>?
+
+A: If you meet the requirements in <span class="mention">#youtube-uploads</span>, you can DM a head moderator or an admin to get your role. To get access to <span class="mention">#faction-recruitment</span>, you must open a ticket in <span class="mention">#feedback</span>.
+
+
+Q: How do I get my faction featured in <span class="mention">#flash-news</span>? 
+
+A: You must report important information in <span class="mention">#deposit-info</span>, and our writers will decide if its good enough to go in the news.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="939870358356504598" id="message-939870358356504598" title="Message sent: 06-Feb-22 05:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">⠀
+⠀
+<strong>Benefits</strong>
+
+Booster benefits:
+- Nickname permissions
+- An exclusive “Weekly Contributor” role.
+- Access to booster only giveaways. (WIP)
+
+Staff benefits:
+- Nickname permissions
+- Exclusive staff roles
+- Access to staff giveaways (WIP)
+
+Faction partner benefits:
+- Access to <span class="mention">#faction-recruitment</span>
+- Have your invite posted in <span class="mention">#faction-partners</span>
+- Exclusive faction partner role</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 9 message(s)</div>
+</div>
+
+</body>
+
+</html>
