@@ -1,0 +1,4960 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Western Land Co. - 》war-logs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/799059097789399080/1d0d74f03ffddcdb1601e4feda64288c.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Western Land Co.</div>
+        <div class="preamble__entry">Land Information / 》war-logs</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">20-Jul-21 07:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="867057177146687488" id="message-867057177146687488" title="Message sent: 20-Jul-21 07:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Ghouls vs The Crimson Redemption</strong>
+
+Terms:
+No ally
+No lasso
+No horse ramming
+Auction guns, spitfire and knives are allowed
+
+Time and date: Tuesday, July 20th at 2 pm EST 
+Land being fought over: Right side of the far shore
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: The Ghouls</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Jul-21 11:39 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">20-Jul-21 08:31 AM</span>
+
+            <div class="chatlog__message " data-message-id="867066214588219453" id="message-867066214588219453" title="Message sent: 20-Jul-21 08:31 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>TIGER vs The Black Sparrows</strong>
+
+Terms:
+No arrest
+No auction guns
+No lasso
+Horse ramming and knives are allowed
+
+If TIGER loses, TBS will get their right province 
+If TBS loses, TIGER will get the top of the great plains
+
+Time and date: Tuesday, July 21st at 10 am EST
+Land being fought over: Top of the great plains
+War spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+
+Winner: TIGER</span>
+
+                                <span class="chatlog__edited-timestamp" title="21-Jul-21 06:33 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">21-Jul-21 06:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="867395615268405258" id="message-867395615268405258" title="Message sent: 21-Jul-21 06:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Valiant vs Anarchy</strong>
+
+Terms:
+No ally
+No lasso
+No knife
+No mule shotgun
+Auction guns and horse ramming are allowed
+
+Time and date: Friday, July 23 at 4 am EST (6 pm AEST)
+Land being fought over: Below the quarry and left of the great desert
+War spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span>
+
+Winner: Valiant</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Jul-21 06:00 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">22-Jul-21 06:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="867754428060532786" id="message-867754428060532786" title="Message sent: 22-Jul-21 06:06 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Serenity vs TIGERS</strong>
+
+Terms:
+No arrest
+No mule
+No horse ramming
+No allies
+No dynamite
+No toxicity
+No Lancaster 
+No spitfire
+No medic/sherif
+
+If SEN loses, TIGER gets their province to the bottom left
+If TIGER loses, SEN gets the top of the great plains
+
+Time and date: Friday, July 23 at 10:30 am EST (2:30 pm GMT)
+Land being fought over: Top of the great plains
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: Serenity</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Jul-21 07:30 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">22-Jul-21 06:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="867761382174359592" id="message-867761382174359592" title="Message sent: 22-Jul-21 06:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Serenity vs Neo Pollos Hermanos</strong>
+
+Terms:
+No gatling guns
+No lasso
+No medic/mayor/sherif
+No ladders
+No dynamite spam inside the fort
+No mule
+No knife
+No allies
+
+If NPH loses, SEN gets henry
+
+Time and date: Saturday, July 24th at 2 pm EST
+Land being fought over: Fort henry
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: Tie</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Jul-21 06:32 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">22-Jul-21 02:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="867879019785617408" id="message-867879019785617408" title="Message sent: 22-Jul-21 02:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Cyber Republic vs The Crimson Redemption</strong>
+
+Terms:
+No lasso
+No arrest
+No doctor
+No spitfire
+Allies and auction guns are allowed
+10v10
+
+Time and date: Saturday, July 24th at 4 pm EST
+Land being fought over: Buffalo ridge and raiders canyons
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: Crimson Redemption</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Jul-21 01:25 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">25-Jul-21 10:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="868913238610423818" id="message-868913238610423818" title="Message sent: 25-Jul-21 10:50 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MidPoint Clan vs Neo Pollos Hermanos</strong>
+
+Terms:
+
+No horse ramming
+No mule
+No spamming explosives inside the fort
+No lasso
+No spitfire
+No sheriff or doctor
+No bandages
+No black market weapons
+9v9
+
+If MidiPoint Clan loses, NPH gets 2 t-logs
+If NPH loses, MidiPoint Clan gets fort henry
+
+Time and date: Saturday, July 28th at 1 pm EST (8 pm Turkish time)
+Land being fought over: Fort henry
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: MidPoint Clan</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Jul-21 10:47 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">25-Jul-21 11:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="868918926933909545" id="message-868918926933909545" title="Message sent: 25-Jul-21 11:13 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Serenity vs The Ghouls</strong>
+
+Terms:
+No arresting/no lasso 
+No spitfire
+No knife
+No horse ram
+No allies
+No dynamite
+
+If SEN loses, KILER gets the bottom left in the great plains
+If KILER loses, SEN gets top left corner of the map
+
+Time and date: Thursday, July 29th at 8 pm EST (1 pm GMT, 2 pm CEST)
+Land being fought over: Top left corner of the map
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: Serenity</span>
+
+                                <span class="chatlog__edited-timestamp" title="27-Jul-21 09:40 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">25-Jul-21 02:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="868960992271405057" id="message-868960992271405057" title="Message sent: 25-Jul-21 02:00 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Coco Pops vs The Crimson Redemption</strong>
+
+Terms:
+No lasso/arrest
+No spitfire
+No dynamite
+No healing
+No mayor/doctor/sheriff
+No stopping the boat
+
+If COCO loses, CR gets above Copper Gulch Mine
+If CR loses, COCO gets the lake below raiders canyons
+
+Time and date: Monday, July the 26th at 3 pm EST
+Land being fought over: Lake below raiders canyons
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: Coco Pops</span>
+
+                                <span class="chatlog__edited-timestamp" title="26-Jul-21 12:46 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">26-Jul-21 06:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="869213358186979339" id="message-869213358186979339" title="Message sent: 26-Jul-21 06:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Sweaty Rats vs United Nations of the West</strong>
+
+Terms:
+No big team size difference
+No arrest
+No killing
+No spitfire
+No horse ramming
+
+If SR loses, UN gets left of the far shore
+If UN loses, SR gets left of tribal
+
+Time and date: Monday, July the 26th at 5 pm EST
+Land being fought over: Left of tribal
+War spectator: <span class="mention" title="Wolf_#4602">@Wolf_</span>
+
+Winner: Sweaty Rats</span>
+
+                                <span class="chatlog__edited-timestamp" title="26-Jul-21 02:34 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">29-Jul-21 01:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="870401586776649759" id="message-870401586776649759" title="Message sent: 29-Jul-21 01:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Green Mountain Boys vs Sweaty Rats</strong>
+
+Terms:
+No intentional horse ramming
+No lasso/arrest
+No knife
+No mule
+No spitfire
+No glitching
+No healing
+No gatling guns
+
+If TGMB loses, SR gets Copper Gulch Mine
+If SR loses, TGMB gets Silver Hill
+
+Time and date: Saturday, July the 31st at 3 pm EST
+Land being fought over: Silver Hill
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: The Green Mountain Boys</span>
+
+                                <span class="chatlog__edited-timestamp" title="31-Jul-21 12:39 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">30-Jul-21 10:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="870726820281073694" id="message-870726820281073694" title="Message sent: 30-Jul-21 10:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Crimson Redemption vs Valiant</strong>
+
+Terms: 
+No lasso/arrest
+No spitfire
+No knife
+Allies and auction guns are allowed
+11v11
+
+Time and date: Friday, July the 30th at 3 am EST
+Land being fought over: Buffalo ridge
+War spectator: Wolf
+
+Winner: Valiant</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">30-Jul-21 12:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="870752002680954983" id="message-870752002680954983" title="Message sent: 30-Jul-21 12:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MidPoint vs Anarchy Of Angels</strong>
+
+Terms: 
+No horse ramming
+No mule
+No spamming explosives 
+No lasso
+No spitfire
+No sheriff/mayor/doctor
+No bandages
+No black market weapons
+No allies
+Auction guns are allowed
+
+If MidPoint loses, AOA gets fort henry
+If AOA loses, MidPoint gets 3 t-logs
+
+Time and date: Monday, August the 1st at 9 am EST (4 pm Turkish time)
+Land being fought over: Fort henry
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: Anarchy OF Angels</span>
+
+                                <span class="chatlog__edited-timestamp" title="02-Aug-21 07:08 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">30-Jul-21 12:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="870755534058430535" id="message-870755534058430535" title="Message sent: 30-Jul-21 12:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Crooked Moon Vs The Ghouls</strong>
+
+Terms: 
+No allies
+No arrest
+No shotguns
+No glitching
+1 spitfire per team
+4v4
+
+If CM loses, KILER gets 4 t-logs
+If KILER loses, CM gets the far shore
+
+Time and date: Monday, August the 2nd at 3 pm EST
+Land being fought over: The far shore
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: The Ghouls</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Aug-21 05:16 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">01-Aug-21 06:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="871571286583820288" id="message-871571286583820288" title="Message sent: 01-Aug-21 06:53 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Pumpkin Army vs Sweaty Rats</strong>
+
+Terms:
+No lasso
+No horse ramming
+No dynamite spamming
+No knife spamming
+No mule
+No 1855 shotgun
+Max 3 spitfire per team
+
+If PA loses, SWEATY gets 5 t-logs
+If SWEATY loses, PA gets left of tribal
+
+Time and date: Friday, August the 6th at 4 pm EST
+Land being fought over: Right of tribal
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: PA</span>
+
+                                <span class="chatlog__edited-timestamp" title="07-Aug-21 10:44 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">06-Aug-21 03:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="873327278417932318" id="message-873327278417932318" title="Message sent: 06-Aug-21 03:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Green Mountain Boys vs The Sunlight Crusade</strong>
+
+Terms: 
+No lasso/arrest
+No shotguns
+No knives
+No horse ram
+No spitfire
+No mayor/sheriff/doctor
+No glitching/cheating/toxicity
+No volcanic weapons
+No allies
+Dragoon allowed
+One dynamite thrower other than the gate on each team
+One smoke bomb thrower on each team
+6v6
+Battle at henry
+
+If TGMB loses, SC gets Silver Hill
+If SC loses, TGMB gets the top of the Highland Plains 
+
+Time and date: Saturday, Sunday the 8th at 1 pm EST
+Land being fought over: Top of the Highland Plains
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: TGMB</span>
+
+                                <span class="chatlog__edited-timestamp" title="08-Aug-21 04:03 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">06-Aug-21 03:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="873339058682753045" id="message-873339058682753045" title="Message sent: 06-Aug-21 03:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Dakaro Legends vs Swamp Men</strong>
+
+Terms:
+No TNT spam
+No Shotguns
+No lasso
+No allies
+One spitfire per team
+10v10
+
+If DLS loses, SM gets Fort Henry
+If SM loses, DLS gets the swamp
+
+Time and date: Friday, August at 7 pm EST (4 pm PST)
+Land being fought over: The Swamp
+War spectator: <span class="mention" title="Smusher#5261">@Smusher</span>
+
+Winner: DLS</span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Aug-21 05:04 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/545006415815639042/b7acb9cca32c11ce0dbff240de599ef2.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lord_ofKings#3865" data-user-id="545006415815639042" style="color: rgb(107,39,255)">&#127876;Lord_ofKings&#127876;</span>
+
+
+        <span class="chatlog__timestamp">09-Aug-21 03:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="874425650642038826" id="message-874425650642038826" title="Message sent: 09-Aug-21 03:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Empire of Wolves VS The Green Mountain Boys 
+
+Terms: 
+No spitfire
+No Gatling
+No horse ram
+No lasso/sheriff
+No healing/doctor
+No shotguns
+No allies
+No dynamite pvp or smoke bombs
+6v6 
+
+If TGMB Loses EOW Gets land in the Bottom Right
+If EOW Loses TGMB Gets Thunder Logs ( 5)
+
+
+Time and date: Saturday, at  1 pm EST
+War Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+Winner:TGMB</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Aug-21 06:56 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">26-Aug-21 01:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="880546051252170802" id="message-880546051252170802" title="Message sent: 26-Aug-21 01:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Pumpkin Army vs Dusk</strong>
+5v5 at Callahn Manor
+Rules:
+1. No horse ramming
+2. No dynamite spam/pvp
+3. No allies
+4. No knife spam
+5. No spitfire
+6. No lasso
+7. No Shotguns
+
+
+If P.A wins they get some of Dusk&#39;s land
+if Dusk wins they get P.A&#39;s land
+
+Time:
+Sunday the 29th of august around 2pm est
+Specator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+
+Winner: PA, Dusk Forfiet</span>
+
+                                <span class="chatlog__edited-timestamp" title="31-Aug-21 05:41 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/800079924161151056/0ea42a250827ea2a9f10dc21d3fc2f77.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Iroph#6079" data-user-id="800079924161151056" style="color: rgb(12,190,0)">&#127876; Iroph &#127876;</span>
+
+
+        <span class="chatlog__timestamp">28-Aug-21 12:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="881252390882377750" id="message-881252390882377750" title="Message sent: 28-Aug-21 12:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The ghouls vs the the wild bandits
+
+the rules 5v5 for henry 
+
+no lasso 
+
+no allies 
+
+no mule
+
+1 spitfire per team
+and we hold it for 20 minutes
+2 out of 3
+
+
+
+Fought over the church area. (No more info was given)
+
+
+Winner: The wild bandits (forfeit)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">01-Sep-21 04:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="882762326976118814" id="message-882762326976118814" title="Message sent: 01-Sep-21 04:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Shadow Chaos Regiment VS The Green Mountain Boys</strong>
+
+10v10 Henry
+
+Allies Allowed
+No shotguns
+No lasso/arrest
+No horse ram
+No spitfire
+No healing
+No gatling
+
+If TGMB they get 3 Thunder Logs
+If SCR wins they get TGMB land
+Time:
+Saturday 5th, around 1pm EST
+Specator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+
+Winner: TGMB</span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Sep-21 10:43 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/382711967749505043/fc990b7a81d704c979620f092a073db6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KSSguy13#5464" data-user-id="382711967749505043" style="">KSSguy13</span>
+
+
+        <span class="chatlog__timestamp">04-Sep-21 12:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="883800157253169214" id="message-883800157253169214" title="Message sent: 04-Sep-21 12:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Pumpkin Army vs Rogue Wolves</strong>
+
+<em>7v7</em>
+
+<div class="pre pre--multiline nohighlight">No lasso
+No dynamite
+No horse ram
+No shotguns
+No allies
+No roles (mayor, hitman, doctor, sherrif)
+No spitfire</div>
+
+Manor Holdout. (30 minutes)
+
+If R.W wins they receive land from P.A
+If P.A wins they receive land from R.W
+
+Time and date: Saturday, Rougly 3 PM EST
+War Spectator: <span class="mention" title="KSSguy13#5464">@KSSguy13</span> 
+
+Winner: <strong>Rogue Wolves</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577213958168248344/7cd2d207ea3d3a6a64ebf17b5758763b.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CamJR#7209" data-user-id="577213958168248344" style="">CamJR</span>
+
+
+        <span class="chatlog__timestamp">11-Sep-21 02:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="886370012577800192" id="message-886370012577800192" title="Message sent: 11-Sep-21 02:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Adopt Cult vs TCE
+Winner: Adopt Cult</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Sep-21 11:57 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">11-Sep-21 03:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="886378645344632852" id="message-886378645344632852" title="Message sent: 11-Sep-21 03:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TGMB Vs SEN
+
+Winner: TGMB</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/444459003762966538/f591ca7a3effa544b202ead228fad0d9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ExtraordinaryIvan#9575" data-user-id="444459003762966538" style="color: rgb(12,190,0)">&#127876; Ivan &#127876; creator of your mom</span>
+
+
+        <span class="chatlog__timestamp">22-Sep-21 08:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="890256454605475900" id="message-890256454605475900" title="Message sent: 22-Sep-21 08:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Saints Vs Ghost Division</strong>
+Timing: 1PM EST, 22/9
+10v10
+
+Fort Henry Battle 
+- The Opposite team will try and rush the Faction that is defending Henry. Once the opposite team has captured fort henry under 30 mins, the win goes to the opposite team. But if the faction that is defending fort henry managed to protect it for over 30 minutes then, the faction that is defending henry wins.
+<strong>- Killing spectator 3 times will result in a disqualification for the faction that has been killing the spectator.</strong>
+
+Rules:
+- No Spitfire
+- No Mule
+- No Dyna-spamming unless trying to destroy the gate.
+No killing spectator.
+No Toxicity
+No Horse Ramming (Intentionally)</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Sep-21 10:11 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/444459003762966538/f591ca7a3effa544b202ead228fad0d9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ExtraordinaryIvan#9575" data-user-id="444459003762966538" style="color: rgb(12,190,0)">&#127876; Ivan &#127876; creator of your mom</span>
+
+
+        <span class="chatlog__timestamp">22-Sep-21 10:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="890286158905499668" id="message-890286158905499668" title="Message sent: 22-Sep-21 10:19 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Winner: Saints
+Turns out Saints didn&#39;t broke any rules, they didn&#39;t use any mules. It was my mistake. But on the other hand, Ghost Division dyna spammed, horse rammed and used Mules. Which gives 3 strikes.</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Sep-21 10:43 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 02:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="891070984231202866" id="message-891070984231202866" title="Message sent: 24-Sep-21 02:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Wild Bandits VS Filipino Revolutionary Army</strong>
+
+8v8 Callahan War
+No Shotgun
+No Dyna Spamming
+No Spitfire
+No Allies
+No Lasso/Arrest
+Only Doctor Gamepass, No OTHER Role
+
+If WB they get 3 Thunder Logs
+If FRA wins they get WB  land
+Time:
+Saturday 25th around 12 PM CST
+Specator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+
+Winner: WB</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 10:59 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/444459003762966538/f591ca7a3effa544b202ead228fad0d9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ExtraordinaryIvan#9575" data-user-id="444459003762966538" style="color: rgb(12,190,0)">&#127876; Ivan &#127876; creator of your mom</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 04:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="891283610437574679" id="message-891283610437574679" title="Message sent: 25-Sep-21 04:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Time might be switched due to The Filipino revolution army requesting to change the timing</strong> also <span class="mention" title="ExtraordinaryIvan#9575">@&#127876; Ivan &#127876; creator of your mom</span> pog lmfao</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 04:28 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 12:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="891409436369911808" id="message-891409436369911808" title="Message sent: 25-Sep-21 12:42 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Wild bandits win ^^</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/444459003762966538/f591ca7a3effa544b202ead228fad0d9.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ExtraordinaryIvan#9575" data-user-id="444459003762966538" style="color: rgb(12,190,0)">&#127876; Ivan &#127876; creator of your mom</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 01:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="893056883068375060" id="message-893056883068375060" title="Message sent: 30-Sep-21 01:49 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Red Raiders vs Gerald Society</strong>
+Manor War (Customized)
+
+Rules:
+No Mule
+No Dynamite Spam (1-3 Dyna is the max)
+No Toxic
+No Lasso / Jailing
+No Roles
+Must Record (To Avoid Cheating)
+No killing Spectators
+
+Saturday: 2th October
+<strong>Friendly War</strong>
+Spectator: <span class="mention" title="ExtraordinaryIvan#9575">@&#127876; Ivan &#127876; creator of your mom</span> 
+
+Winner: ???</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">08-Oct-21 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="896179599791255572" id="message-896179599791255572" title="Message sent: 08-Oct-21 04:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>TGMB VS Pumpkin Army</strong>
+
+7v7 
+Manor War
+
+<strong>Terms</strong>
+--------------------------------------
+
+No allies 
+No dynamite 
+No healing 
+No horse ram 
+No lasso 
+No teams 
+No shotguns 
+No spitfire
+
+<strong>Stakes</strong>
+----------------------------------------
+If TGMB wins They get PA Land 
+If PA wins they Get TGMB Land
+----------------------------------------
+<strong>Other Details</strong>
+Time &amp; Date: October 10th, 2021, 1pm Est
+War Specator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+
+Winner: TGMB</span>
+
+                                <span class="chatlog__edited-timestamp" title="10-Oct-21 01:36 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">09-Oct-21 10:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="896453336788766730" id="message-896453336788766730" title="Message sent: 09-Oct-21 10:45 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Riflemen vs Sweaty Rats
+Manor War 8V8
+1) No shotguns
+2) No roles 
+3) No Lasso/Arresting
+4) No healing 
+5) No TNT or Dynamite 
+6) no horse ram (accidents happen)
+7) No allies
+——————————————————-
+Stakes 
+SR win: They get Riflemen’s land
+Riflemen win: They get SR’s land
+—————————————————-
+Other Details:
+War was at 1 pm EST
+War Spectator: <span class="mention" title="Ero#0001">@Ero [ Very epik person]</span> 
+Riflemen couldn’t rally, so SR won.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">09-Oct-21 02:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="896507834844475412" id="message-896507834844475412" title="Message sent: 09-Oct-21 02:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Swamp Men vs Troll Wild West 
+10pm cet 
+5v5 battle at Swamp men&#39;s land 
+No mule or revolving shotgun but dragoon and sawed off is fine 
+No lasso or arrest No allies 
+Doctor role is allowed
+ Horse ram also allowed
+—————————
+Swamp Men Won
+War Spectator: <span class="mention" title="Ero#0001">@Ero [ Very epik person]</span></span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Oct-21 02:22 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">10-Oct-21 01:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="896860620740231178" id="message-896860620740231178" title="Message sent: 10-Oct-21 01:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Wild Bandits vs Sweaty Rats
+Calla War 5v5
+30 min Dominating faction wins 
+No horse ram (accidents happen)
+No shotguns and No melees 
+No explosives 
+No Allies
+No roles (sheriff, etc.)
+No lasso and No arresting
+——————————————————-
+Stakes 
+SR win: They get Wild Bandit&#39;s land
+Wild Bandit&#39;s win: They get SR’s land
+—————————————————-
+Other Details:
+War was at 3:15 Pm EST, but was delayed due to some complications with the original Spectator <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+War Spectator: <span class="mention" title="Lord_ofKings#3865">@&#127876;Lord_ofKings&#127876;</span> <span class="mention" title="doggo#0877">@doggo</span> <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> <span class="mention" title="Wolf_#4602">@Wolf_</span> 
+War ended early due to server being closed unexpectedly, <strong>SR wins</strong> by spectator&#39;s decision</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">14-Oct-21 03:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="898331613644075048" id="message-898331613644075048" title="Message sent: 14-Oct-21 03:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>TGMB Vs Kingsmen</strong>
+10v10 
+Place of war: 
+Manor
+
+
+<strong>Rules: </strong>
+
+No allies
+No spitfire
+No lasso 
+No knife
+No dynamite/dynamite arrows
+No healing
+No horse ram
+No shotguns
+No glitching
+
+
+<strong>Stakes</strong>
+If TGMB wins they get KM Land
+If KM wins they get TGMB Land
+<strong>Other Details</strong>
+Time: 1 PM Est
+Date: October 16th, 2021
+Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="14-Oct-21 03:09 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">14-Oct-21 04:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="898350795483914261" id="message-898350795483914261" title="Message sent: 14-Oct-21 04:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>TGMB vs Swamp Men</strong>
+
+<strong>7v7</strong>
+Manor War
+
+Manor War (train station) 
+Hold for 15 minutes
+<strong>Rules</strong>
+No allies
+No dynamite
+No healing
+No knife
+No horse ram
+No lasso
+No teams
+No shotguns except dragoon and sawed off
+No spitfire
+
+<strong>Stakes</strong>
+If TGMB wins they Get SM Land
+If SM wins they get TGMB Land
+
+<strong>Time &amp; Date</strong>
+5 PM EST
+4 PM CST
+Friday, October 15
+
+<strong>Other Details</strong>
+War Specator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Offical WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">
+
+Winner: TGMB</span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Oct-21 04:36 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">15-Oct-21 08:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="898768818967552040" id="message-898768818967552040" title="Message sent: 15-Oct-21 08:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Coco Pops vs Frontier Militia</strong>
+
+<strong>10v10</strong>
+Henry War
+
+7pm PST 
+-No jailing 
+-No shotguns 
+-No Glitching 
+-FM Starts with Fort
+-Members only 
+
+<strong>Stakes</strong>
+If Coco Pops wins they get Frontier Land
+If Frontier Milita wins they get Coco Pops Land
+
+<strong>Time &amp; Date</strong>
+
+Other Details
+War Spectator: <span class="mention" title="Wolf_#4602">@Wolf_</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+Winner: Coco Pops</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/800079924161151056/0ea42a250827ea2a9f10dc21d3fc2f77.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Iroph#6079" data-user-id="800079924161151056" style="color: rgb(12,190,0)">&#127876; Iroph &#127876;</span>
+
+
+        <span class="chatlog__timestamp">16-Oct-21 06:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="898919543135690783" id="message-898919543135690783" title="Message sent: 16-Oct-21 06:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Skeleton Raiders v.s Rouge Wolves
+
+4v4
+Manor war
+
+9 am est but started at 8:45 est
+-One spitfire per team
+-No horse ram
+-No game passes
+-No lasso
+-No knife
+
+Land for Land war
+
+War spectator: <span class="mention" title="Iroph#6079">@&#127876; Iroph &#127876;</span> 
+Official land war
+Winner: Rw because SR Logged</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Oct-21 06:06 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">16-Oct-21 11:23 AM</span>
+
+            <div class="chatlog__message " data-message-id="898999678773907466" id="message-898999678773907466" title="Message sent: 16-Oct-21 11:23 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>TGMB Vs Kingsmen</strong>
+
+Originally 10v10, modified to be 5v5 30 minutes
+Place of war: 
+Manor
+
+
+Rules: 
+
+No allies
+No spitfire
+No lasso 
+No knife
+No dynamite/dynamite arrows
+No healing
+No horse ram
+No shotguns
+No glitching
+
+
+Stakes
+If TGMB wins they get KM Land
+If KM wins they get TGMB Land
+Other Details
+Time: 1 PM Est
+Date: October 16th, 2021
+Spectator: <span class="mention" title="Wolf_#4602">@Wolf_</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">
+
+KM Wins TGMB Tribal Land</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-21 11:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="899358276133720114" id="message-899358276133720114" title="Message sent: 17-Oct-21 11:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Pumpkin Army VS The Crimson Elites</strong>
+
+Saturday manor war
+5v5
+
+Terms:
+No horse ram
+No dynamite
+No shotguns
+No knife
+No roles 
+No healing
+No spitfire
+No allies
+Allies are allowed if not enough people for the 5v5</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">17-Oct-21 11:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="899368163874078720" id="message-899368163874078720" title="Message sent: 17-Oct-21 11:47 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">PA won</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-21 01:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="899750361047392266" id="message-899750361047392266" title="Message sent: 18-Oct-21 01:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Wild Bandits vs Mexican crime family</strong>
+
+Spencer   
+5v5
+<strong>Rules</strong>
+No horse ram
+No shotguns
+No axes or knifes
+No Allies
+No wall jumping 
+No arresting with lasso (we can still kid nape) 
+<strong>Stakes</strong>
+4 Thunder logs 
+Time: 12 PM CST
+Date: Sunday, 17th, 2021
+
+<strong>Other Details</strong>
+Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+Winner: Wild Bandits</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-21 06:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="899837770351140874" id="message-899837770351140874" title="Message sent: 18-Oct-21 06:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Wild Bandits vs Ghost Divison</strong>
+
+Spencer
+7v7
+<strong>Rules</strong>
+No horse ram
+No shotguns
+No axes or knifes
+No Allies
+No wall jumping 
+No arresting with lasso (we can still kid nape) 
+<strong>Stakes</strong>
+If WB Wins they Get Land
+If Ghost Divison Wins they Get 5 Tlogs
+
+Time: 12 PM CST
+Date: Sunday , 24th  , 2021
+
+<strong>Other Details</strong>
+Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">
+<strong>Rescheduled Due to Problems with Someone PC</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Oct-21 01:09 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">20-Oct-21 03:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="900517548171350077" id="message-900517548171350077" title="Message sent: 20-Oct-21 03:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>COCO VS BF</strong>
+
+10v10/ Fort Henry 
+
+- No healing 
+- No glitching 
+- No lasso 
+- No special roles like doctor or sherrif 
+- No knife/shotguns
+- No protection abuse
+
+<strong>Stakes</strong>
+If BF Wins they get COCO Land
+If COCO Win they get BF Land
+
+Date: 10/17.2921
+
+Other Details
+Spectator: <span class="mention" title="Wolf_#4602">@Wolf_</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+Outcome: BF Win</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">23-Oct-21 07:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="901476681397710879" id="message-901476681397710879" title="Message sent: 23-Oct-21 07:26 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Gerald Society VS Eagle Union</strong>
+
+5v5/Manor
+
+no mule
+no horseram
+no dyna spam
+no allies
+no melee
+no lasso
+1h time limit
+
+<strong>Stakes</strong>
+If TGS wins they get EU land. 
+If EU wins they  get TGS land. 
+
+<strong>Other Details</strong>
+Spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+<strong>Outcome:</strong>
+EU surrendered, TGS Wins</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">24-Oct-21 09:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="901877125634748456" id="message-901877125634748456" title="Message sent: 24-Oct-21 09:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TGMB vs Outlaws
+
+7v7 Manor
+
+Sunday 1pm EST
+
+No allies
+No arrest
+No lasso
+No spitfire
+No shotguns
+No horse ram
+No explosives
+No healing
+No knife
+No glitching
+No exploiting
+No black market items
+Only faction members
+No teams/in game jobs
+No smoke bombs
+
+
+If won
+
+TGMB gets 3 tlogs
+Outlaws gets 3 tlogs</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">24-Oct-21 10:37 AM</span>
+
+            <div class="chatlog__message " data-message-id="901887113530834954" id="message-901887113530834954" title="Message sent: 24-Oct-21 10:37 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Outlaws called in allies, which is against the rules, so TGMB won.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">25-Oct-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="902315519380705320" id="message-902315519380705320" title="Message sent: 25-Oct-21 02:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">WK vs NPH
+
+5v5
+Manor house
+
+-No horse ram 
+-No Arresting/Jailing 
+-No knives (other melees allowed) 
+-No Explosives
+-No Shotguns 
+-No Glitching 
+-No Healing
+-No Roles (Sheriff, Doctor, Hitman, ect)
+-No reindeer horse
+-No allies
+-No protection abuse
+
+
+Spectator: Panda
+
+NPH surrendered, WK gets land</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/764103175870873640/948877ccd4eeda1d90300303034d0716.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="kujo#5675" data-user-id="764103175870873640" style="">kujo</span>
+
+
+        <span class="chatlog__timestamp">28-Oct-21 02:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="903217592196534302" id="message-903217592196534302" title="Message sent: 28-Oct-21 02:44 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>ARK VS FBI </strong>
+
+5vs5 Manor
+
+-No lasso
+-No dynamite
+-No horse ram (intentionally) 
+-No roles
+-No knife
+-No Shotguns 
+-No blackmarket items
+-No spitfire
+
+<strong>Stakes</strong>
+10 tlogs if ARK won
+FBI gets their land if they win
+
+<strong>Other details</strong>
+Spectator: <span class="mention" title="kujo#5675">@kujo</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLCHalloween" title="WLCHalloween" src="https://cdn.discordapp.com/emojis/894259229018443797.png"> 
+
+Outcome:
+FBI leader left and his members killed me and became toxic to me so ARK wins</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-21 03:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="906312208353493063" id="message-906312208353493063" title="Message sent: 05-Nov-21 03:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The Wild Bandits vs Ghost Divison
+
+Spencer
+7v7
+Rules
+No horse ram
+No shotguns
+No axes or knifes
+No Allies
+No wall jumping 
+No arresting with lasso (we can still kid nape) 
+Stakes
+If WB Wins they Get Land
+If Ghost Divison Wins they Get 5 Tlogs
+
+Time: 12 PM CST
+Date: Sunday , 24th  , 2021
+
+Other Details
+Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">
+Winner: WB, bc GD rq and Disbanded</span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Nov-21 03:41 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/842839886414741505/e2998a4bfdd049d0271ff6296c640cb7.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ero#0001" data-user-id="842839886414741505" style="color: rgb(241,196,15)">Ero [ Very epik person]</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-21 04:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="906327337442902098" id="message-906327337442902098" title="Message sent: 05-Nov-21 04:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">E</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">05-Nov-21 05:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="906334683283984414" id="message-906334683283984414" title="Message sent: 05-Nov-21 05:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Rogue Wolves vs The Green Mountain Boys</strong>
+<em>8v8 Manor War</em>
+
+<strong>Rules:</strong>
+No allies
+No arrest
+No lasso
+No spitfire
+No shotguns
+No horse ram
+No explosives
+No healing
+No knife
+No glitching
+No exploiting
+No black market items
+Only faction members
+No teams/in game jobs
+No smoke bombs
+<strong>Stakes</strong>
+If RW Wins they get TGMB Land
+If TGMB wins they get RW Land
+Winner: RW
+
+Time: 12 PM CST
+Date: Saturday, November 6th, 2021
+<strong>Other Details</strong>
+War Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Offical WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Nov-21 11:28 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="Baron#3267" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;906334683283984414&#39;)">
+<strong>Rogue Wolves vs The Green Mountain Boys</strong>
+<em>8v8 Manor War</em>
+
+<strong>Rules:</strong>
+No allies
+No arrest
+No lasso
+No spitfire
+No shotguns
+No horse ram
+No explosives
+No healing
+No knife
+No glitching
+No exploiting
+No black market items
+Only faction members
+No teams/in game jobs
+No smoke bombs
+<strong>Stakes</strong>
+If RW Wins they get TGMB Land
+If TGMB wins they get RW Land
+Winner: RW
+
+Time: 12 PM CST
+Date: Saturday, November 6th, 2021
+<strong>Other Details</strong>
+War Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Offical WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">                    </span>
+
+                        <span class="chatlog__reference-edited-timestamp" title="06-Nov-21 11:28 AM">(edited)</span>
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/579595353918275584/949001c6b7aec1b6c848993841da21cb.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cloak.#3986" data-user-id="579595353918275584" style="color: rgb(12,190,0)">&#127876; Cloak. &#127876;</span>
+
+
+        <span class="chatlog__timestamp">06-Nov-21 01:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="906460404438429698" id="message-906460404438429698" title="Message sent: 06-Nov-21 01:30 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">*im also spectating</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">07-Nov-21 12:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="906997609695174656" id="message-906997609695174656" title="Message sent: 07-Nov-21 12:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Serenity vs Woman Killers 
+
+SEN vs WK
+
+10v10
+Manor
+
+-No horse ram 
+-No Arresting/Jailing 
+-No knives (other melees allowed) 
+-No Explosives
+-No Shotguns 
+-No Glitching 
+-No Healing
+-No Roles (Sheriff, Doctor, Hitman, ect)
+-No allies
+-No protection abuse
+
+Spectator: Baron, Panda
+
+<strong>No winner, war cancelled</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">08-Nov-21 07:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="907287122212454410" id="message-907287122212454410" title="Message sent: 08-Nov-21 07:15 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>IGN vs PA</strong>
+
+<em>10v10
+Manor</em>
+
+<strong>Rules:</strong>
+No dynm
+No shotguns
+No spitfire
+No lasso/jail
+No horse ram
+No knife
+<strong>Stakes</strong>
+PA Land &amp; WK Land
+
+Time &amp; Date:
+Saturday, 1pm EST
+
+<strong>Other Details</strong>
+War spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span>
+Offical WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Nov-21 04:39 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/764103175870873640/948877ccd4eeda1d90300303034d0716.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="kujo#5675" data-user-id="764103175870873640" style="">kujo</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-21 04:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="907611072326938654" id="message-907611072326938654" title="Message sent: 09-Nov-21 04:42 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ark Angels vs The Frozen Guardians
+
+5v5
+Manor
+
+-No Horse ram
+-No Arresting/Jailing
+-No knives (other melees allowed) 
+-No Explosives
+-No Shotguns 
+-No Glitching 
+-No Healing
+-No Roles (Sheriff, Doctor, Hitman, ect)
+-No allies
+
+<strong>SPECTATOR</strong>: <span class="mention" title="kujo#5675">@kujo</span> 
+
+<strong>OUTCOME: ARK won, ARK gets TFG land</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Nov-21 04:42 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-21 06:17 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="907816245829722142" id="message-907816245829722142" title="Message sent: 09-Nov-21 06:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Format for War Logs:</strong>
+
+<strong>Faction 1 vs Faction 2</strong>
+<em>Number vs Number</em>
+<em>Place of War</em>
+<strong>Rules:</strong>
+
+
+
+
+
+<strong>Stakes:</strong>
+If Faction 1 Wins they Get
+If Faction 2 Wins they get
+
+<strong>Time &amp; Date</strong>
+Time:
+Date: <em>MM/DD/YYYY</em>
+
+<strong>Other Details:</strong>
+War Specator: <em>Ping Here</em>
+Offical WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <span class="chatlog__reference-unknown">
+                    Original message was deleted or could not be loaded.
+                </span>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">09-Nov-21 06:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="907816270852923392" id="message-907816270852923392" title="Message sent: 09-Nov-21 06:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pinned a message.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/579595353918275584/949001c6b7aec1b6c848993841da21cb.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cloak.#3986" data-user-id="579595353918275584" style="color: rgb(12,190,0)">&#127876; Cloak. &#127876;</span>
+
+
+        <span class="chatlog__timestamp">11-Nov-21 09:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="908403988045656095" id="message-908403988045656095" title="Message sent: 11-Nov-21 09:13 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Rogue Wolves vs Red Skull Raiders/Bandits
+8v8 Manor War
+
+
+No lasso
+No dynamite
+No horse ram (no problem if it&#39;s accidental)
+No shotguns
+No allies
+No roles 
+No knife/axe
+No spitfire
+No healing
+
+War Spectator: <span class="mention" title="Cloak.#3986">@&#127876; Cloak. &#127876;</span> 
+
+Skull raiders forfeited, rogue wolves get their land</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/579595353918275584/949001c6b7aec1b6c848993841da21cb.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Cloak.#3986" data-user-id="579595353918275584" style="color: rgb(12,190,0)">&#127876; Cloak. &#127876;</span>
+
+
+        <span class="chatlog__timestamp">12-Nov-21 01:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="908647385197051934" id="message-908647385197051934" title="Message sent: 12-Nov-21 01:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Red Doves vs Rogue Wolves
+
+War Spectator: <span class="mention" title="Cloak.#3986">@&#127876; Cloak. &#127876;</span> 
+
+Red Doves doesnt want a war, Rogue Wolves get their land</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-21 10:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="909153803360682014" id="message-909153803360682014" title="Message sent: 13-Nov-21 10:52 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The Gerald Society vs Coco
+
+10v10
+
+manor war (attack/defend: TGS defends, coco attacks)
+3 rounds elimination, first to 2 rounds won
+-no allies
+-no shotguns
+-no lasso
+-no dyna
+-no spitfire
+-no roles
+-no healing
+-no horse rams
+
+Saturday, 7pm cet
+TGS is allowed to bring allies if rallying fails
+
+If TGS wins, they got cocos land. If coco wins, they will get TGS land.
+
+Specs: <span class="mention" title="Bobbymcjicke#0419">@Papyrus Font Enjoyer</span> <span class="mention" title="Ero#0001">@Ero [ Very epik person]</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/800361608819900416/c47aefd40a9b0964c44d49ff766074ce.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Bobbymcjicke#0419" data-user-id="800361608819900416" style="color: rgb(241,196,15)">Papyrus Font Enjoyer</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-21 01:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="909200166437933066" id="message-909200166437933066" title="Message sent: 13-Nov-21 01:56 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TGS lost to Coco Pops</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577213958168248344/7cd2d207ea3d3a6a64ebf17b5758763b.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CamJR#7209" data-user-id="577213958168248344" style="">CamJR</span>
+
+
+        <span class="chatlog__timestamp">13-Nov-21 02:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="909201499635220500" id="message-909201499635220500" title="Message sent: 13-Nov-21 02:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TCE vs NL
+
+TCE has won.</span>
+
+                                <span class="chatlog__edited-timestamp" title="13-Nov-21 02:02 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="909201898916155413" id="message-909201898916155413" title="Message sent: 13-Nov-21 02:03 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="ZepliX#4236">@&#127876; Zeplix &#127876;</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-21 05:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="909440592105340968" id="message-909440592105340968" title="Message sent: 14-Nov-21 05:52 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Ark Angels vs NoEffort</strong>
+
+Henry 5v5
+
+<strong>Details</strong>
+NE starts with the fort
+
+
+<strong>Rules </strong>
+No lasso
+No allies
+No shotguns
+No horseramming
+No arresting
+No dyna spamming
+No knifes
+No Spitfire
+Stakes: 
+
+<strong>Details</strong>
+if ARK wins they gets NE land
+if NE  wins they get ARK land
+
+Spectator: <span class="mention" title="Sir_Johnson#0131">@Sir_Johnson</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">
+
+
+Result: NoEffort had captured for 13 minutes and Ark Angels 10, But it was unfair since Ark started with 3 against 5, Meaning their gonna do a rematch.</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Nov-21 12:52 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">14-Nov-21 05:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="909441128334495775" id="message-909441128334495775" title="Message sent: 14-Nov-21 05:54 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">15-Nov-21 07:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="909821144117444648" id="message-909821144117444648" title="Message sent: 15-Nov-21 07:04 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Wild Bandits vs Mexican crime family</strong>
+
+<em>Spencer   5v5</em>
+
+<strong>Rules:</strong>
+No horse ram
+No shotguns
+No axes or knifes
+No Allies
+No wall jumping 
+No lasso 
+
+<strong>Stakes:</strong>
+If WB win they get MCF Land
+If MCF win They get WB Land
+
+<strong>Time &amp; Date:</strong>
+Sunday, Nov, 14th, 2021
+10 AM CST
+
+<strong>Other Details:</strong>
+Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+
+Winner: Wild Bandits</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">17-Nov-21 09:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="910581334378946570" id="message-910581334378946570" title="Message sent: 17-Nov-21 09:25 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Gerald Society vs Coco Pops </strong>
+
+<em>Henry  14v14</em>
+
+<strong>Rules:</strong>
+No allies
+No smoke bombs
+No glitches
+No shotguns
+No prototype
+No dyna spam
+No black market stuff
+No roles
+No healing
+No horse rams
+
+<strong>Stakes:</strong>
+If CO wins they get TGS land
+If TGS wins they get CO land
+
+<strong>Time &amp; Date:</strong>
+ Saturday, 7:30pm cet; 10:30am PST 
+
+
+<strong>Other Details:</strong>
+Spectator: <span class="mention" title="Sir_Johnson#0131">@Sir_Johnson</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+
+Winner: Coco Pops.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577213958168248344/7cd2d207ea3d3a6a64ebf17b5758763b.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CamJR#7209" data-user-id="577213958168248344" style="">CamJR</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-21 12:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="911712024034152498" id="message-911712024034152498" title="Message sent: 20-Nov-21 12:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">TCE (KM) vs SR 
+
+5v5 Manor war.
+
+Sr won, takes TCE now rebranded as KM piece of land.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/545006415815639042/b7acb9cca32c11ce0dbff240de599ef2.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lord_ofKings#3865" data-user-id="545006415815639042" style="color: rgb(107,39,255)">&#127876;Lord_ofKings&#127876;</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-21 12:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="911718892567691345" id="message-911718892567691345" title="Message sent: 20-Nov-21 12:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The Artos Gang vs Phoenix Empire
+
+
+5v5
+30 Minute Fort Henry War
+Whoever owns the fort for the most time wins.
+
+-No Allies
+-No Roles (Sheriff, Doctor, Mayor, ect.)
+
+-No Shotguns
+-No Knife Spamming (Axe is allowed)
+- No Black Market items 
+- No Lemat Fan
+- No dynamite unless blowing the gate (This also means no counter dynamite)
+- No Spitfire
+
+- No Protection Repairing
+- No horse leaping or glitching of any kind
+- No animal luring
+- No lasso or arresting
+
+-North American Server location
+
+Stakes:
+5 Thunderstruck Logs given to the winner by the loser. Changed to winner gets the new open land
+
+Date: Friday, November 19th, 7PM EST
+
+War Spectator: <span class="mention" title="Lord_ofKings#3865">@&#127876;Lord_ofKings&#127876;</span> <span class="mention" title="Wolf_#4602">@Wolf_</span> 
+
+Winner: The Artos Gang</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">20-Nov-21 12:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="911720913144258650" id="message-911720913144258650" title="Message sent: 20-Nov-21 12:53 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Shadow Chaos Regiment VS Tempest End
+
+4v4 Fort War.
+
+Conditions: 
+-No Lasso
+-No Shotguns (includes Dragoon) 
+-No Horse Ramming
+-Knife alllowed
+-No Protection Abuse
+-No Spitfire
+-Less Toxicity 
+-No Glitching
+-NO ally&#39;s 
+
+Starting Places:
+SCR - Bronze City
+TE - Windmill Camp
+
+Terms Of Victory:
+The faction who holds the flag/fort up the longest wins. (At least 15 minute.)
+If nobody gets the fort then we go off of kills, if possible. 
+
+War Spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> <span class="mention" title="CamJR#7209">@CamJR</span> 
+
+SCR victory - Gets TE Land.
+TE victory - SCR have to admit defeat from the first war and give TE t logs 3 t-logs.
+
+Result: TE wins, for holding the longest and SCR breakign rules. SCR owes TE 3 t logs. SCR has one week to pay the t logs, or else they will be suspended for unknown time</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Nov-21 12:55 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="911721549210460242" id="message-911721549210460242" title="Message sent: 20-Nov-21 12:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Troll Wild West VS Men In Black
+5v5 war at manor
+
+No lasso
+No allies
+No shotguns
+No horses
+No lassos
+No dynamite 
+No smokes
+No knifes
+No spitfire
+No roles
+No healing
+
+If TRWW wins they get MIB&#39;s land and 2 tlogs
+If MIB wins they get 5 tlogs
+
+Info:
+War will start at 8pm cest / gmt+2
+War spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> <span class="mention" title="Bobbymcjicke#0419">@Papyrus Font Enjoyer</span> 
+
+Result:Tie</span>
+
+                                <span class="chatlog__edited-timestamp" title="21-Nov-21 09:37 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">27-Nov-21 02:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="914281004062085181" id="message-914281004062085181" title="Message sent: 27-Nov-21 02:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kingsmen vs Sweaty Rats
+8v8 Manor War
+
+No lasso
+No dynamite
+No horse ram (no problem if it&#39;s accidental)
+No shotguns
+No allies
+No roles 
+No spitfire
+No healing
+
+War Spectator: <span class="mention" title="Wolf_#4602">@Wolf_</span> <span class="mention" title="Lord_ofKings#3865">@&#127876;Lord_ofKings&#127876;</span> 
+Winner: KM</span>
+
+                                <span class="chatlog__edited-timestamp" title="28-Nov-21 10:29 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">28-Nov-21 11:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="914605395169910794" id="message-914605395169910794" title="Message sent: 28-Nov-21 11:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kingsmen vs The Pumpkin Army
+
+Fort Henry War
+10v10
+
+No allies
+No smoke grenades
+No wendigo
+No lazer kaka
+No multi faction players
+No dynamite
+No healing 
+No intentional horse ram
+No spitfire
+No Arresting 
+No lasso
+No roles
+Killing at other places is allowed
+No melees
+No black market items
+No shotguns
+
+War Spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> <span class="mention" title="Sir_Johnson#0131">@Sir_Johnson</span> 
+Winner: KM</span>
+
+                                <span class="chatlog__edited-timestamp" title="29-Nov-21 12:42 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">29-Nov-21 07:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="914899928134860812" id="message-914899928134860812" title="Message sent: 29-Nov-21 07:25 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Bleeding Falcons vs Anarchy of Angels</strong>
+
+Manor 3v3
+
+Rules:
+No horse ramming
+No dynamite spamming
+No lasso spamming 
+No toxicity
+No allies
+No smokes
+No arresting
+No spitfire
+No fan fire
+No knife spam
+No healing
+No roles (Sheriff, Doctor etc.)
+
+Stakes:
+If BF wins they get AFA Land
+If AFA wins They get BF Land
+
+Other Details:
+Spectator: <span class="mention" title="Sir_Johnson#0131">@Sir_Johnson</span>  
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+Winner: Bleeding Falcons</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">01-Dec-21 12:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="915521489405612064" id="message-915521489405612064" title="Message sent: 01-Dec-21 12:35 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Indian Gamers vs White Hair&#39;s</strong>
+
+Manor 6v6
+
+<strong>Rules:</strong>
+No allies 
+No Dynamite
+No horse ramming (accidents happen)
+No Shotguns
+No roles (Sheriff, Doctor, Etc.)
+No arresting
+No Knife 
+
+<strong>Stakes:</strong>
+If ING wins they get WH land
+If WH wins they get ING land
+
+<strong>Other Details:</strong>
+Spectator: <span class="mention" title="Sir_Johnson#0131">@Sir_Johnson</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+Winner: Indian Gamers</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577213958168248344/7cd2d207ea3d3a6a64ebf17b5758763b.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CamJR#7209" data-user-id="577213958168248344" style="">CamJR</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-21 01:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="916797669328953446" id="message-916797669328953446" title="Message sent: 04-Dec-21 01:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Rogue Wolves VS Artos Gang (Manor)
+
+No lasso / arresting
+No dynamite
+No horse ram (no problem if it&#39;s accidental)
+No shotguns
+No allies
+No roles 
+No knife/axe
+No spitfire
+No healing
+No fanfiring
+
+Winner: Rogue Wolves (RW gets a piece of AG&#39;s land)</span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Dec-21 01:08 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/735975679140823150/f20972aea1afdf8071aed91b1df2245e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sir_Johnson#0131" data-user-id="735975679140823150" style="">Sir_Johnson</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-21 01:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="916806546548219944" id="message-916806546548219944" title="Message sent: 04-Dec-21 01:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Men In Black vs Troll Wild West</strong>
+
+<em>Manor 6v6</em>
+
+<strong>Rules:</strong>
+No allies
+No shotguns
+No fan fire
+No protection rushing (Go into pvp mode as soon as you spawn)
+No horses
+No lassos
+No dynamite 
+No smokes
+No knifes
+No spitfire
+No roles (Sheriff, Doctor, Etc)
+No healing (Bandage, Meat.)
+No axe
+
+<strong>Stakes:</strong>
+If TRWW wins they get MIB&#39;s land and 2 tlogs
+If MIB wins they get 5 tlogs
+
+<strong>Time:</strong>
+20.00 till ~20.45
+CEST/GMT +2
+
+<strong>Other Details:</strong>
+Spectator: <span class="mention" title="Sir_Johnson#0131">@Sir_Johnson</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"> 
+
+Winner: M.I.B</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-21 02:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="916821531793981532" id="message-916821531793981532" title="Message sent: 04-Dec-21 02:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Lumiscence vs The Wild Bandits
+
+10v10 Fort Henry
+
+No dynamite (besides gate)
+No horse ram (accidents happen) 
+No shotguns
+No roles (Doctor, Sherrif, ETC) 
+No healing
+No arresting
+No prot repair
+No allies. 
+
+<strong>Time:</strong> 1  pm CST
+
+<strong>Other Details:</strong>
+War spec: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> 
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png">
+
+Winner:Luminescence</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">11-Dec-21 06:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="919230192847818802" id="message-919230192847818802" title="Message sent: 11-Dec-21 06:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Kingsmen vs Tempest End</strong>
+
+No allies
+No smoke grenades
+No wendigo/animals
+No lazergun
+No multi faction players
+No dynamite
+No healing 
+No intentional horse ram
+No spitfire
+No Arresting 
+No lasso
+No roles
+Killing at other places is allowed
+No melees
+No black market items
+No shotguns
+
+<strong>Time:</strong> 7.30 Am CST 
+
+<strong>Other Information:</strong>
+<em>Manor war
+War Spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> 
+6v6</em>
+
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC2021XmasLogo" title="WLC2021XmasLogo" src="https://cdn.discordapp.com/emojis/914991065939988521.png">
+
+<strong>Winner: Kingsmen</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="11-Dec-21 06:13 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">13-Dec-21 10:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="920203727242133554" id="message-920203727242133554" title="Message sent: 13-Dec-21 10:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Lumiscence vs Sweaty Rats</strong>
+
+8v8 Manor
+
+No dynamite
+No horse ram (accidents happen) 
+No shotguns
+No roles (Doctor, Sherrif, ETC) 
+No healing
+No arresting
+No prot repair
+No allies. 
+
+Time: 3 pm est
+
+<strong>Other Information:</strong>
+*Manor war
+War Spectator: <span class="mention" title="Wolf_#4602">@Wolf_</span> 
+
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC2021XmasLogo" title="WLC2021XmasLogo" src="https://cdn.discordapp.com/emojis/914991065939988521.png"> 
+
+<strong>Winner: Sweaty Rats</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="13-Dec-21 10:41 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">23-Dec-21 11:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="923663618510311477" id="message-923663618510311477" title="Message sent: 23-Dec-21 11:49 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kingsman vs White Hair 
+
+
+7v7 One Hour Manor War
+Dominating Faction Wins
+
+<strong>Rules:</strong>
+All fighting must take place on the ground AND within the vicinity of manor
+No Intentional Horse Ramming
+No melees, except axes
+No hacks or exploits
+No Healing Items
+No Smoke Bombs
+No Lemat Fan
+No Shotguns
+No Dynamite
+No Allies
+
+<strong>Other Information:</strong>
+ Dominating manor includes; general store; train station and rock
+
+War Spectator: <span class="mention" title="PandaIsComing#1693">@&#127876; Panda | Land Team &#127876; | WS |</span> 
+
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC2021XmasLogo" title="WLC2021XmasLogo" src="https://cdn.discordapp.com/emojis/914991065939988521.png">
+
+<em><strong>Winner:</strong></em> Kingsman</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Dec-21 11:50 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577213958168248344/7cd2d207ea3d3a6a64ebf17b5758763b.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CamJR#7209" data-user-id="577213958168248344" style="">CamJR</span>
+
+
+        <span class="chatlog__timestamp">29-Dec-21 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="925856544434843668" id="message-925856544434843668" title="Message sent: 29-Dec-21 01:03 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Kingsmen Vs Coco Pops 
+
+
+1 Hour 10v10 Fort War
+Longest time holding the fort wins
+
+
+No Dynamite PVP, for attacking the gates only
+No roles, including non-gamepass roles
+No exploiting, glitching or hacks
+No allies, faction members only
+No Intentional Horse Ramming
+No protection repairing
+No Black Market Items
+No animal luring
+No healing items
+No Smoke Bombs
+No Spitfire
+No shotguns
+No lasso
+
+London Server
+
+Clear winner: Kings man</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">30-Dec-21 01:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="926225361035989033" id="message-926225361035989033" title="Message sent: 30-Dec-21 01:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Official WLC Land War</strong> <img loading="lazy" class="emoji " alt="WLC2021XmasLogo" title="WLC2021XmasLogo" src="https://cdn.discordapp.com/emojis/914991065939988521.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Dec-21 01:29 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">21-Jan-22 05:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="934075914604671016" id="message-934075914604671016" title="Message sent: 21-Jan-22 05:24 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>CMC VS Musketeers</strong> 
+Manor war
+
+<strong>Rules:</strong>
+1 spitfire only
+axes and starter knives 
+No dynamite
+No lasso
+No shotguns
+No allies
+No horse ram
+
+<strong>Stakes:</strong>
+If CMC wins they get Musketeers land
+If Musketeers wins they get CMC land
+
+<strong>Other details</strong>
+Day: Saturday  
+Time: 7 PM gmt+8
+Spectator: <span class="mention" title="Holly#8755">@Holly</span> (possibly <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> )
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Jan-22 10:33 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="934076988291940392" id="message-934076988291940392" title="Message sent: 21-Jan-22 05:28 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Artos Gang vs Wild Bandits</strong>
+8v8
+Henry War
+.
+<strong>Rules</strong>
+-No Allies
+-No Roles (Sheriff, Doctor, Mayor, ect.)
+-No Shotguns
+-No melee 
+-No Black Market items 
+-No Lemat Fan
+-No dynamite unless blowing the gate (This also means no counter dynamite)
+-No Spitfire
+-No Protection Repairing
+-No horse leaping or glitching of any kind
+-No animal luring
+-No lasso or arresting
+-No spawn killing (at windmill or bronze) 
+
+<strong>Stakes:</strong>
+Artos win we get province 24
+Wild Bandits win they get province 33
+<strong>other details:</strong>
+Next weekend exact date and time tbh 
+War Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> and <span class="mention" title="Holly#8755">@Holly</span>
+Official WLC Land War <img loading="lazy" class="emoji " alt="WLC" title="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="21-Jan-22 05:29 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">21-Jan-22 05:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="934078856137146388" id="message-934078856137146388" title="Message sent: 21-Jan-22 05:35 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>WHITE HAIRS VS MIB</strong>
+Fort spencer
+
+<strong>RULES</strong>
+No shotguns
+No lasso
+No healing
+No arrest
+No Allie’s
+No knife rush (but kukri and axe is allowed)
+No dynamite (only for door)
+No glitches
+No horse ram (if it is accidentally it’s okay)
+No spitfire
+<strong>STAKES</strong>
+If MIB win they get WHITE HAIRS land
+If WHITE HAIRS win they get MIB land 
+<strong>OTHER DETAILS</strong>
+Day: Saturday 8pm gmt +1 
+Spectators: <span class="mention" title="Holly#8755">@Holly</span> / <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War :WLC:
+
+WINNER: White Hairs</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Jan-22 07:53 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">26-Jan-22 05:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="935891765804826634" id="message-935891765804826634" title="Message sent: 26-Jan-22 05:39 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>VS vs Artos</strong>
+Henry War
+
+<strong>Rules:</strong>
+No knife, kukri 
+No dynamite spam
+2 spitfire per team
+No lasso
+No shotguns
+No allies
+
+<strong>Stakes</strong>
+If VS Wins they get Artos Land
+If Artos wins they get VS Land
+
+<strong>Time and Date:</strong>
+1-23-2022
+12 PM CST
+
+<strong>Other Details</strong>
+War Spectator: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Official WLC Land War :WLC:
+
+Winner: Artos</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Jan-22 07:52 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">29-Jan-22 02:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="937106005538504745" id="message-937106005538504745" title="Message sent: 29-Jan-22 02:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline language-bash">&quot;The Artos Gang Vs Wild Bandits&quot;</div>
+
+<div class="pre pre--multiline language-diff">-8v8
+-30 Minute Henry War
+-Whoever owns the fort for the most time wins.</div>
+
+<div class="pre pre--multiline language-css">-No Allies
+-No Roles (Sheriff, Doctor, Mayor, ect.)
+-No Shotguns
+-No melee 
+-No Black Market items 
+-No Lemat Fan
+-No dynamite unless blowing the gate (This also means no counter dynamite)
+-No Spitfire
+-No Protection Repairing
+-No horse leaping or glitching of any kind
+-No animal luring
+-No lasso or arresting
+-No spawn killing (at windmill or bronze)</div>
+<div class="pre pre--multiline language-diff">Stakes:
++Artos win: Wild Bandits get&#39;s province 24
+-Wild Bandits win: Artos get&#39;s province 33</div>
+<div class="pre pre--multiline nohighlight">Time and Date:
+1-29-2022
+10pm GMT</div>
+
+<em><strong>Other Details:</strong></em>
+<em><strong>War Spectators: <span class="mention" title="Holly#8755">@Holly</span> and <span class="mention" title="Wolf_#4602">@Wolf_</span> </strong></em>
+
+
+<em><strong>Winner: ARTOS</strong></em>
+
+<em><strong>Official WLC Land War</strong></em> <img loading="lazy" class="emoji " alt="WesternLandCompany" title="WesternLandCompany" src="https://cdn.discordapp.com/emojis/937105968473444434.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Feb-22 05:27 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">06-Feb-22 05:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="940055814633316363" id="message-940055814633316363" title="Message sent: 06-Feb-22 05:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline language-bash">&quot;The People of Vasilios vs ARTOS&quot;</div>
+
+<div class="pre pre--multiline language-diff">-7v7 
+-30 Mins Manor war</div>
+
+<div class="pre pre--multiline language-css">-No Allies
+-No Roles (Sheriff, Doctor, Mayor, ect.)
+-No Shotguns
+-No melee
+-No Lemat Fan
+-No Spitfire
+-No lasso or arresting</div>
+<div class="pre pre--multiline language-diff">Stakes:
++Artos win: POV loses province 31
+-POV win: Artos loses province 2</div>
+<div class="pre pre--multiline nohighlight">Time and Date:
+2-05-2022
+7pm - 7:30pm EST</div>
+<em><strong>Other Details:</strong></em>
+<em><strong>War Spectators: <span class="mention" title="Holly#8755">@Holly</span> and <span class="mention" title="Wolf_#4602">@Wolf_</span> </strong></em>
+
+<em><strong>Winner: POV</strong></em>
+
+<em><strong>Official WLC Land War</strong></em> <img loading="lazy" class="emoji " alt="WesternLandCompany" title="WesternLandCompany" src="https://cdn.discordapp.com/emojis/937105968473444434.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Feb-22 05:26 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">12-Feb-22 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="942031766791807106" id="message-942031766791807106" title="Message sent: 12-Feb-22 04:17 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Clairmont Crew vs US Marshals</strong>
+
+
+Rules:
+No kukri 
+No no melees 
+No dynamite 
+No spitfire
+No lasso
+No shotguns
+No Allies
+No horse ram
+
+Stakes:
+If CMC wins they get Marshals land
+If Marshals wins they get CMC land 
+
+1 hour manor war
+
+<strong>Spectator:</strong>
+<span class="mention" title="Holly#8755">@Holly</span> 
+
+<strong>Winner:</strong> CMC
+
+<strong>Official WLC Land War</strong> <img loading="lazy" class="emoji " alt="WesternLandCompany" title="WesternLandCompany" src="https://cdn.discordapp.com/emojis/937105968473444434.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">12-Feb-22 12:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="942150930936258681" id="message-942150930936258681" title="Message sent: 12-Feb-22 12:11 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Wild Bandits Vs MAPLE</strong>
+
+<em>5v5 - Manor War</em>
+
+Rules:
+-No Allies
+-No Roles (Sheriff, Doctor, Mayor, ect.)
+-No dynamite 
+-No lasso or arresting
+-No shotguns
+-No Melee spamm 
+-No black market
+-No lemat fan fire 
+-No horse ramming
+
+The faction who held the train station the most longer during the 30mins win.
+
+Stakes:
+If WB win they get one of MAPLE&#39;s land.
+If MAPLE win they get one of WB&#39;s land.
+
+Times :
+Saturday February 12th at 2PM CST 
+Spec: <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> 
+Winner: Maple
+
+Official WLC Land War <img loading="lazy" class="emoji " alt="WesternLandCompany" title="WesternLandCompany" src="https://cdn.discordapp.com/emojis/937105968473444434.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Feb-22 12:12 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-22 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="943262271440826479" id="message-943262271440826479" title="Message sent: 15-Feb-22 01:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline language-bash">&quot;White Hairs VS Renacimiento&quot;</div>
+
+<div class="pre pre--multiline language-diff">-7v7 
+-30 Mins Callahan Manor war</div>
+
+<div class="pre pre--multiline language-css">-No Healing
+-No Horseram 
+-No Shotguns
+-No Dinamite
+-No Allies
+-No Gamepasses
+-No Knife rush (Only Axe and Kukri)
+-No Lasso
+-No Arresting</div>
+<div class="pre pre--multiline language-diff">Stakes:
++WH win: REN loses province 16
+-REN win: WH loses province 14</div>
+<div class="pre pre--multiline nohighlight">Time and Date:
+2-15-2022
+2:00pm - 2:30pm EST</div>
+<em><strong>Other Details:</strong></em>
+<em><strong>War Spectators: <span class="mention" title="Holly#8755">@Holly</span> and <span class="mention" title="Wolf_#4602">@Wolf_</span> </strong></em>
+
+<em><strong>Winner: WH</strong></em>
+
+<em>It is currently under review, will update asap</em>
+
+<em><strong>Official WLC Land War</strong></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Feb-22 01:47 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 93 message(s)</div>
+</div>
+
+</body>
+
+</html>

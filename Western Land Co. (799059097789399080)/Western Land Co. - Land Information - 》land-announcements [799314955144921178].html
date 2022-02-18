@@ -1,0 +1,1444 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Western Land Co. - 》land-announcements</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/799059097789399080/1d0d74f03ffddcdb1601e4feda64288c.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Western Land Co.</div>
+        <div class="preamble__entry">Land Information / 》land-announcements</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 10:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="861481224705671188" id="message-861481224705671188" title="Message sent: 04-Jul-21 10:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Don&#39;t forget to follow the map!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">10-Jul-21 10:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="863467051662573578" id="message-863467051662573578" title="Message sent: 10-Jul-21 10:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The map is almost full.
+
+We only have the hunting shack, the swamp, and the far-lands.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">19-Jul-21 08:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="866703168096567336" id="message-866703168096567336" title="Message sent: 19-Jul-21 08:28 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Fort henry is no longer restricted, feel free to claim it. (don&#39;t mind the semi-transparent red)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">22-Jul-21 10:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="867825097158164500" id="message-867825097158164500" title="Message sent: 22-Jul-21 10:47 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Outcast lost the poll and in turn all of OCs land will be wiped next map. But we haven&#39;t kicked out Outcast so they can still get land.</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Jul-21 10:47 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/486170842682753059/835746b2c7f0dcbc0244eb9a8e3eda4d.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smusher#5261" data-user-id="486170842682753059" style="color: rgb(241,196,15)">Smusher</span>
+
+
+        <span class="chatlog__timestamp">01-Aug-21 08:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="871407522853036033" id="message-871407522853036033" title="Message sent: 01-Aug-21 08:02 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention">#》war-logs</span> is now a followable channel, suggestion was made by <span class="mention" title="WackoEric#2501">@WackoEric</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/374594735106555906/c421367e03a6ff8c70147cab68f17760.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Wolf_#4602" data-user-id="374594735106555906" style="color: rgb(107,39,255)">Wolf_</span>
+
+
+        <span class="chatlog__timestamp">13-Aug-21 05:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="875715556152578069" id="message-875715556152578069" title="Message sent: 13-Aug-21 05:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Wars will be put on hold until we can sort out our new staff by next week, you can still plan for wars but no wars will be held for the time being.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">14-Aug-21 02:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="876218652943343657" id="message-876218652943343657" title="Message sent: 14-Aug-21 02:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Disrespect to a War Spectator and telling them to &quot;shut up&quot; or get out and repeatedly killing them which means they can&#39;t spectate the war with no reason will result in 3 outcomes decided by the level of abuse and the war spectator. Remember that the War Spectators are human and their words are final.
+
+1. The War will be over and nether side wins. This outcome will happen when both sides have violated the rules and spectator.
+
+2. The faction whom abused the spectator will be disqualified and the opposing faction wins.
+
+3. You lose the war and your faction will be suspended form getting land for a set amount of time. This is for the highest level of abuse.</span>
+
+                                <span class="chatlog__edited-timestamp" title="14-Aug-21 02:40 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">02-Dec-21 09:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="916016601290137610" id="message-916016601290137610" title="Message sent: 02-Dec-21 09:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="color: rgb(235, 118, 118); background-color: rgba(235, 118, 118, 0.1);">@Map Ping</span> Indian Gamers have officially been banned due to a hacker. They have 3 land pieces. One they won a few days ago, and that goes back to it&#39;s original owner White Hair. Second one they asked to be sent to Kingsmen, so congrats to them. Third one is decided to be open to claim, and first faction that is NOT on the map that dms me will get it.
+
+Update: Luminescence have taken the open land</span>
+
+                                <span class="chatlog__edited-timestamp" title="02-Dec-21 09:26 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">04-Dec-21 05:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="916863002509180998" id="message-916863002509180998" title="Message sent: 04-Dec-21 05:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Reminder: Anyone who tries to spectate a war who isnt in the WLC Faction either DM me <span class="mention" title="Baron#3267">@B̷a̶r̶o̶n̶ ™</span> or make them show you there roles in WLC</span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Dec-21 05:30 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">14-Dec-21 01:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="920420933506830376" id="message-920420933506830376" title="Message sent: 14-Dec-21 01:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">People, make wars please, The last war Dec was from December 9th</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="eyes">
+                                <img class="emoji emoji--small" alt="&#128064;" src="https://twemoji.maxcdn.com/2/svg/1f440.svg" loading="lazy">
+                                <span class="chatlog__reaction-count">8</span>
+                            </div>
+                            <div class="chatlog__reaction" title="thinking">
+                                <img class="emoji emoji--small" alt="&#129300;" src="https://twemoji.maxcdn.com/2/svg/1f914.svg" loading="lazy">
+                                <span class="chatlog__reaction-count">7</span>
+                            </div>
+                            <div class="chatlog__reaction" title="WLC">
+                                <img class="emoji emoji--small" alt="WLC" src="https://cdn.discordapp.com/emojis/891443951674982410.png" loading="lazy">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/690208698790182919/e3cfb81dbf64519537daa5849f5fd89e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Baron#3267" data-user-id="690208698790182919" style="color: rgb(0,255,185)">B̷a̶r̶o̶n̶ ™</span>
+
+
+        <span class="chatlog__timestamp">15-Dec-21 04:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="920659915960381460" id="message-920659915960381460" title="Message sent: 15-Dec-21 04:53 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Map is resetting in 1 month, Faction with the most gets a Prize</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="eyes">
+                                <img class="emoji emoji--small" alt="&#128064;" src="https://twemoji.maxcdn.com/2/svg/1f440.svg" loading="lazy">
+                                <span class="chatlog__reaction-count">9</span>
+                            </div>
+                            <div class="chatlog__reaction" title="yum">
+                                <img class="emoji emoji--small" alt="&#128523;" src="https://twemoji.maxcdn.com/2/svg/1f60b.svg" loading="lazy">
+                                <span class="chatlog__reaction-count">8</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/545006415815639042/b7acb9cca32c11ce0dbff240de599ef2.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lord_ofKings#3865" data-user-id="545006415815639042" style="color: rgb(107,39,255)">&#127876;Lord_ofKings&#127876;</span>
+
+
+        <span class="chatlog__timestamp">15-Dec-21 05:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="920666881029967942" id="message-920666881029967942" title="Message sent: 15-Dec-21 05:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Or maybe the top three</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-22 09:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="928161792566386688" id="message-928161792566386688" title="Message sent: 04-Jan-22 09:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Sorry about some misconfusion with the map. Just to clear things up a bit.
+
+This is not a new season, this is just a map reset.
+
+There will be two maps in season 2.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/722954552248369152/375573a84bac1b646a435603ad8d3039.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="doggo#0877" data-user-id="722954552248369152" style="color: rgb(107,39,255)">doggo</span>
+
+
+        <span class="chatlog__timestamp">08-Jan-22 10:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="929628120456261672" id="message-929628120456261672" title="Message sent: 08-Jan-22 10:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="">@Faction Representative</span> You can now request 2 provinces.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">09-Jan-22 04:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="929712141349556285" id="message-929712141349556285" title="Message sent: 09-Jan-22 04:24 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="">@Faction Representative</span> Currently the list looks like this. As of now, you can claim 2 lands there are not that many left. 
+The list is: 
+Pro 1 | Red Skull Union
+Pro 2 | Artos
+Pro 3 | TCE (Crimson) 
+Pro 4 | Red Skull Union
+Pro 5 | VS
+Pro 6 | The Musketeers
+Pro 7 | Clairmont Crew
+Pro 8 | TCO
+Pro 9 | Clairmont Crew
+Pro 10 | MIB
+Pro 11 | FBI
+Pro 12 | Cognitive
+Pro 13 | FBI
+Pro 14 | WHH
+Pro 15 | PA
+Pro 16 | Wild Bandits
+Pro 17 | Anarchy Of Angels
+Pro 18 | WT
+Pro 19| Smile
+Pro 20 | MIB
+Pro 21 |Coco
+Pro 22| TGMB
+Pro 23 | VAL
+Pro 26 |TGMB
+Pro 27 | NL
+Pro 30 | WW
+Pro 31 | SR
+Pro 32  COCO
+Pro 34 | PT
+Pro 35 | WT
+Pro 37 | PPEA
+Pro 38 | PM
+Pro 39 | THI
+Pro 40 | Lotus
+Pro 43 | | The United States Marshals
+
+Meaning that the remaining land to claim is:
+
+24,25,28,29,33,36, 40, 41, 42
+
+Good luck!</span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Jan-22 05:50 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">09-Jan-22 05:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="929735837946626099" id="message-929735837946626099" title="Message sent: 09-Jan-22 05:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Update:</strong>
+ Currently the list looks like this. As of now, you can claim 2 lands there are not that many left. 
+
+The list is: 
+Pro 1 | Red Skull Union
+Pro 2 | Artos
+Pro 3 | TCE (Crimson) 
+Pro 4 | Red Skull Union
+Pro 5 | VS
+Pro 6 | The Musketeers
+Pro 7 | Clairmont Crew
+Pro 8 | TCO
+Pro 9 | Clairmont Crew
+Pro 10 | MIB
+Pro 11 | FBI
+Pro 12 | Cognitive
+Pro 13 | FBI
+Pro 14 | WHH
+Pro 15 | PA
+Pro 16 |REN
+ Pro 17 | Anarchy Of Angels
+Pro 18 | WT
+Pro 19| Anarchy Of Angels 
+Pro 20 | MIB
+Pro 21 |Coco
+Pro 22| TGMB
+Pro 23 | Maple
+Pro 24 | WB
+Pro 25 | Ark Angels 
+Pro 26 |TGMB
+Pro 27 | NL
+Pro 28 | SR
+Pro 30 | WW
+Pro 31 | SR
+Pro 32  COCO
+Pro 33 | Artos
+Pro 34 | PT
+Pro 35 | WT
+Pro 36 | Piedmont Tribe
+Pro 37 | PPEA
+Pro 38 | PM
+Pro 39 | THI
+Pro 40 | Lotus
+Pro 41 | Ark Angels
+Pro 42 | NL
+Pro 43 | | The United States Marshals
+
+Meaning that the remaining land to claim</span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Jan-22 11:57 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">12-Jan-22 01:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="930931125910659112" id="message-930931125910659112" title="Message sent: 12-Jan-22 01:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">All pieces are now claimed, so I must say.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="930931181850095687" id="message-930931181850095687" title="Message sent: 12-Jan-22 01:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">MAY THE DECLARATIONS BEGIN <span class="mention" style="">@Faction Representative</span> <span class="mention" style="color: rgb(235, 118, 118); background-color: rgba(235, 118, 118, 0.1);">@Map Ping</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="930932545237950484" id="message-930932545237950484" title="Message sent: 12-Jan-22 01:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Map coming soon</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">12-Jan-22 01:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="930934725474930709" id="message-930934725474930709" title="Message sent: 12-Jan-22 01:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">MAKE SURE TO PING ALL WAR SPECTATORS NOT JUST ME AND BARON</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="930934734077444136" id="message-930934734077444136" title="Message sent: 12-Jan-22 01:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">But everyone</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="930934739408392202" id="message-930934739408392202" title="Message sent: 12-Jan-22 01:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">C :</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/401050607999385601/9fffd9328bd143c42569ee17f78899e6.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaIsComing#1693" data-user-id="401050607999385601" style="color: rgb(0,255,185)">&#127876; Panda | Land Team &#127876; | WS |</span>
+
+
+        <span class="chatlog__timestamp">14-Jan-22 04:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="931701033581838346" id="message-931701033581838346" title="Message sent: 14-Jan-22 04:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" style="">@Faction Representative</span> A little heads up, whenever you declare a war mske sure to have:
+
+Faction vs Faction
+x amount vs x amount (10v10, 5v5 etc)
+
+Declaration rules:
+(Rules are gonna be discussed in a gc later, but rules you think fits the war)
+
+Spectator
+Representative of the faction you are fighting
+
+Any details if needed</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="931701171201122305" id="message-931701171201122305" title="Message sent: 14-Jan-22 04:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">So always ping a spectator, so that the spectator can create a groupchat. We have plenty, so it is up to you to ask them.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 24 message(s)</div>
+</div>
+
+</body>
+
+</html>
