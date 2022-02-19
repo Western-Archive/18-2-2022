@@ -1,0 +1,1122 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nexus Familia (N.F.) [Official] - ║&#128247;〢propaganda</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/903095531176333423/a_9f6846073da282738f1a858b86c41c86.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Nexus Familia (N.F.) [Official]</div>
+        <div class="preamble__entry">❗Important❗ / ║&#128247;〢propaganda</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" data-user-id="928950204479176704" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-22 02:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="943809833142992896" id="message-943809833142992896" title="Message sent: 17-Feb-22 02:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Nexus Wedge Rallies :</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943809828298563584/nexus_rally_wedge.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943809828298563584/nexus_rally_wedge.png" alt="Image attachment" title="Image: nexus_rally_wedge.png (1.63 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943809828671868988/pro_nexus_wedge.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943809828671868988/pro_nexus_wedge.png" alt="Image attachment" title="Image: pro_nexus_wedge.png (1.61 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943809829053546537/nexus_rally_wedge_3.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943809829053546537/nexus_rally_wedge_3.png" alt="Image attachment" title="Image: nexus_rally_wedge_3.png (2.05 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943809830085337098/nexus_wedge_rally_2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943809830085337098/nexus_wedge_rally_2.png" alt="Image attachment" title="Image: nexus_wedge_rally_2.png (1.44 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;943809833142992896&#39;)">
+Nexus Wedge Rallies :                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" data-user-id="928950204479176704" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-22 02:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="943810061673844787" id="message-943810061673844787" title="Message sent: 17-Feb-22 02:04 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">discord shit</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810054145048606/18_vc.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810054145048606/18_vc.png" alt="Image attachment" title="Image: 18_vc.png (207.65 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810054367363082/nexus_familia_21_rally.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810054367363082/nexus_familia_21_rally.png" alt="Image attachment" title="Image: nexus_familia_21_rally.png (45.23 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810054614822992/NF_acitivty_check_LEGIONNNN.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810054614822992/NF_acitivty_check_LEGIONNNN.png" alt="Image attachment" title="Image: NF_acitivty_check_LEGIONNNN.png (41.61 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810054832939018/NF_activity_check_BESTTTTT.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810054832939018/NF_activity_check_BESTTTTT.png" alt="Image attachment" title="Image: NF_activity_check_BESTTTTT.png (40.01 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810055122321468/NF_activity_check_DONUT.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810055122321468/NF_activity_check_DONUT.png" alt="Image attachment" title="Image: NF_activity_check_DONUT.png (36.49 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810055365599292/NF_activity_check_SHADOWW.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810055365599292/NF_activity_check_SHADOWW.png" alt="Image attachment" title="Image: NF_activity_check_SHADOWW.png (114.7 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810055592103987/NF_luffy_ping.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810055592103987/NF_luffy_ping.png" alt="Image attachment" title="Image: NF_luffy_ping.png (32.47 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810055801811005/Nexus_N.F._Forever.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810055801811005/Nexus_N.F._Forever.png" alt="Image attachment" title="Image: Nexus_N.F._Forever.png (34.64 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;943810061673844787&#39;)">
+discord shit                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" data-user-id="928950204479176704" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-22 02:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="943810432517414943" id="message-943810432517414943" title="Message sent: 17-Feb-22 02:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">VIP rallies</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810429459771472/19.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810429459771472/19.png" alt="Image attachment" title="Image: 19.png (90.18 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810429677891604/21_2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810429677891604/21_2.png" alt="Image attachment" title="Image: 21_2.png (102.44 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810429883392071/nexus_vip_rally_30.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810429883392071/nexus_vip_rally_30.png" alt="Image attachment" title="Image: nexus_vip_rally_30.png (127.98 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810430135058452/nexus_vip_rally_27.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810430135058452/nexus_vip_rally_27.png" alt="Image attachment" title="Image: nexus_vip_rally_27.png (118.66 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;943810432517414943&#39;)">
+VIP rallies                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" data-user-id="928950204479176704" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-22 02:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="943810665838166016" id="message-943810665838166016" title="Message sent: 17-Feb-22 02:06 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Rally Photos  REG :</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810656522608700/N.F._rally_photo1.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810656522608700/N.F._rally_photo1.png" alt="Image attachment" title="Image: N.F._rally_photo1.png (1.39 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810656933666826/N.F._rally_photo2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810656933666826/N.F._rally_photo2.png" alt="Image attachment" title="Image: N.F._rally_photo2.png (4.68 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810657625722910/NF_first_rally_SS_ez.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810657625722910/NF_first_rally_SS_ez.png" alt="Image attachment" title="Image: NF_first_rally_SS_ez.png (4.61 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810658259070996/NF_first_rally_SS2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810658259070996/NF_first_rally_SS2.png" alt="Image attachment" title="Image: NF_first_rally_SS2.png (2.56 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810658712059934/NF_manor_rally_MAP2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810658712059934/NF_manor_rally_MAP2.png" alt="Image attachment" title="Image: NF_manor_rally_MAP2.png (214.64 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810658963685408/NF_manor_rally_MAP.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810658963685408/NF_manor_rally_MAP.png" alt="Image attachment" title="Image: NF_manor_rally_MAP.png (197.03 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;943810665838166016&#39;)">
+Rally Photos  REG :                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" data-user-id="928950204479176704" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-22 02:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="943810981748936784" id="message-943810981748936784" title="Message sent: 17-Feb-22 02:07 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Server Lists :</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810980020895794/NF_in-game_rally_2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810980020895794/NF_in-game_rally_2.png" alt="Image attachment" title="Image: NF_in-game_rally_2.png (371.73 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943810980331290624/one_of_NF_in-game_rallies.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943810980331290624/one_of_NF_in-game_rallies.png" alt="Image attachment" title="Image: one_of_NF_in-game_rallies.png (294.69 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol"></div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+                <span class="chatlog__reference-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+                <div class="chatlog__reference-content">
+                    <span class="chatlog__reference-link" onclick="scrollToMessage(event, &#39;943810981748936784&#39;)">
+Server Lists :                    </span>
+
+                </div>
+        </div>
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/928950204479176704/963722205cafc532fca9ca743399d976.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#127849;.&#119967;.&#119967;.&#127849;#0838" data-user-id="928950204479176704" style="color: rgb(2,1,1)">&#127849;.&#119967;.&#119967;.&#127849;</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-22 02:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="943811162884157460" id="message-943811162884157460" title="Message sent: 17-Feb-22 02:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Random Bullshit</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811158027169802/nexus_rally_in_bloxburg_LMFAO.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811158027169802/nexus_rally_in_bloxburg_LMFAO.png" alt="Image attachment" title="Image: nexus_rally_in_bloxburg_LMFAO.png (1.41 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811158379479050/nexus_rally.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811158379479050/nexus_rally.png" alt="Image attachment" title="Image: nexus_rally.png (370.26 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811158585004083/MLK_L.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811158585004083/MLK_L.png" alt="Image attachment" title="Image: MLK_L.png (53.16 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811158828277760/MLK_L2.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811158828277760/MLK_L2.png" alt="Image attachment" title="Image: MLK_L2.png (161.83 KB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811159067340800/Lyca_L.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811159067340800/Lyca_L.png" alt="Image attachment" title="Image: Lyca_L.png (1.31 MB)" loading="lazy">
+                            </a>
+                    </div>
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811159369347134/Nexus_N.F._Forever.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811159369347134/Nexus_N.F._Forever.png" alt="Image attachment" title="Image: Nexus_N.F._Forever.png (34.64 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943811216625795083" id="message-943811216625795083" title="Message sent: 17-Feb-22 02:08 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943758660901928982/943811215631724594/NF_music_hill_rally.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943758660901928982/943811215631724594/NF_music_hill_rally.png" alt="Image attachment" title="Image: NF_music_hill_rally.png (1.32 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 7 message(s)</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,2227 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nexus Familia (N.F.) [Official] - ╚&#128075;〢goodbye</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/903095531176333423/a_9f6846073da282738f1a858b86c41c86.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Nexus Familia (N.F.) [Official]</div>
+        <div class="preamble__entry">&#128075;Welcome-Goodbye&#128075; / ╚&#128075;〢goodbye</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-22 10:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="943759471577038869" id="message-943759471577038869" title="Message sent: 16-Feb-22 10:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943759471379898398/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943759471379898398/goodbye.png" alt="Image attachment" title="Image: goodbye.png (250.93 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-22 11:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="943769312416645120" id="message-943769312416645120" title="Message sent: 16-Feb-22 11:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943769312227889172/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943769312227889172/goodbye.png" alt="Image attachment" title="Image: goodbye.png (271.64 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-22 11:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="943778210712289320" id="message-943778210712289320" title="Message sent: 16-Feb-22 11:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943778210477395988/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943778210477395988/goodbye.png" alt="Image attachment" title="Image: goodbye.png (266.63 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 12:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="943781467702591508" id="message-943781467702591508" title="Message sent: 17-Feb-22 12:10 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943781467505426482/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943781467505426482/goodbye.png" alt="Image attachment" title="Image: goodbye.png (271.96 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 02:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="943819389214523422" id="message-943819389214523422" title="Message sent: 17-Feb-22 02:41 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943819389009031178/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943819389009031178/goodbye.png" alt="Image attachment" title="Image: goodbye.png (259.02 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943821018177368154" id="message-943821018177368154" title="Message sent: 17-Feb-22 02:47 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943821017934090250/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943821017934090250/goodbye.png" alt="Image attachment" title="Image: goodbye.png (291.45 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 03:23 AM</span>
+
+            <div class="chatlog__message " data-message-id="943830086803652608" id="message-943830086803652608" title="Message sent: 17-Feb-22 03:23 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943830086531035206/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943830086531035206/goodbye.png" alt="Image attachment" title="Image: goodbye.png (289.51 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943831066656014366" id="message-943831066656014366" title="Message sent: 17-Feb-22 03:27 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943831066458849330/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943831066458849330/goodbye.png" alt="Image attachment" title="Image: goodbye.png (204.07 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 05:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="943859154412519435" id="message-943859154412519435" title="Message sent: 17-Feb-22 05:19 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943859154358005800/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943859154358005800/goodbye.png" alt="Image attachment" title="Image: goodbye.png (211.14 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943860741432303626" id="message-943860741432303626" title="Message sent: 17-Feb-22 05:25 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943860741197430834/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943860741197430834/goodbye.png" alt="Image attachment" title="Image: goodbye.png (229.98 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943861116327587932" id="message-943861116327587932" title="Message sent: 17-Feb-22 05:27 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943861115698434078/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943861115698434078/goodbye.png" alt="Image attachment" title="Image: goodbye.png (229.98 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="943861206488334336" id="message-943861206488334336" title="Message sent: 17-Feb-22 05:27 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943861206266048562/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943861206266048562/goodbye.png" alt="Image attachment" title="Image: goodbye.png (229.98 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 05:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="943864385028362290" id="message-943864385028362290" title="Message sent: 17-Feb-22 05:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943864384776724510/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943864384776724510/goodbye.png" alt="Image attachment" title="Image: goodbye.png (272 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 06:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="943880009901293628" id="message-943880009901293628" title="Message sent: 17-Feb-22 06:42 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943880009653821490/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943880009653821490/goodbye.png" alt="Image attachment" title="Image: goodbye.png (284.1 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 07:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="943888376958951484" id="message-943888376958951484" title="Message sent: 17-Feb-22 07:15 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943888376774393936/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943888376774393936/goodbye.png" alt="Image attachment" title="Image: goodbye.png (227 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 09:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="943928529500901376" id="message-943928529500901376" title="Message sent: 17-Feb-22 09:54 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943928529324769351/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943928529324769351/goodbye.png" alt="Image attachment" title="Image: goodbye.png (221.98 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 10:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="943930381986586654" id="message-943930381986586654" title="Message sent: 17-Feb-22 10:02 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/943930378010386462/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/943930378010386462/goodbye.png" alt="Image attachment" title="Image: goodbye.png (276.81 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 03:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="944009570928431104" id="message-944009570928431104" title="Message sent: 17-Feb-22 03:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944009570743906334/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944009570743906334/goodbye.png" alt="Image attachment" title="Image: goodbye.png (282.78 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944010148886765578" id="message-944010148886765578" title="Message sent: 17-Feb-22 03:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944010148698009670/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944010148698009670/goodbye.png" alt="Image attachment" title="Image: goodbye.png (278.94 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 03:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="944013380203728896" id="message-944013380203728896" title="Message sent: 17-Feb-22 03:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944013379994017844/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944013379994017844/goodbye.png" alt="Image attachment" title="Image: goodbye.png (278.94 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 04:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="944026877461401630" id="message-944026877461401630" title="Message sent: 17-Feb-22 04:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944026877264298024/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944026877264298024/goodbye.png" alt="Image attachment" title="Image: goodbye.png (245.92 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 08:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="944095369208401971" id="message-944095369208401971" title="Message sent: 17-Feb-22 08:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944095368986116146/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944095368986116146/goodbye.png" alt="Image attachment" title="Image: goodbye.png (278.94 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 09:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="944097327906455572" id="message-944097327906455572" title="Message sent: 17-Feb-22 09:05 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944097327696732170/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944097327696732170/goodbye.png" alt="Image attachment" title="Image: goodbye.png (282.2 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 09:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="944106779116208169" id="message-944106779116208169" title="Message sent: 17-Feb-22 09:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944106779334279228/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944106779334279228/goodbye.png" alt="Image attachment" title="Image: goodbye.png (203.05 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944107318365257758" id="message-944107318365257758" title="Message sent: 17-Feb-22 09:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944107318197514290/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944107318197514290/goodbye.png" alt="Image attachment" title="Image: goodbye.png (297.07 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 11:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="944127074422095892" id="message-944127074422095892" title="Message sent: 17-Feb-22 11:03 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944127074254344242/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944127074254344242/goodbye.png" alt="Image attachment" title="Image: goodbye.png (310.14 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944127100317736970" id="message-944127100317736970" title="Message sent: 17-Feb-22 11:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944127100095442984/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944127100095442984/goodbye.png" alt="Image attachment" title="Image: goodbye.png (282.82 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944127116226756618" id="message-944127116226756618" title="Message sent: 17-Feb-22 11:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944127116012814366/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944127116012814366/goodbye.png" alt="Image attachment" title="Image: goodbye.png (245.88 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 11:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="944132392006868992" id="message-944132392006868992" title="Message sent: 17-Feb-22 11:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944132391809720320/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944132391809720320/goodbye.png" alt="Image attachment" title="Image: goodbye.png (275.59 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944133707902623824" id="message-944133707902623824" title="Message sent: 17-Feb-22 11:30 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944133707416096808/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944133707416096808/goodbye.png" alt="Image attachment" title="Image: goodbye.png (284.68 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-22 11:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="944138801297653770" id="message-944138801297653770" title="Message sent: 17-Feb-22 11:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944138801083715584/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944138801083715584/goodbye.png" alt="Image attachment" title="Image: goodbye.png (245 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 12:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="944142883248807946" id="message-944142883248807946" title="Message sent: 18-Feb-22 12:06 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944142883039117332/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944142883039117332/goodbye.png" alt="Image attachment" title="Image: goodbye.png (278.97 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 12:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="944146506406047784" id="message-944146506406047784" title="Message sent: 18-Feb-22 12:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944146506217299978/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944146506217299978/goodbye.png" alt="Image attachment" title="Image: goodbye.png (346.85 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 02:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="944174935230783488" id="message-944174935230783488" title="Message sent: 18-Feb-22 02:14 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944174934849097788/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944174934849097788/goodbye.png" alt="Image attachment" title="Image: goodbye.png (255.93 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 03:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="944188147594592276" id="message-944188147594592276" title="Message sent: 18-Feb-22 03:06 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944188147368071198/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944188147368071198/goodbye.png" alt="Image attachment" title="Image: goodbye.png (299.14 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 03:23 AM</span>
+
+            <div class="chatlog__message " data-message-id="944192472819593216" id="message-944192472819593216" title="Message sent: 18-Feb-22 03:23 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944192472542748672/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944192472542748672/goodbye.png" alt="Image attachment" title="Image: goodbye.png (299.14 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 04:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="944215165052792892" id="message-944215165052792892" title="Message sent: 18-Feb-22 04:53 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944215164838891570/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944215164838891570/goodbye.png" alt="Image attachment" title="Image: goodbye.png (221.98 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 05:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="944220559061942402" id="message-944220559061942402" title="Message sent: 18-Feb-22 05:15 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944220558873210930/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944220558873210930/goodbye.png" alt="Image attachment" title="Image: goodbye.png (253.52 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 05:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="944222456548302858" id="message-944222456548302858" title="Message sent: 18-Feb-22 05:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944222456326029352/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944222456326029352/goodbye.png" alt="Image attachment" title="Image: goodbye.png (254.46 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 05:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="944230257387524096" id="message-944230257387524096" title="Message sent: 18-Feb-22 05:53 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944230257198759946/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944230257198759946/goodbye.png" alt="Image attachment" title="Image: goodbye.png (276.04 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944230281311834242" id="message-944230281311834242" title="Message sent: 18-Feb-22 05:54 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944230281160822784/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944230281160822784/goodbye.png" alt="Image attachment" title="Image: goodbye.png (230.26 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944231562055151636" id="message-944231562055151636" title="Message sent: 18-Feb-22 05:59 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944231561853816842/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944231561853816842/goodbye.png" alt="Image attachment" title="Image: goodbye.png (297.07 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944232894652616714" id="message-944232894652616714" title="Message sent: 18-Feb-22 06:04 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944232894484840498/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944232894484840498/goodbye.png" alt="Image attachment" title="Image: goodbye.png (244.24 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 06:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="944242667049599059" id="message-944242667049599059" title="Message sent: 18-Feb-22 06:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944242667049607238/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944242667049607238/goodbye.png" alt="Image attachment" title="Image: goodbye.png (280.58 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944242814336782356" id="message-944242814336782356" title="Message sent: 18-Feb-22 06:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944242814114492446/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944242814114492446/goodbye.png" alt="Image attachment" title="Image: goodbye.png (226.66 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944243105689907230" id="message-944243105689907230" title="Message sent: 18-Feb-22 06:44 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944243105467617320/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944243105467617320/goodbye.png" alt="Image attachment" title="Image: goodbye.png (284.32 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944244532139130940" id="message-944244532139130940" title="Message sent: 18-Feb-22 06:50 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944244531933630524/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944244531933630524/goodbye.png" alt="Image attachment" title="Image: goodbye.png (283.3 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 08:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="944262262904987728" id="message-944262262904987728" title="Message sent: 18-Feb-22 08:01 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944262262649143396/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944262262649143396/goodbye.png" alt="Image attachment" title="Image: goodbye.png (258.45 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 05:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="944405986737815652" id="message-944405986737815652" title="Message sent: 18-Feb-22 05:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944405986536456252/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944405986536456252/goodbye.png" alt="Image attachment" title="Image: goodbye.png (274.71 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 07:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="944432164357939232" id="message-944432164357939232" title="Message sent: 18-Feb-22 07:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944432164311822426/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944432164311822426/goodbye.png" alt="Image attachment" title="Image: goodbye.png (199.47 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="944433862996557854" id="message-944433862996557854" title="Message sent: 18-Feb-22 07:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944433862778445934/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944433862778445934/goodbye.png" alt="Image attachment" title="Image: goodbye.png (278.99 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/276060004262477825/54acf9b7c9e2a296209de10393478851.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Koya#1050" data-user-id="276060004262477825" style="color: rgb(113,54,138)">Koya</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-22 08:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="944449788697509899" id="message-944449788697509899" title="Message sent: 18-Feb-22 08:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span> just left the server</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/943746223670714398/944449788743651398/goodbye.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/943746223670714398/944449788743651398/goodbye.png" alt="Image attachment" title="Image: goodbye.png (256.39 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 52 message(s)</div>
+</div>
+
+</body>
+
+</html>
